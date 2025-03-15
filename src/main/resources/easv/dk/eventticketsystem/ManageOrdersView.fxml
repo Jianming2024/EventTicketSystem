@@ -14,17 +14,18 @@
         <fx:include source="Sidebar.fxml" />
     </left>
 
-    <!-- Main content for managing users -->
+    <!-- Main content for managing orders -->
     <center>
         <VBox spacing="10">
         <TableView fx:id="ordersTable" layoutX="20.0" layoutY="50.0" prefHeight="250.0" prefWidth="530.0">
             <columns>
-                <TableColumn fx:id="orderIdColumn" prefWidth="93.60003662109375" text="Order ID" />
-                <TableColumn fx:id="customerNameColumn" prefWidth="131.199951171875" text="Customer Name" />
-                <TableColumn fx:id="eventColumn" prefWidth="120.0" text="Event" />
-                <TableColumn fx:id="quantityColumn" minWidth="0.0" prefWidth="72.0" text="Quantity" />
+                <TableColumn fx:id="colOrderId" prefWidth="93" text="Order ID" />
+                <TableColumn fx:id="colCustomerName" prefWidth="131" text="Customer Name" />
+                <TableColumn fx:id="colEventName" prefWidth="120.0" text="Event" />
+                <TableColumn fx:id="colTicketQty" minWidth="0.0" prefWidth="72.0" text="Quantity" />
                 <!-- Print Ticket Column -->
-                <TableColumn fx:id="ticketTypeColumn" prefWidth="111.99997558593748" text="Ticket type" />
+                <TableColumn fx:id="colTicketId" prefWidth="112" text="Ticket ID" />
+                <TableColumn fx:id="colTicketType" prefWidth="112" text="Ticket type" />
             </columns>
             <VBox.margin>
                 <Insets left="40.0" right="40.0" top="40.0" />

@@ -9,17 +9,20 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 
 public class ManageOrdersController {
-
     @FXML
-    private TableView<Order> ordersTable;
+    private TableView ordersTable;
     @FXML
-    private TableColumn<Order, String> orderIdColumn;
+    private TableColumn colOrderId;
     @FXML
-    private TableColumn<Order, String> customerNameColumn;
+    private TableColumn colCustomerName;
     @FXML
-    private TableColumn<Order, String> eventColumn;
+    private TableColumn colEventName;
     @FXML
-    private TableColumn<Order, Integer> quantityColumn;
+    private TableColumn colTicketQty;
+    @FXML
+    private TableColumn colTicketId;
+    @FXML
+    private TableColumn colTicketType;
     @FXML
     private Button printTicketButton;
 
@@ -61,22 +64,24 @@ public class ManageOrdersController {
     @FXML
     public void initialize() {
         // Set up the columns in the TableView
-        orderIdColumn.setCellValueFactory(new PropertyValueFactory<>("orderId"));
-        customerNameColumn.setCellValueFactory(new PropertyValueFactory<>("customerName"));
-        eventColumn.setCellValueFactory(new PropertyValueFactory<>("event"));
-        quantityColumn.setCellValueFactory(new PropertyValueFactory<>("quantity"));
+        colOrderId.setCellValueFactory(new PropertyValueFactory<>("orderId"));
+        colCustomerName.setCellValueFactory(new PropertyValueFactory<>("customerName"));
+        colEventName.setCellValueFactory(new PropertyValueFactory<>("eventName"));
+        colTicketQty.setCellValueFactory(new PropertyValueFactory<>("quantity"));
+        colTicketId.setCellValueFactory(new PropertyValueFactory<>("ticketId"));
+        colTicketType.setCellValueFactory(new PropertyValueFactory<>("ticketType"));
 
         // Add sample data to the TableView
-        ordersTable.getItems().add(new Order("1", "John Doe", "Concert A", 2));
+        /*ordersTable.getItems().add(new Order("1", "John Doe", "Concert A", 2));
         ordersTable.getItems().add(new Order("2", "Jane Smith", "Event B", 3));
-        ordersTable.getItems().add(new Order("3", "Alex Johnson", "Theater C", 1));
+        ordersTable.getItems().add(new Order("3", "Alex Johnson", "Theater C", 1));*/
     }
 
     // Handle the Print Ticket button click
     @FXML
     public void onPrintTicketClick(MouseEvent event) {
         // Get the selected order from the TableView
-        Order selectedOrder = ordersTable.getSelectionModel().getSelectedItem();
+        /*Order selectedOrder = ordersTable.getSelectionModel().getSelectedItem();
         if (selectedOrder != null) {
             // Print the ticket (Here, you can replace this with actual printing functionality)
             System.out.println("Printing ticket for Order ID: " + selectedOrder.getOrderId());
@@ -86,6 +91,6 @@ public class ManageOrdersController {
         } else {
             // Alert the user if no order is selected
             System.out.println("Please select an order to print.");
-        }
+        }*/
     }
 }
