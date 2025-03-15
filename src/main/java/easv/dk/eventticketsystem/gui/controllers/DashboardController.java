@@ -37,9 +37,11 @@ public class DashboardController implements Initializable {
     private String userEmail;
 
     private LoginController loginController;
+    private SidebarController sidebarController;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
         //loadDashboardView();
     }
 

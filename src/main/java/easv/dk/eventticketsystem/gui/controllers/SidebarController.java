@@ -33,8 +33,16 @@ public class SidebarController implements Initializable {
 
     }
 
-    public void onManageOrdersClick(ActionEvent actionEvent) {
-        System.out.println("Orders clicked!");
+    public void onManageOrdersClick(ActionEvent actionEvent) throws IOException {
+        Stage currentStage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
+        currentStage.close();
+
+        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("ManageOrdersView.fxml"));
+        Scene scene = new Scene(fxmlLoader.load());
+        Stage loginStage = new Stage();
+        loginStage.setTitle("Orders Management");
+        loginStage.setScene(scene);
+        loginStage.show();
     }
 
     public void onDashboardClick(ActionEvent actionEvent) throws IOException {
@@ -43,18 +51,15 @@ public class SidebarController implements Initializable {
     }
 
     public void onManageUsersClick(ActionEvent actionEvent) throws IOException {
-
         Stage currentStage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
         currentStage.close();
 
         FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("ManageUsersView.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
-
         Stage loginStage = new Stage();
-        loginStage.setTitle("Login");
+        loginStage.setTitle("Users Management");
         loginStage.setScene(scene);
         loginStage.show();
-
     }
 
     public void onManageEventsClick(ActionEvent actionEvent) throws IOException {
@@ -67,7 +72,16 @@ public class SidebarController implements Initializable {
 
     }
 
-    public void onManageTicketsClick(ActionEvent actionEvent) {
+    public void onManageTicketsClick(ActionEvent actionEvent) throws IOException {
+        Stage currentStage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
+        currentStage.close();
+
+        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("ManageTicketsView.fxml"));
+        Scene scene = new Scene(fxmlLoader.load());
+        Stage loginStage = new Stage();
+        loginStage.setTitle("Tickets Management");
+        loginStage.setScene(scene);
+        loginStage.show();
     }
 
     public void onLogout(ActionEvent actionEvent) throws IOException {

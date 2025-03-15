@@ -17,15 +17,6 @@ public class MainApplication extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("LoginView.fxml"));
         Scene scene = new Scene(root);
         scene.getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());
-        // Create an icon
-        /*FontIcon icon = new FontIcon("bi-emoji-smile-fill");
-        icon.setIconSize(30); // Set size
-        icon.setIconColor(javafx.scene.paint.Color.BLUE); // Set color*/
-
-        // Create a button with an icon
-        // Button button = new Button("Click Me", icon);
-
-
         stage.setTitle("Log in System");
         stage.setScene(scene);
         stage.show();
