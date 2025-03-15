@@ -46,14 +46,20 @@ public class SidebarController implements Initializable {
     }
 
     public void onDashboardClick(ActionEvent actionEvent) throws IOException {
+        Stage currentStage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
+        currentStage.close();
 
-
+        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("DashboardView.fxml"));
+        Scene scene = new Scene(fxmlLoader.load());
+        Stage loginStage = new Stage();
+        loginStage.setTitle("Welcome to the Dashboard");
+        loginStage.setScene(scene);
+        loginStage.show();
     }
 
     public void onManageUsersClick(ActionEvent actionEvent) throws IOException {
         Stage currentStage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
         currentStage.close();
-
         FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("ManageUsersView.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         Stage loginStage = new Stage();
