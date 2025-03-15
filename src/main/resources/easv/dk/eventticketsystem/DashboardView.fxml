@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane fx:id="dashboardPane" prefHeight="700" prefWidth="1200" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="easv.dk.eventticketsystem.gui.controllers.DashboardController">
+    <!-- Left Sidebar -->
+    <left>
+        <fx:include source="Sidebar.fxml" />
+    </left>
+    <!-- Center region: contains the top bar and the main content -->
+    <center>
+        <VBox spacing="10">
+            <!-- Top Bar (only spans the center, not over the sidebar) -->
+            <HBox alignment="CENTER_LEFT" prefHeight="49.0" prefWidth="1000.0" spacing="20" style="-fx-padding: 10; -fx-background-color: #ffffff; -fx-border-color: #e0e0e0;">
+                <TextField prefHeight="26.0" prefWidth="422.0" promptText="Search..." />
+                    <Pane prefHeight="26.0" prefWidth="426.0" HBox.hgrow="ALWAYS" />
+                <Label fx:id="userId" text="Hello! Admin" />
+                <VBox.margin>
+                   <Insets />
+                </VBox.margin>
+            </HBox>
+
+              <!-- Main Content: Summary cards, charts, etc. -->
+              <VBox alignment="CENTER">
+                  <!-- First BarChart: Ticket Sales Count -->
+                  <BarChart fx:id="ticketSalesChart">
+                      <xAxis>
+                          <CategoryAxis label="Events" fx:id="xAxis" />
+                      </xAxis>
+                      <yAxis>
+                          <NumberAxis fx:id="yAxis" label="Ticket Sales" />
+                      </yAxis>
+                  </BarChart>
+
+                  <!-- Second LineChart: Ticket Sales Amount -->
+                  <LineChart fx:id="ticketSalesAmountChart">
+                      <xAxis>
+                          <CategoryAxis label="Events" fx:id="xAxisAmount" />
+                      </xAxis>
+                      <yAxis>
+                          <NumberAxis fx:id="yAxisAmount" label="Sales Amount" />
+                      </yAxis>
+                  </LineChart>
+              </VBox>
+        </VBox>
+   </center>
+</BorderPane>
