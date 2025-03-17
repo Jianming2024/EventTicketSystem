@@ -33,6 +33,6 @@ public class Ticket {
 
     @Override
     public String toString() {
-        return "Ticket{" + "id=" + id + ", ticketTypeId=" + ticketTypeId;
+        return id + "," + ticketTypeId + "," + uniqueCode;
     }
 }
