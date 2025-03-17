@@ -17,12 +17,13 @@
     <!-- Main content for managing orders -->
     <center>
         <VBox spacing="10">
-        <TableView fx:id="ordersTable" layoutX="20.0" layoutY="50.0" prefHeight="362.0" prefWidth="920.0">
+        <TableView fx:id="lstTicketOnOrder" layoutX="20.0" layoutY="50.0" prefHeight="362.0" prefWidth="920.0">
             <columns>
                 <TableColumn fx:id="colOrderId" prefWidth="93" text="Order ID" />
                 <TableColumn fx:id="colCustomerName" prefWidth="131" text="Customer Name" />
                <TableColumn fx:id="colCustomerEmail" prefWidth="131" text="Customer Email" />
                 <TableColumn fx:id="colEventName" prefWidth="120.0" text="Event" />
+                <!-- Print Ticket Column -->
                 <TableColumn fx:id="colTicketId" prefWidth="112" text="Ticket ID" />
                 <TableColumn fx:id="colTicketType" prefWidth="112" text="Ticket type" />
                <TableColumn fx:id="colCode" prefWidth="112" text="Code" />

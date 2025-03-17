@@ -1,6 +1,7 @@
 package easv.dk.eventticketsystem.gui.controllers;
 
-import javafx.event.ActionEvent;
+import easv.dk.eventticketsystem.be.TicketOnOrder;
+import easv.dk.eventticketsystem.gui.models.EventTicketSystemModel;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -10,6 +11,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class ManageOrdersController implements Initializable {
@@ -18,7 +20,7 @@ public class ManageOrdersController implements Initializable {
     @FXML
     private TableColumn colCode;
     @FXML
-    private TableView ordersTable;
+    private TableView lstTicketOnOrder;
     @FXML
     private TableColumn colOrderId;
     @FXML
@@ -34,11 +36,17 @@ public class ManageOrdersController implements Initializable {
     @FXML
     private Button printTicketButton;
 
-    @Override
+    private final EventTicketSystemModel eventTicketSystemModel = new EventTicketSystemModel();
+    private List<TicketOnOrder> ticketOnOrderList;
+
     public void initialize(URL location, ResourceBundle resources) {
+        displayOrders();
+    }
+
+    public void displayOrders() {
+        lstTicketOnOrder.setItems(eventTicketSystemModel.getAllOrderDetails());
         colOrderId.setCellValueFactory(new PropertyValueFactory<>("orderId"));
         colCustomerName.setCellValueFactory(new PropertyValueFactory<>("customerName"));
-        colEventName.setCellValueFactory(new PropertyValueFactory<>("eventName"));
         colCustomerEmail.setCellValueFactory(new PropertyValueFactory<>("customerEmail"));
         colEventName.setCellValueFactory(new PropertyValueFactory<>("eventName"));
         colTicketId.setCellValueFactory(new PropertyValueFactory<>("ticketId"));

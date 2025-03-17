@@ -1,7 +1,7 @@
 package easv.dk.eventticketsystem.dal.db;
 
 import com.microsoft.sqlserver.jdbc.SQLServerException;
-import easv.dk.eventticketsystem.be.Order;
+import easv.dk.eventticketsystem.be.Orders;
 import easv.dk.eventticketsystem.dal.IOrderDAO;
 
 import java.sql.Connection;
@@ -15,8 +15,8 @@ public class OrderDAODB implements IOrderDAO {
     private DBConnection con = new DBConnection();
 
     @Override
-    public List<Order> getAllOrders() {
-        List<Order> orders = new ArrayList<>();
+    public List<Orders> getAllOrders() {
+        List<Orders> orders = new ArrayList<>();
         String sql = "SELECT * FROM orders ORDER BY id DESC";
         try (Connection connection = con.getConnection();
         PreparedStatement ps = connection.prepareStatement(sql)){
