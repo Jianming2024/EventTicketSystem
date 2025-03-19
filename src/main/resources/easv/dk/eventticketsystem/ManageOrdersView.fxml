@@ -34,7 +34,7 @@
         </TableView>
 
                      <!-- Print Tickets -->
-         <Button fx:id="btnPrintTickets" layoutX="221.0" layoutY="340.0" prefHeight="40.0" prefWidth="140.0" style="-fx-alignment: center-left;" styleClass="mainBtn" stylesheets="@views/Style.css">
+         <Button fx:id="btnPrintTickets" layoutX="221.0" layoutY="340.0" prefHeight="40.0" prefWidth="140.0" style="-fx-alignment: center-left;" styleClass="mainBtn" stylesheets="@views/Style.css" onMouseClicked="#onPrintTicketClick" text="Print Ticket">
             <graphic>
                   <FontIcon iconColor="WHITE" iconLiteral="bi-printer-fill" iconSize="20" />
             </graphic>

@@ -59,3 +59,12 @@
     -fx-background-color: #444;
 }
 
+/*TICKET CSS*/
+.ticketBckground {
+    -fx-background-image: url("/easv/dk/eventticketsystem/views/images/ticket-bg.jpg");
+    -fx-background-size: cover;
+    -fx-background-repeat: no-repeat;
+    -fx-background-radius: 10;
+    -fx-opacity: 0.8;
+
+}

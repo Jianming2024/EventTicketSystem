@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="331.0" prefWidth="808.0" style="-fx-background-color: #1f445a;" stylesheets="@views/Style.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="easv.dk.eventticketsystem.gui.controllers.ManageOrdersController">
+   <children>
+      <TextField alignment="CENTER" layoutX="35.0" layoutY="14.0" prefHeight="50.0" prefWidth="402.0" promptText="Add the title of the event">
+         <font>
+            <Font name="Lucida Bright Italic" size="27.0" />
+         </font>
+      </TextField>
+      <AnchorPane layoutX="547.0" prefHeight="331.0" prefWidth="262.0" style="-fx-background-color: white;" />
+      <Text fill="WHITE" layoutX="28.0" layoutY="121.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name:">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Text>
+      <TextField layoutX="95.0" layoutY="100.0" promptText="First/Lastname" style="-fx-background-color: #30607c;" />
+      <TextField layoutX="480.0" layoutY="292.0" prefHeight="25.0" prefWidth="50.0" promptText="Price" style="-fx-background-color: #30607c;" />
+      <Text fill="WHITE" layoutX="28.0" layoutY="155.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Location:">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Text>
+      <TextField layoutX="116.0" layoutY="134.0" promptText="Add Location" style="-fx-background-color: #30607c;" />
+      <Text fill="WHITE" layoutX="28.0" layoutY="187.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date: " wrappingWidth="57.158203125">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Text>
+      <TextField layoutX="85.0" layoutY="167.0" promptText="Add date" style="-fx-background-color: #30607c;" />
+      <Text fill="WHITE" layoutX="28.0" layoutY="217.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Time:" wrappingWidth="57.158203125">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Text>
+      <TextField layoutX="85.0" layoutY="197.0" promptText="Add time" style="-fx-background-color: #30607c;" />
+   </children>
+</AnchorPane>
