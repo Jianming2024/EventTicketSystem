@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
@@ -12,7 +13,10 @@
             <Font name="Lucida Bright Italic" size="27.0" />
          </font>
       </TextField>
-      <AnchorPane layoutX="547.0" prefHeight="331.0" prefWidth="262.0" style="-fx-background-color: white;" />
+      <AnchorPane layoutX="547.0" prefHeight="331.0" prefWidth="262.0" style="-fx-background-color: white;">
+         <children>
+            <ImageView fx:id="qrCodeImageView" fitHeight="331.0" fitWidth="255.0" layoutX="3.0" layoutY="-2.0" pickOnBounds="true" preserveRatio="true" />
+         </children></AnchorPane>
       <Text fill="WHITE" layoutX="28.0" layoutY="121.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name:">
          <font>
             <Font size="20.0" />

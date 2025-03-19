@@ -14,7 +14,7 @@ import java.nio.file.Path;
 import java.util.UUID;
 
 public class UUIDGenerator {
-    private void GenerateUUID(){
+    private String GenerateUUID(){
         try {
             // Generate a random UUID
             String uuid = UUID.randomUUID().toString();
@@ -27,14 +27,16 @@ public class UUIDGenerator {
             generateQRCode(uuid, filePath, 300, 300);
             System.out.println("QR Code generated and saved as: " + filePath);
 
+            return filePath; // Return the file path
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return null;
     }
 
 
-    public void startQRCodeGeneration() {
-        GenerateUUID();
+    public String startQRCodeGeneration() {
+        return GenerateUUID();
     }
 
     public static void generateQRCode(String data, String filePath, int width, int height) throws WriterException, IOException {
