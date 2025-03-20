@@ -8,9 +8,11 @@ import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Region;
 import javafx.stage.Stage;
+import org.kordamp.ikonli.javafx.FontIcon;
 
 import java.io.IOException;
 import java.net.URL;
@@ -21,8 +23,20 @@ public class LoginController implements Initializable {
     private Button btnLogin;
     @FXML
     private TextField loginEmail;
+
     @FXML
-    private TextField loginPassword;
+    private PasswordField loginPassword;
+
+    @FXML
+    private TextField visiblePassword;
+
+    @FXML
+    private Button btnTogglePassword;
+
+    @FXML
+    private FontIcon eyeIcon;
+
+    private boolean passwordVisible = false;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -89,4 +103,27 @@ public class LoginController implements Initializable {
         }
     }
 
+    public void onTogglePasswordVisibility(ActionEvent actionEvent) {
+        passwordVisible = !passwordVisible;
+        if (passwordVisible) {
+            // Show plain text field
+            visiblePassword.setText(loginPassword.getText());
+            visiblePassword.setVisible(true);
+            visiblePassword.setManaged(true);
+            loginPassword.setVisible(false);
+            loginPassword.setManaged(false);
+            // Change icon to "eye-slash" if available (adjust literal if needed)
+            eyeIcon.setIconLiteral("bi-eye-slash");
+        } else {
+            // Hide plain text field, show PasswordField again
+            loginPassword.setText(visiblePassword.getText());
+            loginPassword.setVisible(true);
+            loginPassword.setManaged(true);
+            visiblePassword.setVisible(false);
+            visiblePassword.setManaged(false);
+            // Change icon back to "eye"
+            eyeIcon.setIconLiteral("bi-eye");
+        }
+
+    }
 }

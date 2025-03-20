@@ -71,7 +71,7 @@
     <Button fx:id="btnLogout" onAction="#onLogout" prefHeight="40.0" prefWidth="200.0" style="-fx-alignment: center-left;" styleClass="mainBtn" stylesheets="@views/Style.css">
         <graphic>
             <HBox spacing="10" styleClass="mainBtn" stylesheets="@views/Style.css">
-                <FontIcon iconColor="WHITE" iconLiteral="bi-box-arrow-right" iconSize="20" />
+                <FontIcon iconColor="WHITE" iconLiteral="bi-arrow-right-square-fill" iconSize="20" />
                 <Label text="Logout" textFill="WHITE" />
             </HBox>
         </graphic>

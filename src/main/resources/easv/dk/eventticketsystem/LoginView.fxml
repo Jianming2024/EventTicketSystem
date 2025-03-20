@@ -6,12 +6,14 @@
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
 
 <AnchorPane prefHeight="600.0" prefWidth="800.0" styleClass="loginWindow" stylesheets="@views/Style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="easv.dk.eventticketsystem.gui.controllers.LoginController">
    <children>
-      <VBox id="loginBox" layoutX="87.0" layoutY="125.0" maxHeight="600.0" maxWidth="600.0" minHeight="200.0" minWidth="150.0" opacity="0.86" prefHeight="350.0" prefWidth="378.0" style="-fx-background-color: black; -fx-background-radius: 5;" AnchorPane.bottomAnchor="125.0" AnchorPane.leftAnchor="87.0" AnchorPane.rightAnchor="335.0" AnchorPane.topAnchor="125.0">
+      <VBox id="loginBox" layoutX="87.0" layoutY="120.0" maxHeight="600.0" maxWidth="600.0" minHeight="200.0" minWidth="150.0" opacity="0.86" prefHeight="360.0" prefWidth="378.0" style="-fx-background-color: black; -fx-background-radius: 5;" AnchorPane.bottomAnchor="120.0" AnchorPane.leftAnchor="87.0" AnchorPane.rightAnchor="335.0" AnchorPane.topAnchor="120.0">
          <children>
             <Label text="Log in" textFill="WHITE">
                <font>
@@ -42,14 +44,44 @@
                   <Insets left="20.0" top="20.0" />
                </VBox.margin>
             </Label>
-            <PasswordField id="loginPassword" fx:id="loginPassword" opacity="0.7" prefHeight="26.0" prefWidth="376.0" style="-fx-background-color: black; -fx-border-color: white; -fx-border-radius: 5;" stylesheets="@views/Style.css" text="123456">
+
+<!--            <PasswordField id="loginPassword" fx:id="loginPassword" opacity="0.7" prefHeight="26.0" prefWidth="376.0" style="-fx-background-color: black; -fx-border-color: white; -fx-border-radius: 5;" stylesheets="@views/Style.css" text="123456">
                <VBox.margin>
                   <Insets left="20.0" right="20.0" top="8.0" />
                </VBox.margin>
-            </PasswordField>
+            </PasswordField>-->
+
+            <!-- StackPane to overlay the toggle button on the password field -->
+            <StackPane maxWidth="376.0" prefHeight="26.0" style="-fx-background-color: transparent;">
+               <!-- PasswordField -->
+               <PasswordField fx:id="loginPassword" opacity="0.7" prefHeight="26.0" prefWidth="376.0" style="-fx-background-color: black; -fx-border-color: white; -fx-border-radius: 5;" stylesheets="@views/Style.css" text="123456">
+                  <StackPane.margin>
+                     <Insets left="20.0" right="20.0" top="8.0" />
+                  </StackPane.margin>
+               </PasswordField>
+               <!-- TextField (visible) initially hidden -->
+               <TextField fx:id="visiblePassword" opacity="0.7" prefHeight="26.0" prefWidth="376.0"
+                          style="-fx-background-color: black; -fx-border-color: white; -fx-border-radius: 5; -fx-text-fill: white;"
+                          stylesheets="@views/Style.css" text="123456" visible="false" managed="false">
+                  <StackPane.margin>
+                     <Insets left="20.0" right="20.0" top="8.0" />
+                  </StackPane.margin>
+               </TextField>
+               <!-- Toggle Button positioned at the right -->
+               <Button fx:id="btnTogglePassword" contentDisplay="CENTER" maxHeight="26.0" maxWidth="30.0" onAction="#onTogglePasswordVisibility" style="-fx-background-color: transparent;" textAlignment="CENTER" StackPane.alignment="CENTER_RIGHT">
+                  <graphic>
+                     <FontIcon fx:id="eyeIcon" iconColor="WHITE" iconLiteral="bi-eye" iconSize="16" />
+                  </graphic>
+                  <StackPane.margin>
+                     <Insets right="20.0" top="8.0" />
+                  </StackPane.margin>
+               </Button>
+            </StackPane>
+
+
             <Button fx:id="btnLogin" maxWidth="Infinity" mnemonicParsing="false" onAction="#onLoginBtnClick" prefHeight="30.0" prefWidth="338.0" styleClass="loginBtn" stylesheets="@views/Style.css" text="Log in">
                <VBox.margin>
-                  <Insets left="20.0" right="20.0" top="40.0" />
+                  <Insets left="20.0" right="20.0" top="50.0" />
                </VBox.margin>
                <font>
                   <Font size="17.0" />
