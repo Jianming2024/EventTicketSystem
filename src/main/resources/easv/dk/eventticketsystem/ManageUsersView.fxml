@@ -21,7 +21,6 @@
                     <TableColumn fx:id="colName" prefWidth="150.0" text="Name" />
                     <TableColumn fx:id="colEmail" prefWidth="200.0" text="Email" />
                     <TableColumn fx:id="colRole" prefWidth="120.0" text="Role" />
-                    <TableColumn fx:id="colActions" text="Actions" prefWidth="120.0" />
                 </columns>
             <VBox.margin>
                <Insets left="40.0" right="40.0" top="40.0" />
@@ -29,9 +28,18 @@
             </TableView>
 
             <!-- Buttons -->
-            <Button fx:id="btnAddUser" layoutX="20.0" layoutY="320.0" onAction="#onAddUser" text="Add User" />
-            <Button fx:id="btnEditUser" layoutX="120.0" layoutY="320.0" onAction="#onEditUser" text="Edit User" />
-            <Button fx:id="btnDeleteUser" layoutX="220.0" layoutY="320.0" onAction="#onDeleteUser" text="Delete User" />
+            <Button fx:id="btnAddUser" layoutX="20.0" layoutY="320.0" onAction="#onAddUser" text="Add User">
+            <VBox.margin>
+               <Insets left="40.0" />
+            </VBox.margin></Button>
+            <Button fx:id="btnEditUser" layoutX="120.0" layoutY="320.0" onAction="#onEditUser" text="Edit User">
+            <VBox.margin>
+               <Insets left="40.0" />
+            </VBox.margin></Button>
+            <Button fx:id="btnDeleteUser" layoutX="220.0" layoutY="320.0" onAction="#onDeleteUser" text="Delete User">
+            <VBox.margin>
+               <Insets left="40.0" />
+            </VBox.margin></Button>
         </VBox>
     </center>
 </BorderPane>
