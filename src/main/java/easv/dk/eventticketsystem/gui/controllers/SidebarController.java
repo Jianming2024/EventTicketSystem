@@ -69,13 +69,14 @@ public class SidebarController implements Initializable {
     }
 
     public void onManageEventsClick(ActionEvent actionEvent) throws IOException {
-        /*FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("ManageEventsView.fxml"));
-        Parent manageEventsView = fxmlLoader.load(); // Load FXML
-
-        // Set the new view inside contentPane (replacing old content)
-        // .getChildren().clear();
-        //getChildren().add(manageEventsView);*/
-
+        Stage currentStage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
+        currentStage.close();
+        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("ManageEventsView.fxml"));
+        Scene scene = new Scene(fxmlLoader.load());
+        Stage loginStage = new Stage();
+        loginStage.setTitle("Events Management");
+        loginStage.setScene(scene);
+        loginStage.show();
     }
 
     public void onManageTicketsClick(ActionEvent actionEvent) throws IOException {

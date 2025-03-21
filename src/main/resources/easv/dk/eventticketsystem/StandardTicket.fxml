@@ -1,46 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="331.0" prefWidth="808.0" style="-fx-background-color: #1f445a;" stylesheets="@views/Style.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="easv.dk.eventticketsystem.gui.controllers.TicketController">
+<AnchorPane opacity="0.84" prefHeight="331.0" prefWidth="808.0" style="-fx-background-color: black; -fx-background-radius: 5;" stylesheets="@views/Style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="easv.dk.eventticketsystem.gui.controllers.TicketController">
    <children>
-      <TextField alignment="CENTER" layoutX="35.0" layoutY="14.0" prefHeight="50.0" prefWidth="402.0" promptText="Add the title of the event">
+      <Label fx:id="lblEventName" layoutX="32.0" layoutY="25.0" prefHeight="49.0" prefWidth="188.0" text="NIGHT PARTY" textFill="#fbbc28">
          <font>
-            <Font name="Lucida Bright Italic" size="27.0" />
+            <Font size="25.0" />
          </font>
-      </TextField>
+      </Label>
+      <Label fx:id="lblEventName1" layoutX="32.0" layoutY="62.0" prefHeight="49.0" prefWidth="188.0" text="LIVE CONCERT" textFill="#fbbc28">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblLocation" layoutX="32.0" layoutY="117.0" prefHeight="49.0" prefWidth="255.0" text="Spangsbjerg Kirkevej 103  6700 Esbjerg" textFill="#fbbc28">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblDate" layoutX="32.0" layoutY="154.0" prefHeight="49.0" prefWidth="255.0" text="14/03" textFill="#fbbc28">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblTime" layoutX="32.0" layoutY="185.0" prefHeight="49.0" prefWidth="255.0" text="10:00 PM" textFill="#fbbc28">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Label>
       <AnchorPane layoutX="547.0" prefHeight="331.0" prefWidth="262.0" style="-fx-background-color: white;">
          <children>
             <ImageView fx:id="qrCodeImageView" fitHeight="331.0" fitWidth="255.0" layoutX="3.0" layoutY="-2.0" pickOnBounds="true" preserveRatio="true" />
          </children></AnchorPane>
-      <Text fill="WHITE" layoutX="28.0" layoutY="121.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name:">
+      <ImageView fx:id="qrCodeImageView1" fitHeight="331.0" fitWidth="255.0" layoutX="326.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@views/images/eventImg.jpg" />
+         </image>
+      </ImageView>
+      <Label fx:id="lblPrice" layoutX="32.0" layoutY="265.0" text="200 kr" textFill="#fbbc28">
          <font>
-            <Font size="20.0" />
+            <Font name="System Bold Italic" size="26.0" />
          </font>
-      </Text>
-      <TextField layoutX="95.0" layoutY="100.0" promptText="First/Lastname" style="-fx-background-color: #30607c;" />
-      <TextField layoutX="480.0" layoutY="292.0" prefHeight="25.0" prefWidth="50.0" promptText="Price" style="-fx-background-color: #30607c;" />
-      <Text fill="WHITE" layoutX="28.0" layoutY="155.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Location:">
-         <font>
-            <Font size="20.0" />
-         </font>
-      </Text>
-      <TextField layoutX="116.0" layoutY="134.0" promptText="Add Location" style="-fx-background-color: #30607c;" />
-      <Text fill="WHITE" layoutX="28.0" layoutY="187.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date: " wrappingWidth="57.158203125">
-         <font>
-            <Font size="20.0" />
-         </font>
-      </Text>
-      <TextField layoutX="85.0" layoutY="167.0" promptText="Add date" style="-fx-background-color: #30607c;" />
-      <Text fill="WHITE" layoutX="28.0" layoutY="217.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Time:" wrappingWidth="57.158203125">
-         <font>
-            <Font size="20.0" />
-         </font>
-      </Text>
-      <TextField layoutX="85.0" layoutY="197.0" promptText="Add time" style="-fx-background-color: #30607c;" />
+      </Label>
    </children>
 </AnchorPane>

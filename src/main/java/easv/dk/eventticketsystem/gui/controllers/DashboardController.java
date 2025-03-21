@@ -7,6 +7,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
@@ -18,8 +20,12 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class DashboardController implements Initializable {
-    public ImageView eventImageView;
-    public Label dashboardLabel;
+    @FXML
+    private ImageView eventImageView;
+    @FXML
+    private Label dashboardLabel;
+    @FXML
+    private LineChart salesChart;
     @FXML
     private Button btnDashboard;
     @FXML
@@ -33,7 +39,7 @@ public class DashboardController implements Initializable {
     @FXML
     private StackPane contentPane;
 
-    private String userRole; // Set this dynamically (Admin, Coordinator, Customer)
+    private String userRole; // Set this dynamically (Admin, Coordinator)
     private String userEmail;
 
     private LoginController loginController;
@@ -41,15 +47,27 @@ public class DashboardController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
-        //loadDashboardView();
+        loadDashboardView();
     }
 
     private void loadDashboardView() {
-        //contentPane.getChildren().clear(); // Clear current view
-        //Label dashboardLabel = new Label("Welcome to the Dashboard!");
-        //dashboardLabel.setStyle("-fx-font-size: 24px; -fx-text-fill: black;");
-        //contentPane.getChildren().add(dashboardLabel);
+        XYChart.Series<String, Number> series = new XYChart.Series<>();
+        series.setName("Ticket Sales");
+
+        // Use month names for the x-axis categories
+        series.getData().add(new XYChart.Data<>("January", 100));
+        series.getData().add(new XYChart.Data<>("February", 120));
+        series.getData().add(new XYChart.Data<>("March", 80));
+        series.getData().add(new XYChart.Data<>("April", 150));
+        series.getData().add(new XYChart.Data<>("May", 200));
+        series.getData().add(new XYChart.Data<>("June", 180));
+        series.getData().add(new XYChart.Data<>("July", 220));
+        series.getData().add(new XYChart.Data<>("August", 210));
+        series.getData().add(new XYChart.Data<>("September", 190));
+        series.getData().add(new XYChart.Data<>("October", 230));
+        series.getData().add(new XYChart.Data<>("November", 170));
+        series.getData().add(new XYChart.Data<>("December", 250));
+        salesChart.getData().add(series);
     }
 
     public void setParentController(LoginController parentController) {
@@ -83,7 +101,5 @@ public class DashboardController implements Initializable {
             btnMyTickets.setVisible(true);
         }
     }
-
-
 
 }

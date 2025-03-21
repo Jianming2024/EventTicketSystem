@@ -66,5 +66,34 @@
     -fx-background-repeat: no-repeat;
     -fx-background-radius: 10;
     -fx-opacity: 0.8;
+}
 
+.card {
+    -fx-background-color: white;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 0);
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-padding: 15;
+    -fx-spacing: 10;
+    -fx-alignment: CENTER;
+}
+
+.card-title {
+    -fx-font-size: 14px;
+    -fx-text-fill: gray;
+}
+
+.card-value {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+}
+
+.chart-series-line {
+    -fx-stroke: #fbbc28;  /* color for the first series, change as needed */
+    -fx-stroke-width: 2px;
+}
+
+.chart-line-symbol {
+    -fx-background-color: #fbbc28, white;
+    -fx-background-insets: 0, 2;
 }
