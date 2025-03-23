@@ -23,7 +23,7 @@
         <VBox spacing="10">
            <HBox alignment="CENTER_LEFT" prefHeight="46.0" prefWidth="957.0" spacing="20" style="-fx-padding: 10;">
                <!-- Title -->
-               <Label style="-fx-font-size: 18px;" text="Users List">
+               <Label style="-fx-font-size: 18px; -fx-font-weight: bold;" text="Users List">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
@@ -36,7 +36,10 @@
                <ComboBox fx:id="comboFilter" prefWidth="120.0" />
    
                <!-- Add New Employee Button -->
-               <Button fx:id="btnAddEmployee" style="-fx-background-color: #00a0e4; -fx-text-fill: white; -fx-font-weight: bold;                            -fx-border-radius: 5; -fx-background-radius: 5;" text="Add New User" />
+               <Button onAction="#onClickAddUser" prefHeight="26.0" prefWidth="105.0" style="-fx-border-color: FORESTGREEN; -fx-text-fill: white; -fx-font-weight: bold; -fx-border-radius: 5; -fx-background-radius: 5; -fx-text-fill: FORESTGREEN; -fx-background-color: transparent;" text="Add New User" textFill="FORESTGREEN">
+               <HBox.margin>
+                  <Insets right="-10.0" />
+               </HBox.margin></Button>
             <VBox.margin>
                <Insets left="40.0" right="40.0" top="40.0" />
             </VBox.margin>

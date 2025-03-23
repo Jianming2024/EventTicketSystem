@@ -175,12 +175,6 @@ public class ManageUsersController implements Initializable {
 
     }
 
-    public void onAddUser(ActionEvent actionEvent) {
-    }
-
-    public void onEditUser(ActionEvent actionEvent) {
-    }
-
-    public void onDeleteUser(ActionEvent actionEvent) {
+    public void onClickAddUser(ActionEvent actionEvent) {
     }
 }
