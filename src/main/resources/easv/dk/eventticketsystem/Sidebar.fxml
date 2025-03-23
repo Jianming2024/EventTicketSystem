@@ -16,7 +16,7 @@
          <Image url="@views/images/EASYDVEST_negativ_lille.png" />
       </image>
       <VBox.margin>
-         <Insets bottom="20.0" top="40.0" />
+         <Insets bottom="20.0" top="10.0" />
       </VBox.margin>
    </ImageView>
 
@@ -65,7 +65,7 @@
     </Button>
 
     <!-- Spacer to push Logout button to bottom -->
-    <Region VBox.vgrow="ALWAYS" />
+    <Region prefWidth="200.0" VBox.vgrow="ALWAYS" />
 
     <!-- Logout Button at the Bottom -->
     <Button fx:id="btnLogout" onAction="#onLogout" prefHeight="40.0" prefWidth="200.0" style="-fx-alignment: center-left;" styleClass="mainBtn" stylesheets="@views/Style.css">
@@ -74,12 +74,13 @@
                 <FontIcon iconColor="WHITE" iconLiteral="bi-arrow-right-square-fill" iconSize="20" wrappingWidth="26.0">
                <HBox.margin>
                   <Insets left="-9.0" />
-               </HBox.margin></FontIcon>
+               </HBox.margin>
+            </FontIcon>
                 <Label text="Log out" textFill="WHITE" />
             </HBox>
         </graphic>
       <VBox.margin>
-         <Insets bottom="50.0" />
+         <Insets bottom="10.0" />
       </VBox.margin>
     </Button>
 </VBox>
