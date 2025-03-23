@@ -2,17 +2,19 @@ package easv.dk.eventticketsystem.be;
 
 public class Users {
     private int userId;
-    private String username;
-    private String password;
+    private String userName;
+    private String userImagePath;
     private String role;
-    private String email;
+    private String userEmail;
+    private String userPhone;
 
-    public Users(int userId, String username, String password, String role, String email) {
+    public Users(int userId, String userName, String userImagePath, String role, String userEmail, String userPhone) {
         this.userId = userId;
-        this.username = username;
-        this.password = password;
+        this.userName = userName;
+        this.userImagePath = userImagePath;
         this.role = role;
-        this.email = email;
+        this.userEmail = userEmail;
+        this.userPhone = userPhone;
     }
 
     public int getUserId() {
@@ -23,20 +25,20 @@ public class Users {
         this.userId = userId;
     }
 
-    public String getUsername() {
-        return username;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
-    public String getPassword() {
-        return password;
+    public String getUserImagePath() {
+        return userImagePath;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setUserImagePath(String userImagePath) {
+        this.userImagePath = userImagePath;
     }
 
     public String getRole() {
@@ -47,21 +49,24 @@ public class Users {
         this.role = role;
     }
 
-    public String getEmail() {
-        return email;
+    public String getUserEmail() {
+        return userEmail;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setUserEmail(String userEmail) {
+        this.userEmail = userEmail;
+    }
+
+    public String getUserPhone() {
+        return userPhone;
+    }
+
+    public void setUserPhone(String userPhone) {
+        this.userPhone = userPhone;
     }
 
     @Override
     public String toString() {
-        return "User{" +
-                "userId=" + userId +
-                ", username='" + username + '\'' +
-                ", role='" + role + '\'' +
-                ", email='" + email + '\'' +
-                '}';
-    }
+        return userName + ',' + role + ',' + userEmail + ',' + userImagePath + ',' + userPhone;}
 }
+

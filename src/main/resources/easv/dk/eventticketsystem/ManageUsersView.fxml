@@ -2,10 +2,15 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <BorderPane fx:id="usersPane" prefHeight="700.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="easv.dk.eventticketsystem.gui.controllers.ManageUsersController">
     <!-- Left Sidebar -->
@@ -16,19 +21,42 @@
     <!-- Main content for managing users -->
     <center>
         <VBox spacing="10">
-            <TableView fx:id="userTable" layoutX="20.0" layoutY="50.0" prefHeight="250.0" prefWidth="530.0">
-                <columns>
-                    <TableColumn fx:id="colName" prefWidth="150.0" text="Name" />
-                    <TableColumn fx:id="colEmail" prefWidth="200.0" text="Email" />
-                    <TableColumn fx:id="colRole" prefWidth="120.0" text="Role" />
-                </columns>
+           <HBox alignment="CENTER_LEFT" prefHeight="46.0" prefWidth="957.0" spacing="20" style="-fx-padding: 10;">
+               <!-- Title -->
+               <Label style="-fx-font-size: 18px;" text="Users List">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+   
+               <!-- Spacer to push right elements to the right -->
+               <Region prefHeight="26.0" prefWidth="332.0" HBox.hgrow="ALWAYS" />
+   
+               <!-- ComboBox for "All Employee" filter -->
+               <ComboBox fx:id="comboFilter" prefWidth="120.0" />
+   
+               <!-- Add New Employee Button -->
+               <Button fx:id="btnAddEmployee" style="-fx-background-color: #00a0e4; -fx-text-fill: white; -fx-font-weight: bold;                            -fx-border-radius: 5; -fx-background-radius: 5;" text="Add New User" />
             <VBox.margin>
                <Insets left="40.0" right="40.0" top="40.0" />
+            </VBox.margin>
+           </HBox>
+            <TableView fx:id="userTable" layoutX="20.0" layoutY="50.0" prefHeight="250.0" prefWidth="530.0" style="-fx-alignment: center;">
+                <columns>
+                    <TableColumn fx:id="colUserImg" prefWidth="86.0" />
+                    <TableColumn fx:id="colName" prefWidth="187.33331298828125" text="Name" />
+                    <TableColumn fx:id="colPhone" prefWidth="176.66668701171875" text="Phone" />
+                    <TableColumn fx:id="colEmail" prefWidth="192.0" text="Email" />
+                    <TableColumn fx:id="colRole" prefWidth="128.0" text="Role" />
+                    <TableColumn fx:id="colAction" prefWidth="120.0" />
+                </columns>
+            <VBox.margin>
+               <Insets left="40.0" right="40.0" top="10.0" />
             </VBox.margin>
             </TableView>
 
             <!-- Buttons -->
-            <Button fx:id="btnAddUser" layoutX="20.0" layoutY="320.0" onAction="#onAddUser" prefHeight="26.0" prefWidth="85.0" text="Add User">
+            <!--<Button fx:id="btnAddUser" layoutX="20.0" layoutY="320.0" onAction="#onAddUser" prefHeight="26.0" prefWidth="85.0" text="Add User">
             <VBox.margin>
                <Insets left="40.0" />
             </VBox.margin></Button>
@@ -39,7 +67,7 @@
             <Button fx:id="btnDeleteUser" layoutX="220.0" layoutY="320.0" onAction="#onDeleteUser" prefHeight="26.0" prefWidth="86.0" text="Delete User">
             <VBox.margin>
                <Insets left="40.0" />
-            </VBox.margin></Button>
+            </VBox.margin></Button>-->
         </VBox>
     </center>
 </BorderPane>
