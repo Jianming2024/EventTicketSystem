@@ -66,6 +66,14 @@ public class ManageUsersController implements Initializable {
         colRole.setCellValueFactory(new PropertyValueFactory<>("role"));
         colPhone.setCellValueFactory(new PropertyValueFactory<>("userPhone"));
         colUserImg.setCellValueFactory(new PropertyValueFactory<>("userImagePath"));
+
+        // Set alignment for each column:
+        colName.setStyle("-fx-alignment: CENTER;");
+        colEmail.setStyle("-fx-alignment: CENTER;");
+        colRole.setStyle("-fx-alignment: CENTER;");
+        colPhone.setStyle("-fx-alignment: CENTER;");
+        colUserImg.setStyle("-fx-alignment: CENTER;");
+
         // Custom cell factory for the avatar image column
         colUserImg.setCellFactory(new Callback<TableColumn<Users, String>, TableCell<Users, String>>() {
             @Override
@@ -119,6 +127,7 @@ public class ManageUsersController implements Initializable {
         });
 
         colAction.setCellFactory(new Callback<TableColumn<Users, Void>, TableCell<Users, Void>>() {
+
             @Override
             public TableCell<Users, Void> call(TableColumn<Users, Void> param) {
                 return new TableCell<Users, Void>() {
@@ -135,7 +144,7 @@ public class ManageUsersController implements Initializable {
                         deleteIcon.setIconColor(Color.INDIANRED);
 
                         // Set the container's alignment to center
-                        //container.setAlignment(javafx.geometry.Pos.CENTER);
+                        container.setAlignment(javafx.geometry.Pos.CENTER);
 
                         // Add click handlers
                         editIcon.setOnMouseClicked(e -> {

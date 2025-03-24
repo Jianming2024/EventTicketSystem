@@ -97,3 +97,6 @@
     -fx-background-color: #fbbc28, white;
     -fx-background-insets: 0, 2;
 }
+#colName #colName {
+    -fx-alignment: CENTER_LEFT;
+}

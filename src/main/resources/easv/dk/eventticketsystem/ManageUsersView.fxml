@@ -44,7 +44,7 @@
                <Insets left="40.0" right="40.0" top="40.0" />
             </VBox.margin>
            </HBox>
-            <TableView fx:id="userTable" layoutX="20.0" layoutY="50.0" prefHeight="250.0" prefWidth="530.0" style="-fx-alignment: center;">
+            <TableView fx:id="userTable" layoutX="20.0" layoutY="50.0" prefHeight="250.0" prefWidth="530.0">
                 <columns>
                     <TableColumn fx:id="colUserImg" prefWidth="86.0" />
                     <TableColumn fx:id="colName" prefWidth="187.33331298828125" text="Name" />
