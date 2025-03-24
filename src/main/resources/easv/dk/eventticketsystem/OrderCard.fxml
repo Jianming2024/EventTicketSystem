@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="root" prefWidth="400" prefHeight="180"
+            xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="easv.dk.eventticketsystem.gui.controllers.OrderCardController"
+            style="-fx-background-color: #f4f4f4; -fx-border-color: #cccccc; -fx-border-radius: 10; -fx-background-radius: 10; -fx-padding: 10;">
+
+    <VBox spacing="8" AnchorPane.topAnchor="10" AnchorPane.leftAnchor="10" AnchorPane.rightAnchor="10" AnchorPane.bottomAnchor="10">
+        <HBox spacing="10">
+            <Label fx:id="lblOrderNumber" text="Order #1" style="-fx-font-weight: bold; -fx-font-size: 16px;"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Button fx:id="btnDelete" text="🗑" style="-fx-background-color: transparent; -fx-cursor: hand;" />
+        </HBox>
+
+        <TextField fx:id="txtCustomerName" promptText="Customer name" />
+        <TextField fx:id="txtCustomerEmail" promptText="Email address" />
+
+        <HBox fx:id="ticketContainer" spacing="6">
+            <!-- Example ticket blocks -->
+            <!-- These will be added dynamically in the controller -->
+        </HBox>
+
+        <Button fx:id="btnAddTicket" text="+ Add Ticket" style="-fx-background-color: #e0e0e0; -fx-cursor: hand; -fx-background-radius: 5; -fx-padding: 5 10;" />
+    </VBox>
+</AnchorPane>

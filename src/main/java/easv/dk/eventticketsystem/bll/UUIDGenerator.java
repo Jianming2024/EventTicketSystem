@@ -26,9 +26,10 @@ public class UUIDGenerator {
             // Generate and save the QR Code
             generateQRCode(uuid, filePath, 300, 300);
             System.out.println("QR Code generated and saved as: " + filePath);
-
+            System.out.println("⚠️ Saving QR Code to: " + filePath);
             return filePath; // Return the file path
         } catch (Exception e) {
+            System.err.println("❌ Failed to save QR code!");
             e.printStackTrace();
         }
         return null;

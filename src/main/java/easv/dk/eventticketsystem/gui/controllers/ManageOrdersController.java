@@ -16,33 +16,41 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class ManageOrdersController implements Initializable {
+
     @FXML
-    private TableColumn colCustomerEmail;
+    private VBox orderCardContainer;
     @FXML
-    private TableColumn colCode;
+    private TableColumn<TicketOnOrder, String> colCustomerEmail;
     @FXML
-    private TableView lstTicketOnOrder;
+    private TableColumn<TicketOnOrder, Integer> colCode;
+
     @FXML
-    private TableColumn colOrderId;
+    private TableView<TicketOnOrder> lstTicketOnOrder;
+
     @FXML
-    private TableColumn colCustomerName;
+    private TableColumn<TicketOnOrder, Integer> colOrderId;
+
     @FXML
-    private TableColumn colEventName;
+    private TableColumn<TicketOnOrder, String> colCustomerName;
+
     @FXML
-    private TableColumn colTicketQty;
+    private TableColumn<TicketOnOrder, String> colEventName;
+//    @FXML
+//    private TableColumn colTicketQty;
+
     @FXML
-    private TableColumn colTicketId;
+    private TableColumn<TicketOnOrder, Integer>colTicketId;
     @FXML
-    private TableColumn colTicketType;
-    @FXML
-    private ImageView qrCodeImageView;
+    private TableColumn<TicketOnOrder, String>colTicketType;
+
 
     @FXML
     private Button printTicketButton;
@@ -58,36 +66,73 @@ public class ManageOrdersController implements Initializable {
     }
 
     public void displayOrders() {
-        lstTicketOnOrder.setItems(eventTicketSystemModel.getAllOrderDetails());
-        colOrderId.setCellValueFactory(new PropertyValueFactory<>("orderId"));
-        colCustomerName.setCellValueFactory(new PropertyValueFactory<>("customerName"));
-        colCustomerEmail.setCellValueFactory(new PropertyValueFactory<>("customerEmail"));
-        colEventName.setCellValueFactory(new PropertyValueFactory<>("eventName"));
-        colTicketId.setCellValueFactory(new PropertyValueFactory<>("ticketId"));
-        colTicketType.setCellValueFactory(new PropertyValueFactory<>("ticketType"));
-        colCode.setCellValueFactory(new PropertyValueFactory<>("code"));
+//        lstTicketOnOrder.setItems(eventTicketSystemModel.getAllOrderDetails());
+//        colOrderId.setCellValueFactory(new PropertyValueFactory<>("orderId"));
+//        colCustomerName.setCellValueFactory(new PropertyValueFactory<>("customerName"));
+//        colCustomerEmail.setCellValueFactory(new PropertyValueFactory<>("customerEmail"));
+//        colEventName.setCellValueFactory(new PropertyValueFactory<>("eventName"));
+//        colTicketId.setCellValueFactory(new PropertyValueFactory<>("ticketId"));
+//        colTicketType.setCellValueFactory(new PropertyValueFactory<>("ticketType"));
+//        colCode.setCellValueFactory(new PropertyValueFactory<>("code"));
+        orderCardContainer.getChildren().clear();
+        List<TicketOnOrder> tickets = eventTicketSystemModel.getAllOrderDetails();
+
+        Map<Integer, List<TicketOnOrder>> groupedOrders = new HashMap<>();
+        for (TicketOnOrder ticket : tickets) {
+            int orderId = ticket.getOrderId();
+            groupedOrders.computeIfAbsent(orderId, k -> new ArrayList<>()).add(ticket);
+        }
+        for (Map.Entry<Integer, List<TicketOnOrder>> entry : groupedOrders.entrySet()) {
+            List<TicketOnOrder> ticketList = entry.getValue();
+            TicketOnOrder baseTicket = ticketList.get(0); // Use first as base for name/email
+
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/easv/dk/eventticketsystem/OrderCard.fxml"));
+                Parent card = loader.load();
+
+                OrderCardController controller = loader.getController();
+                controller.setData(baseTicket, ticketList);
+
+                orderCardContainer.getChildren().add(card);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
+    @FXML
+    private void onAddOrderClick() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/easv/dk/eventticketsystem/OrderCard.fxml"));
+            Parent card = loader.load();
+
+            OrderCardController controller = loader.getController();
+            controller.setDataPlaceholder(); // Shows placeholder text like "New Order"
+
+            orderCardContainer.getChildren().add(card);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
 
     public void onPrintTicketClick(MouseEvent event) {
         System.out.println("Button clicked");
-        String ticket = "StandardTicket";
 
-        // Generate QR Code and get the file path
-        String qrFilePath = uuidGenerator.startQRCodeGeneration();
+        TicketOnOrder selected = lstTicketOnOrder.getSelectionModel().getSelectedItem();
+        if (selected == null) return;
 
-        if (qrFilePath != null) {
-            System.out.println("QR Code generated at: " + qrFilePath);
+        String code = selected.getCode(); // the uniqueCode
+        String qrFilePath = System.getProperty("user.dir") + "/qr_codes/" + code + ".png";
 
-            // Open StandardTicket window and pass the QR code
-            setTicket(ticket, qrFilePath, event);
-        } else {
-            System.out.println("QR Code generation failed.");
-        }
+        setTicket(selected, qrFilePath, event);
 
 
     }
 
-    private void setTicket(String ticket,String qrFilePath, MouseEvent action) {
+    private void setTicket(TicketOnOrder ticket, String qrFilePath, MouseEvent action) {
         try {
             // Load the FXML file using the MainApplication class reference
             FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("StandardTicket.fxml"));
@@ -102,7 +147,7 @@ public class ManageOrdersController implements Initializable {
             // Get the TicketController
             TicketController ticketController = fxmlLoader.getController();
             // Pass the QR code image path to the TicketController
-            ticketController.setQRCode(qrFilePath);
+            ticketController.setTicketData(ticket, qrFilePath);
 
 
             Stage stage = new Stage();

@@ -9,6 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
+<?import javafx.scene.control.ScrollPane?>
 <BorderPane prefHeight="700.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="easv.dk.eventticketsystem.gui.controllers.ManageOrdersController">
     <!-- Left Sidebar -->
     <left>
@@ -18,21 +19,29 @@
     <!-- Main content for managing orders -->
     <center>
         <VBox spacing="10">
-        <TableView fx:id="lstTicketOnOrder" layoutX="20.0" layoutY="50.0" prefHeight="487.0" prefWidth="890.0">
-            <columns>
-                <TableColumn fx:id="colOrderId" prefWidth="93" text="Order ID" />
-                <TableColumn fx:id="colCustomerName" prefWidth="131" text="Customer Name" />
-               <TableColumn fx:id="colCustomerEmail" prefWidth="131" text="Customer Email" />
-                <TableColumn fx:id="colEventName" prefWidth="120.0" text="Event" />
-                <!-- Print Ticket Column -->
-                <TableColumn fx:id="colTicketId" prefWidth="112" text="Ticket ID" />
-                <TableColumn fx:id="colTicketType" prefWidth="112" text="Ticket type" />
-               <TableColumn fx:id="colCode" prefWidth="112" text="Code" />
-            </columns>
-            <VBox.margin>
-                <Insets left="40.0" right="40.0" top="40.0" />
-            </VBox.margin>
-        </TableView>
+<!--        <TableView fx:id="lstTicketOnOrder" layoutX="20.0" layoutY="50.0" prefHeight="487.0" prefWidth="890.0">-->
+<!--            <columns>-->
+<!--                <TableColumn fx:id="colOrderId" prefWidth="93" text="Order ID" />-->
+<!--                <TableColumn fx:id="colCustomerName" prefWidth="131" text="Customer Name" />-->
+<!--               <TableColumn fx:id="colCustomerEmail" prefWidth="131" text="Customer Email" />-->
+<!--                <TableColumn fx:id="colEventName" prefWidth="120.0" text="Event" />-->
+<!--                &lt;!&ndash; Print Ticket Column &ndash;&gt;-->
+<!--                <TableColumn fx:id="colTicketId" prefWidth="112" text="Ticket ID" />-->
+<!--                <TableColumn fx:id="colTicketType" prefWidth="112" text="Ticket type" />-->
+<!--               <TableColumn fx:id="colCode" prefWidth="112" text="Code" />-->
+<!--            </columns>-->
+<!--            <VBox.margin>-->
+<!--                <Insets left="40.0" right="40.0" top="40.0" />-->
+<!--            </VBox.margin>-->
+<!--        </TableView>-->
+            <ScrollPane fx:id="scrollPane" fitToWidth="true" style="-fx-background-color:transparent;">
+                <VBox fx:id="orderCardContainer" spacing="15" style="-fx-padding: 10;"/>
+            </ScrollPane>
+            <HBox alignment="CENTER_RIGHT" style="-fx-padding: 0 20 10 0;">
+                <Button fx:id="btnAddOrder" text="+ Add Order"
+                        onAction="#onAddOrderClick"
+                        styleClass="mainBtn"/>
+            </HBox>
 
         <HBox alignment="CENTER">
             <Button fx:id="btnPrintTickets" onMouseClicked="#onPrintTicketClick" prefHeight="40.0" prefWidth="140.0" styleClass="mainBtn" stylesheets="@views/Style.css" text="Print Ticket">

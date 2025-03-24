@@ -1,5 +1,6 @@
 package easv.dk.eventticketsystem;
 
+import easv.dk.eventticketsystem.dal.db.TicketDAODB;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -20,6 +21,7 @@ public class MainApplication extends Application {
         stage.setTitle("Log in System");
         stage.setScene(scene);
         stage.show();
+
     }
 
     public static void main(String[] args) {
