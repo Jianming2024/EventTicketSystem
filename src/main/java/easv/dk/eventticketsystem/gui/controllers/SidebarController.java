@@ -105,4 +105,7 @@ public class SidebarController implements Initializable {
         loginStage.setScene(scene);
         loginStage.show();
     }
+
+    public void onManageCustomersClick(ActionEvent actionEvent) {
+    }
 }

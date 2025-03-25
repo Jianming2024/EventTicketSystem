@@ -14,7 +14,7 @@
 <BorderPane fx:id="dashboardPane" prefHeight="700" prefWidth="1200" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="easv.dk.eventticketsystem.gui.controllers.DashboardController">
     <!-- Left Sidebar -->
     <left>
-        <fx:include source="Sidebar.fxml" />
+        <fx:include source="components/Sidebar.fxml" />
     </left>
     <!-- Center region: contains the top bar and the main content -->
     <center>

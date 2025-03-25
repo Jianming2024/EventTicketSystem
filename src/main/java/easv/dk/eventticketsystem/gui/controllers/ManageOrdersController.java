@@ -8,13 +8,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
-import javafx.scene.image.ImageView;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -87,7 +85,7 @@ public class ManageOrdersController implements Initializable {
             TicketOnOrder baseTicket = ticketList.get(0); // Use first as base for name/email
 
             try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/easv/dk/eventticketsystem/OrderCard.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/easv/dk/eventticketsystem/components/OrderCard.fxml"));
                 Parent card = loader.load();
 
                 OrderCardController controller = loader.getController();
@@ -103,7 +101,7 @@ public class ManageOrdersController implements Initializable {
     @FXML
     private void onAddOrderClick() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/easv/dk/eventticketsystem/OrderCard.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/easv/dk/eventticketsystem/components/OrderCard.fxml"));
             Parent card = loader.load();
 
             OrderCardController controller = loader.getController();
