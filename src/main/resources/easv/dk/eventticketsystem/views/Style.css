@@ -97,6 +97,11 @@
     -fx-background-color: #fbbc28, white;
     -fx-background-insets: 0, 2;
 }
+
 #colName #colName {
     -fx-alignment: CENTER_LEFT;
+}
+
+.userCard {
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 10, 0.5, 0, 0);
 }

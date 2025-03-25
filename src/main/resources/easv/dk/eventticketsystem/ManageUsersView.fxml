@@ -2,75 +2,37 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
 
 <BorderPane fx:id="usersPane" prefHeight="700.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="easv.dk.eventticketsystem.gui.controllers.ManageUsersController">
     <!-- Left Sidebar -->
     <left>
     <fx:include source="components/Sidebar.fxml" />
     </left>
-
-    <!-- Main content for managing users -->
     <center>
-        <VBox spacing="10">
-           <HBox alignment="CENTER_LEFT" prefHeight="46.0" prefWidth="957.0" spacing="20" style="-fx-padding: 10;">
-               <!-- Title -->
-               <Label style="-fx-font-size: 18px; -fx-font-weight: bold;" text="Users List">
-               <font>
-                  <Font name="System Bold" size="18.0" />
-               </font>
-            </Label>
-   
-               <!-- Spacer to push right elements to the right -->
-               <Region prefHeight="26.0" prefWidth="332.0" HBox.hgrow="ALWAYS" />
-   
-               <!-- ComboBox for "All Employee" filter -->
-               <ComboBox fx:id="comboFilter" prefWidth="120.0" />
-   
-               <!-- Add New Employee Button -->
-               <Button onAction="#onClickAddUser" prefHeight="26.0" prefWidth="105.0" style="-fx-border-color: FORESTGREEN; -fx-text-fill: white; -fx-font-weight: bold; -fx-border-radius: 5; -fx-background-radius: 5; -fx-text-fill: FORESTGREEN; -fx-background-color: transparent;" text="Add New User" textFill="FORESTGREEN">
+        <VBox prefWidth="1000.0" spacing="10">
+            <!-- Top: Toolbar -->
+            <fx:include source="components/Toolbar.fxml" />
+            <!-- Container for the Create button aligned to right -->
+            <HBox alignment="CENTER_RIGHT" prefHeight="34.0" prefWidth="1000.0">
+                <Button fx:id="btnCreateNewUser" style="-fx-background-color: transparent; -fx-border-color: #009640; -fx-text-fill: #009640; -fx-border-radius: 5; -fx-background-radius: 5; -fx-padding: 5 15;" text="Create New User">
                <HBox.margin>
-                  <Insets right="-10.0" />
+                  <Insets right="80.0" />
                </HBox.margin></Button>
             <VBox.margin>
-               <Insets left="40.0" right="40.0" top="40.0" />
+               <Insets />
             </VBox.margin>
-           </HBox>
-            <TableView fx:id="userTable" layoutX="20.0" layoutY="50.0" prefHeight="250.0" prefWidth="530.0">
-                <columns>
-                    <TableColumn fx:id="colUserImg" prefWidth="86.0" />
-                    <TableColumn fx:id="colName" prefWidth="187.33331298828125" text="Name" />
-                    <TableColumn fx:id="colPhone" prefWidth="176.66668701171875" text="Phone" />
-                    <TableColumn fx:id="colEmail" prefWidth="192.0" text="Email" />
-                    <TableColumn fx:id="colRole" prefWidth="128.0" text="Role" />
-                    <TableColumn fx:id="colAction" prefWidth="120.0" />
-                </columns>
-            <VBox.margin>
-               <Insets left="40.0" right="40.0" top="10.0" />
-            </VBox.margin>
-            </TableView>
-
-            <!-- Buttons -->
-            <!--<Button fx:id="btnAddUser" layoutX="20.0" layoutY="320.0" onAction="#onAddUser" prefHeight="26.0" prefWidth="85.0" text="Add User">
-            <VBox.margin>
-               <Insets left="40.0" />
-            </VBox.margin></Button>
-            <Button fx:id="btnEditUser" layoutX="120.0" layoutY="320.0" onAction="#onEditUser" prefHeight="26.0" prefWidth="85.0" text="Edit User">
-            <VBox.margin>
-               <Insets left="40.0" />
-            </VBox.margin></Button>
-            <Button fx:id="btnDeleteUser" layoutX="220.0" layoutY="320.0" onAction="#onDeleteUser" prefHeight="26.0" prefWidth="86.0" text="Delete User">
-            <VBox.margin>
-               <Insets left="40.0" />
-            </VBox.margin></Button>-->
+            </HBox>
+            <!-- FlowPane for user cards -->
+            <FlowPane fx:id="userCardPane" alignment="TOP_CENTER" hgap="20.0" prefHeight="904.0" prefWidth="1000.0" vgap="20.0">
+                <VBox.margin>
+                    <Insets top="20.0" />
+                </VBox.margin>
+            </FlowPane>
         </VBox>
+
     </center>
 </BorderPane>
