@@ -36,25 +36,10 @@ public class ManageUsersController implements Initializable {
     @FXML
     private FlowPane userCardPane;
     @FXML
-    private TableColumn colUserImg;
-    @FXML
-    private TableColumn colPhone;
-    @FXML
     private BorderPane usersPane;
-    @FXML
-    private TableView userTable;
-    @FXML
-    private TableColumn colName;
-    @FXML
-    private TableColumn colEmail;
-    @FXML
-    private TableColumn colRole;
-    @FXML
-    private TableColumn colAction;
 
     private static final EventTicketSystemModel model = new EventTicketSystemModel();
     private List<Users> usersList;
-
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {

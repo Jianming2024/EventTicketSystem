@@ -1,35 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.image.Image?>
-<?import org.kordamp.ikonli.javafx.FontIcon?>
 <?import javafx.geometry.Insets?>
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="easv.dk.eventticketsystem.gui.controllers.EventCardController"
-            prefHeight="200.0" prefWidth="250.0"
-            style="-fx-background-color: white; -fx-background-radius: 10; -fx-padding: 10;" styleClass="userCard">
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+
+<AnchorPane prefHeight="350.0" prefWidth="310.0" style="-fx-background-color: white; -fx-background-radius: 10; -fx-padding: 10;" styleClass="userCard" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="easv.dk.eventticketsystem.gui.controllers.EventCardController">
 
     <children>
         <!-- Avatar -->
-        <ImageView fx:id="avatar" fitHeight="109.0" fitWidth="109.0" layoutX="26.0" layoutY="52.0" preserveRatio="true">
+        <ImageView fx:id="avatar" fitHeight="167.0" fitWidth="270.0" layoutX="20.0" layoutY="20.0" preserveRatio="true">
 
             <image>
-                <Image url="@../../../../../../../UserImg/admin.jpg" />
+                <Image url="@../../../../../../../EventImg/newYearParty.jpg" />
             </image>
         </ImageView>
-        <VBox alignment="CENTER_LEFT" layoutX="135.0" layoutY="56.0" prefHeight="89.0" prefWidth="109.0" spacing="5.0">
+        <VBox alignment="CENTER_LEFT" layoutX="20.0" layoutY="178.0" prefHeight="152.0" prefWidth="270.0" spacing="5.0">
             <!-- User Info -->
-            <Label fx:id="lblUserName" style="-fx-font-size: 16px; -fx-font-weight: bold;" text="Peter Kay" />
-            <Label fx:id="lblUserEmail" style="-fx-font-size: 14px;" text="email" />
-            <Label fx:id="lblUserPhone" layoutX="10.0" layoutY="40.0" style="-fx-font-size: 14px;" text="phone" />
-            <Label fx:id="lblRole" style="-fx-font-size: 14px;" text="Role">
+            <Label fx:id="lablEventName" style="-fx-font-size: 16px; -fx-font-weight: bold;" text="Event Name" />
+            <Label fx:id="lblStartTime" style="-fx-font-size: 14px;" text="Start Time" />
+            <Label fx:id="lblEndTime" layoutX="10.0" layoutY="40.0" style="-fx-font-size: 14px;" text="End Time" />
+            <Label fx:id="lblLocation" style="-fx-font-size: 14px;" text="Location">
             </Label>
             <!-- Action Buttons: Edit and Delete -->
             <HBox alignment="CENTER_LEFT">
