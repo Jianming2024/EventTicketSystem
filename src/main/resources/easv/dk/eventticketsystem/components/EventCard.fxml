@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+<?import javafx.geometry.Insets?>
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="easv.dk.eventticketsystem.gui.controllers.EventCardController"
+            prefHeight="200.0" prefWidth="250.0"
+            style="-fx-background-color: white; -fx-background-radius: 10; -fx-padding: 10;" styleClass="userCard">
+
+    <children>
+        <!-- Avatar -->
+        <ImageView fx:id="avatar" fitHeight="109.0" fitWidth="109.0" layoutX="26.0" layoutY="52.0" preserveRatio="true">
+
+            <image>
+                <Image url="@../../../../../../../UserImg/admin.jpg" />
+            </image>
+        </ImageView>
+        <VBox alignment="CENTER_LEFT" layoutX="135.0" layoutY="56.0" prefHeight="89.0" prefWidth="109.0" spacing="5.0">
+            <!-- User Info -->
+            <Label fx:id="lblUserName" style="-fx-font-size: 16px; -fx-font-weight: bold;" text="Peter Kay" />
+            <Label fx:id="lblUserEmail" style="-fx-font-size: 14px;" text="email" />
+            <Label fx:id="lblUserPhone" layoutX="10.0" layoutY="40.0" style="-fx-font-size: 14px;" text="phone" />
+            <Label fx:id="lblRole" style="-fx-font-size: 14px;" text="Role">
+            </Label>
+            <!-- Action Buttons: Edit and Delete -->
+            <HBox alignment="CENTER_LEFT">
+                <Button onAction="#onEditClick" style="-fx-background-color: transparent;" styleClass="editBtn" stylesheets="@../views/Style.css">
+                    <graphic>
+                        <FontIcon iconColor="#009640" iconLiteral="bi-pencil-fill" iconSize="18" />
+                    </graphic>
+                </Button>
+                <!-- Delete button with trash icon -->
+                <Button onAction="#onDeleteClick" style="-fx-background-color: transparent;" styleClass="deleteBtn" stylesheets="@../views/Style.css">
+                    <graphic>
+                        <FontIcon iconColor="#c00d0d" iconLiteral="bi-trash-fill" iconSize="18" />
+                    </graphic>
+                </Button>
+                <padding>
+                    <Insets left="-8.0" />
+                </padding>
+            </HBox>
+        </VBox>
+    </children>
+</AnchorPane>
