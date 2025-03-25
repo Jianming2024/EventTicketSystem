@@ -107,5 +107,6 @@ public class SidebarController implements Initializable {
     }
 
     public void onManageCustomersClick(ActionEvent actionEvent) {
+
     }
 }

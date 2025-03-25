@@ -5,10 +5,8 @@
 <?import javafx.scene.chart.LineChart?>
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
 <BorderPane fx:id="dashboardPane" prefHeight="700" prefWidth="1200" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="easv.dk.eventticketsystem.gui.controllers.DashboardController">
@@ -18,25 +16,13 @@
     </left>
     <!-- Center region: contains the top bar and the main content -->
     <center>
-        <VBox spacing="10">
+        <VBox spacing="10.0">
             <!-- Toolbar starts -->
-            <HBox alignment="CENTER_LEFT" prefHeight="49.0" prefWidth="1000.0" spacing="20" style="-fx-padding: 10; -fx-background-color: #ffffff; -fx-border-color: #e0e0e0;">
-                <TextField prefHeight="26.0" prefWidth="422.0" promptText="Search...">
-               <HBox.margin>
-                  <Insets left="20.0" />
-               </HBox.margin></TextField>
-                    <Pane prefHeight="26.0" prefWidth="426.0" HBox.hgrow="ALWAYS">
-               <children>
-                      <Label fx:id="userId" layoutX="376.0" layoutY="6.0" text="Hello! Admin" />
-               </children></Pane>
-                <VBox.margin>
-                   <Insets />
-                </VBox.margin>
-            </HBox>
+            <fx:include source="components/Toolbar.fxml" />
             <!-- Main Content: Summary cards, charts, etc. -->
-            <VBox fx:id="centerContent" alignment="TOP_CENTER" spacing="20" style="-fx-padding: 10;">
+            <VBox fx:id="centerContent" alignment="TOP_CENTER" prefHeight="1014.0" prefWidth="1000.0" style="-fx-padding: 10;">
                 <!-- 1) Summary Cards -->
-                <HBox fx:id="summaryCards" alignment="CENTER" spacing="20">
+                <HBox fx:id="summaryCards" alignment="CENTER" prefHeight="258.0" prefWidth="980.0" spacing="20.0">
                     <VBox prefHeight="113.0" prefWidth="150.0" style="-fx-background-color: #fbbc28; -fx-background-radius: 5; -fx-padding: 10;" styleClass="card" stylesheets="@views/Style.css">
                         <Label styleClass="card-title" stylesheets="@views/Style.css" text="Total Profit" />
                         <Label styleClass="card-value" text="12,500" />
@@ -50,10 +36,10 @@
                         <Label styleClass="card-value" text="2,549" />
                     </VBox>
                <VBox.margin>
-                  <Insets top="20.0" />
+                  <Insets />
                </VBox.margin>
                 </HBox>
-                <LineChart fx:id="salesChart" prefHeight="400.0" prefWidth="870.0" style="-fx-background-color: transparent;" stylesheets="@views/Style.css">
+                <LineChart fx:id="salesChart" prefHeight="511.0" prefWidth="900.0" style="-fx-background-color: transparent;" stylesheets="@views/Style.css">
                     <xAxis>
                         <CategoryAxis label="Months" />
                     </xAxis>

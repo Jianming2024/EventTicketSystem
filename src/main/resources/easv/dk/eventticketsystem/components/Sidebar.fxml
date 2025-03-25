@@ -9,7 +9,6 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
-<?import org.kordamp.ikonli.javafx.StackedFontIcon?>
 
 <VBox alignment="TOP_CENTER" opacity="0.91" prefHeight="700.0" prefWidth="230.0" spacing="20" style="-fx-background-color: #222; -fx-padding: 15;" styleClass="sidebar" stylesheets="@../views/Style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="easv.dk.eventticketsystem.gui.controllers.SidebarController">
    <ImageView fitHeight="47.0" fitWidth="184.0" pickOnBounds="true" preserveRatio="true">
@@ -17,7 +16,7 @@
          <Image url="@../views/images/EASYDVEST_negativ_lille.png" />
       </image>
       <VBox.margin>
-         <Insets bottom="20.0" top="10.0" />
+         <Insets bottom="20.0" top="20.0" />
       </VBox.margin>
    </ImageView>
 
@@ -59,12 +58,12 @@
     <Button fx:id="btnManageTickets" onAction="#onManageTicketsClick" prefHeight="40.0" prefWidth="200.0" style="-fx-alignment: center-left;" styleClass="mainBtn" stylesheets="@../views/Style.css">
         <graphic>
             <HBox spacing="10">
-                <ImageView fitWidth="20" fitHeight="20" preserveRatio="true">
+                <ImageView fitHeight="20" fitWidth="20" preserveRatio="true">
                     <image>
                         <Image url="@../views/images/ticket.png" />
                     </image>
                 </ImageView>
-                <Label text="Tickets" textFill="WHITE"/>
+                <Label text="Tickets" textFill="WHITE" />
             </HBox>
         </graphic>
     </Button>
@@ -105,7 +104,7 @@
             </HBox>
         </graphic>
       <VBox.margin>
-         <Insets bottom="10.0" />
+         <Insets bottom="20.0" />
       </VBox.margin>
     </Button>
 </VBox>
