@@ -7,5 +7,6 @@ public class EventCardController {
     }
 
     public void onDeleteClick(ActionEvent actionEvent) {
+
     }
 }
