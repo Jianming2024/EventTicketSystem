@@ -19,7 +19,7 @@
                  <Circle centerX="40" centerY="40" radius="40" />
              </clip>
          <image>
-            <Image url="@../../../../../../../UserImg/admin.jpg" />
+            <Image url="@../../../../userImg/admin.jpg" />
          </image>
          </ImageView>
         <VBox alignment="CENTER_LEFT" layoutX="135.0" layoutY="56.0" prefHeight="89.0" prefWidth="109.0" spacing="5.0">
