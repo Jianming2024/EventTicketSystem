@@ -31,7 +31,7 @@
                  </columns>
              </TableView>
             <!-- Action Buttons using Icons -->
-            <HBox alignment="CENTER_LEFT" prefWidth="437.0" spacing="10.0">
+            <HBox alignment="CENTER_LEFT" prefWidth="437.0" spacing="2.0">
                 <!-- Print Order Button -->
                 <Button fx:id="printOrderButton" prefWidth="6.0" style="-fx-background-color: transparent;">
                     <graphic>
@@ -52,7 +52,7 @@
                 <!-- View Order Button -->
                 <Button fx:id="viewOrderButton" style="-fx-background-color: transparent;">
                     <graphic>
-                        <FontIcon iconColor="#009FDA" iconLiteral="bi-eye-fill" iconSize="20" />
+                        <FontIcon iconColor="#ffbc3d" iconLiteral="bi-eye-fill" iconSize="20" />
                     </graphic>
                     <HBox.margin>
                         <Insets />
