@@ -49,6 +49,15 @@
                 </Button>
                 <!-- Spacer that grows and pushes remaining buttons to the right -->
                 <Region HBox.hgrow="ALWAYS" />
+                <!-- View Order Button -->
+                <Button fx:id="viewOrderButton" style="-fx-background-color: transparent;">
+                    <graphic>
+                        <FontIcon iconColor="#009FDA" iconLiteral="bi-eye-fill" iconSize="20" />
+                    </graphic>
+                    <HBox.margin>
+                        <Insets />
+                    </HBox.margin>
+                </Button>
                 <!-- Edit Order Button -->
                 <Button fx:id="editOrderButton" style="-fx-background-color: transparent;">
                     <graphic>
