@@ -34,6 +34,7 @@ public class OrderCardController {
     private TicketOnOrder baseTicket;
     @FXML
     public void initialize() {
+        System.out.println("✅ OrderCardController initialized: " + this);
 
         ticketsTable.setRowFactory(tv -> {
             TableRow<TicketOnOrder> row = new TableRow<>();
@@ -48,8 +49,10 @@ public class OrderCardController {
     }
 
     public void setData(TicketOnOrder baseTicket, List<TicketOnOrder> allTickets) {
+        System.out.println("✅ setData called on OrderCardController - Order #" + baseTicket.getOrderId());
         this.baseTicket = baseTicket;
         this.ticketList = allTickets;
+        System.out.println("Tickets for order #" + baseTicket.getOrderId() + ": " + allTickets.size());
 
         lblOrderNumber.setText("Order #" + baseTicket.getOrderId());
         lblCustomerName.setText("Customer: "+ baseTicket.getCustomerName());
@@ -82,6 +85,9 @@ public class OrderCardController {
         actionColumn.prefWidthProperty().bind(ticketsTable.widthProperty().multiply(0.5));
         ticketTypeColumn.prefWidthProperty().bind(ticketsTable.widthProperty().multiply(0.3));
         quantityColumn.prefWidthProperty().bind(ticketsTable.widthProperty().multiply(0.2));
+        ticketsTable.getItems().forEach(ticket -> {
+            System.out.println("Ticket for Order #" + ticket.getOrderId() + " - " + ticket.getEventName());
+        });
 
     }
     public void setDataPlaceholder() {

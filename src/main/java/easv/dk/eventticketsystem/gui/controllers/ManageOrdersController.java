@@ -69,14 +69,6 @@ public class ManageOrdersController implements Initializable {
     }
 
     public void displayOrders() {
-//        lstTicketOnOrder.setItems(eventTicketSystemModel.getAllOrderDetails());
-//        colOrderId.setCellValueFactory(new PropertyValueFactory<>("orderId"));
-//        colCustomerName.setCellValueFactory(new PropertyValueFactory<>("customerName"));
-//        colCustomerEmail.setCellValueFactory(new PropertyValueFactory<>("customerEmail"));
-//        colEventName.setCellValueFactory(new PropertyValueFactory<>("eventName"));
-//        colTicketId.setCellValueFactory(new PropertyValueFactory<>("ticketId"));
-//        colTicketType.setCellValueFactory(new PropertyValueFactory<>("ticketType"));
-//        colCode.setCellValueFactory(new PropertyValueFactory<>("code"));
         orderCardContainer.getChildren().clear();
         List<TicketOnOrder> tickets = eventTicketSystemModel.getAllOrderDetails();
 
@@ -85,20 +77,29 @@ public class ManageOrdersController implements Initializable {
             int orderId = ticket.getOrderId();
             groupedOrders.computeIfAbsent(orderId, k -> new ArrayList<>()).add(ticket);
         }
+
         for (Map.Entry<Integer, List<TicketOnOrder>> entry : groupedOrders.entrySet()) {
             List<TicketOnOrder> ticketList = entry.getValue();
             TicketOnOrder baseTicket = ticketList.get(0); // Use first as base for name/email
+            System.out.println("📦 Creating card for Order #" + baseTicket.getOrderId() + ", total tickets: " + ticketList.size());
 
             try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/easv/dk/eventticketsystem/components/OrderCard.fxml"));
+                URL fxmlPath = getClass().getResource("/easv/dk/eventticketsystem/components/OrderCard.fxml");
+                System.out.println("📄 Loading OrderCard.fxml from: " + fxmlPath);
+
+                FXMLLoader loader = new FXMLLoader(fxmlPath);
                 Parent card = loader.load();
 
                 OrderCardController controller = loader.getController();
+                System.out.println("👀 Loaded controller: " + controller);
+
                 controller.setData(baseTicket, ticketList);
+                System.out.println("✅ Finished setData() for Order #" + baseTicket.getOrderId());
 
                 orderCardContainer.getChildren().add(card);
 
             } catch (IOException e) {
+                System.err.println("❌ Error loading OrderCard.fxml for Order #" + baseTicket.getOrderId());
                 e.printStackTrace();
             }
         }
