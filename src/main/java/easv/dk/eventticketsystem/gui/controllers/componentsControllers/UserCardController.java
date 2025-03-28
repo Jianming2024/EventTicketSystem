@@ -53,9 +53,11 @@ public class UserCardController {
         }
     }
 
-    public void onEditClick(ActionEvent actionEvent) {
+    public void onClickEditUser(ActionEvent actionEvent) {
+        System.out.println("Edit clicked for user: ");
     }
 
-    public void onDeleteClick(ActionEvent actionEvent) {
+    public void onClickDeleteUser(ActionEvent actionEvent) {
+        System.out.println("Delete clicked for user: ");
     }
 }

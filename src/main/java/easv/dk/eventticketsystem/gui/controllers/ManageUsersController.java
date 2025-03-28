@@ -1,5 +1,6 @@
 package easv.dk.eventticketsystem.gui.controllers;
 
+import easv.dk.eventticketsystem.MainApplication;
 import easv.dk.eventticketsystem.be.Users;
 import easv.dk.eventticketsystem.gui.controllers.componentsControllers.UserCardController;
 import easv.dk.eventticketsystem.gui.model.EventTicketSystemModel;
@@ -7,9 +8,11 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
@@ -50,16 +53,14 @@ public class ManageUsersController implements Initializable {
         }
     }
 
-    private void onEditClicked(Users user) {
-        System.out.println("Edit clicked for user: " + user);
+    public void onClickCreateNewUser(ActionEvent actionEvent) throws IOException {
+        System.out.println("Create clicked for user: ");
+        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("/easv/dk/eventticketsystem/CreateNewUserView.fxml"));
+        Scene scene = new Scene(fxmlLoader.load());
+        Stage loginStage = new Stage();
+        loginStage.setTitle("Create A New User");
+        loginStage.setScene(scene);
+        loginStage.show();
 
-    }
-
-    private void onDeleteClicked(Users user) {
-        System.out.println("Delete clicked for user: " + user);
-
-    }
-
-    public void onClickAddUser(ActionEvent actionEvent) {
     }
 }
