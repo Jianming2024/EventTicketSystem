@@ -18,7 +18,7 @@
     <left>
         <fx:include source="components/Sidebar.fxml" />
     </left>
-    <!-- Main content for managing events -->
+    <!-- Main content for managing event -->
     <center>
         <VBox prefWidth="1000.0" spacing="10">
             <!-- Top: Toolbar -->

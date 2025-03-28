@@ -25,11 +25,6 @@
     -fx-scale-x: 1.02;
     -fx-scale-y: 1.02;
 }
-/*.tableView {
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 10, 0, 4, 4);
-    -fx-background-radius: 10;
-    -fx-border-radius: 10;
-}*/
 
 .mainBtn {
     -fx-background-color: #222;

@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox spacing="20" style="-fx-padding: 20;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
+<VBox spacing="20" style="-fx-padding: 20;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="easv.dk.eventticketsystem.gui.controllers.CreateNewEventController">
    <children>
       <Label prefHeight="26.0" prefWidth="173.0" style="-fx-font-size: 20px; -fx-font-weight: bold;" text="Create New Event">
          <VBox.margin>

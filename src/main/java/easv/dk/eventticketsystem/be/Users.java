@@ -6,8 +6,6 @@ import java.io.IOException;
 import java.util.List;
 
 public class Users {
-
-
     private int userId;
     private String userName;
     private String userImagePath;

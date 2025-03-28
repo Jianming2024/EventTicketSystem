@@ -1,6 +1,7 @@
 package easv.dk.eventticketsystem.gui.controllers;
 
-import easv.dk.eventticketsystem.be.Events;
+import easv.dk.eventticketsystem.be.Event;
+import easv.dk.eventticketsystem.gui.controllers.componentsControllers.EventCard2Controller;
 import easv.dk.eventticketsystem.gui.controllers.componentsControllers.EventCardController;
 import easv.dk.eventticketsystem.gui.model.EventTicketSystemModel;
 import javafx.event.ActionEvent;
@@ -27,7 +28,7 @@ public class ManageEventsController2 implements Initializable {
         private BorderPane eventPane;
 
         private static final EventTicketSystemModel model = new EventTicketSystemModel();
-        private List<Events> eventsList;
+        private List<Event> eventList;
 
         @Override
         public void initialize(URL location, ResourceBundle resources) {
@@ -40,25 +41,25 @@ public class ManageEventsController2 implements Initializable {
 
         private void loadAllEvents() throws IOException {
             eventCardPane.getChildren().clear();
-            List<Events> eventsList = model.getAllEvents();
-            for (Events event : eventsList) {
+            List<Event> eventList = model.getAllEvents();
+            for (Event event : eventList) {
                 // Load the card component (EventCard.fxml) dynamically
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/easv/dk/eventticketsystem/components/EventCard3.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/easv/dk/eventticketsystem/components/EventCard2.fxml"));
                 AnchorPane card = loader.load();
                 // Get the controller of the card and pass the event data
-                EventCardController cardController = loader.getController();
+                EventCard2Controller cardController = loader.getController();
                 cardController.setEventData(event);
                 // Add the card to the FlowPane
                 eventCardPane.getChildren().add(card);
             }
         }
 
-        private void onEditClicked(Events event) {
+        private void onEditClicked(Event event) {
             System.out.println("Edit clicked for event: " + event);
 
         }
 
-        private void onDeleteClicked(Events event) {
+        private void onDeleteClicked(Event event) {
             System.out.println("Delete clicked for event: " + event);
 
         }

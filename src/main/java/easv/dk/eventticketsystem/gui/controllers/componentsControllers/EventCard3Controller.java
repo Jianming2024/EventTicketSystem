@@ -1,6 +1,6 @@
 package easv.dk.eventticketsystem.gui.controllers.componentsControllers;
 
-import easv.dk.eventticketsystem.be.Events;
+import easv.dk.eventticketsystem.be.Event;
 import easv.dk.eventticketsystem.gui.model.EventTicketSystemModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -44,7 +44,7 @@ public class EventCard3Controller implements Initializable {
 
     private static final EventTicketSystemModel model = new EventTicketSystemModel();
 
-    public void setEventData(Events event) {
+    public void setEventData(Event event) {
         lblEventName.setText(event.getEventName());
         lblStartTime.setText(event.getStartDatetime().toString());
         lblEndTime.setText(event.getEndDatetime().toString());
@@ -54,8 +54,8 @@ public class EventCard3Controller implements Initializable {
 
     private void loadAllEvents() throws IOException {
         eventCardPane.getChildren().clear();
-        List<Events> EventsList = model.getAllEvents();
-        for (Events event : EventsList) {
+        List<Event> eventList = model.getAllEvents();
+        for (Event event : eventList) {
             // Load the card component (EventCard3.fxml) dynamically
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/easv/dk/eventticketsystem/components/EventCard3.fxml"));
             AnchorPane card = loader.load();
