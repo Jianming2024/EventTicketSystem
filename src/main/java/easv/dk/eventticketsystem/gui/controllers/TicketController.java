@@ -3,11 +3,11 @@ package easv.dk.eventticketsystem.gui.controllers;
 
 import com.itextpdf.text.PageSize;
 import easv.dk.eventticketsystem.be.TicketOnOrder;
-import easv.dk.eventticketsystem.bll.UUIDGenerator;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 

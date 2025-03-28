@@ -1,14 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.Double?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.VBox?>
-
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.HBox?>
-<BorderPane prefHeight="700.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="easv.dk.eventticketsystem.gui.controllers.ManageEventsController">
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane prefHeight="700.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="easv.dk.eventticketsystem.gui.controllers.ManageEventsController">
     <!-- Left Sidebar -->
     <left>
         <fx:include source="components/Sidebar.fxml" />
@@ -20,10 +25,11 @@
             <fx:include source="components/Toolbar.fxml" />
             <!-- Container for the Create button aligned to right -->
             <HBox alignment="CENTER_RIGHT" prefHeight="34.0" prefWidth="1000.0">
-                <Button fx:id="btnCreateNewEvent" style="-fx-background-color: transparent; -fx-border-color: #009640; -fx-text-fill: #009640; -fx-border-radius: 5; -fx-background-radius: 5; -fx-padding: 5 15;" text="Create New User">
+                <Button fx:id="btnCreateNewEvent" style="-fx-background-color: transparent; -fx-border-color: #009640; -fx-text-fill: #009640; -fx-border-radius: 5; -fx-background-radius: 5; -fx-padding: 5 15;" text="+ Create New Event">
                     <HBox.margin>
                         <Insets right="80.0" />
-                    </HBox.margin></Button>
+                    </HBox.margin>
+            </Button>
                 <VBox.margin>
                     <Insets />
                 </VBox.margin>
@@ -33,6 +39,136 @@
                 <VBox.margin>
                     <Insets top="20.0" />
                 </VBox.margin>
+            <children>
+               <AnchorPane opacity="0.71" prefHeight="407.0" prefWidth="314.0" styleClass="box" stylesheets="@views/Event.CSS.css">
+                  <children>
+                     <AnchorPane layoutX="17.0" layoutY="182.0" prefHeight="130.0" prefWidth="280.0" styleClass="infoBox" stylesheets="@../../../../../../../EventSystem/src/main/resources/dk/haliimo/eventsystem/Style.css">
+                        <children>
+                           <Text fill="WHITE" layoutX="14.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Information about the event">
+                              <font>
+                                 <Font name="System Italic" size="15.0" />
+                              </font>
+                           </Text>
+                           <Button layoutX="187.0" layoutY="90.0" mnemonicParsing="false" style="-fx-background-color: grey;" text="Read More" textFill="WHITE">
+                              <font>
+                                 <Font name="System Bold" size="12.0" />
+                              </font>
+                           </Button>
+                        </children>
+                        <cursor>
+                           <Cursor fx:constant="NONE" />
+                        </cursor>
+                     </AnchorPane>
+                     <Text layoutX="25.0" layoutY="150.0" strokeType="OUTSIDE" strokeWidth="0.0" text="EASV Bar Birthday" wrappingWidth="223.59999999999997">
+                        <font>
+                           <Font name="Cambria Math" size="25.0" />
+                        </font>
+                     </Text>
+                     <Text layoutX="25.0" layoutY="171.0" strokeType="OUTSIDE" strokeWidth="0.0" text="25th of April 2025 EASV Bar">
+                        <font>
+                           <Font name="System Bold Italic" size="14.0" />
+                        </font>
+                     </Text>
+                     <Button layoutX="111.0" layoutY="337.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="35.0" styleClass="deleteEventBtn">
+                        <graphic>
+                           <ImageView fitHeight="18.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
+                              <image>
+                                 <Image url="@views/images/bin.png" />
+                              </image>
+                           </ImageView>
+                        </graphic>
+                     </Button>
+                     <Button layoutX="166.0" layoutY="337.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="35.0" styleClass="editEventBtn">
+                        <graphic>
+                           <ImageView fitHeight="18.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
+                              <image>
+                                 <Image url="@views/images/pencil.png" />
+                              </image>
+                           </ImageView>
+                        </graphic>
+                     </Button>
+                     <Button layoutX="1.0" layoutY="337.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="91.0" styleClass="createTicketBtn" text="Ticket Type">
+                        <font>
+                           <Font name="System Bold Italic" size="14.0" />
+                        </font>
+                     </Button>
+                     <Button layoutX="222.0" layoutY="337.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="91.0" styleClass="assignBtn" text="✓ Assign">
+                        <font>
+                           <Font name="System Bold Italic" size="15.0" />
+                        </font>
+                     </Button>
+                     <ImageView fitHeight="115.0" fitWidth="216.0" layoutX="47.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                           <Image url="@views/images/BarAnniversary.jpg" />
+                        </image>
+                     </ImageView>
+                  </children>
+               </AnchorPane>
+               <AnchorPane opacity="0.71" prefHeight="407.0" prefWidth="314.0" styleClass="box" stylesheets="@views/Event.CSS.css">
+                  <children>
+                     <AnchorPane layoutX="17.0" layoutY="182.0" prefHeight="130.0" prefWidth="280.0" styleClass="infoBox" stylesheets="@../../../../../../../EventSystem/src/main/resources/dk/haliimo/eventsystem/Style.css">
+                        <children>
+                           <Text fill="WHITE" layoutX="14.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Information about the event">
+                              <font>
+                                 <Font name="System Italic" size="15.0" />
+                              </font>
+                           </Text>
+                           <Button layoutX="187.0" layoutY="90.0" mnemonicParsing="false" style="-fx-background-color: grey;" text="Read More" textFill="WHITE">
+                              <font>
+                                 <Font name="System Bold" size="12.0" />
+                              </font>
+                           </Button>
+                        </children>
+                        <cursor>
+                           <Cursor fx:constant="NONE" />
+                        </cursor>
+                     </AnchorPane>
+                     <Text layoutX="25.0" layoutY="149.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Movie Night" wrappingWidth="156.59999999999997">
+                        <font>
+                           <Font name="Cambria Math" size="25.0" />
+                        </font>
+                     </Text>
+                     <Text layoutX="25.0" layoutY="171.0" strokeType="OUTSIDE" strokeWidth="0.0" text="30th of May 2025 EAVS Innovatorium">
+                        <font>
+                           <Font name="System Bold Italic" size="14.0" />
+                        </font>
+                     </Text>
+                     <Button layoutX="111.0" layoutY="337.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="35.0" styleClass="deleteEventBtn">
+                        <graphic>
+                           <ImageView fitHeight="18.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
+                              <image>
+                                 <Image url="@views/images/bin.png" />
+                              </image>
+                           </ImageView>
+                        </graphic>
+                     </Button>
+                     <Button layoutX="166.0" layoutY="337.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="35.0" styleClass="editEventBtn">
+                        <graphic>
+                           <ImageView fitHeight="18.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
+                              <image>
+                                 <Image url="@views/images/pencil.png" />
+                              </image>
+                           </ImageView>
+                        </graphic>
+                     </Button>
+                     <Button layoutX="1.0" layoutY="337.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="91.0" styleClass="createTicketBtn" text="Ticket Type">
+                        <font>
+                           <Font name="System Bold Italic" size="14.0" />
+                        </font>
+                     </Button>
+                     <Button layoutX="222.0" layoutY="337.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="91.0" styleClass="assignBtn" text="✓ Assign">
+                        <font>
+                           <Font name="System Bold" size="15.0" />
+                        </font>
+                     </Button>
+                     <ImageView fitHeight="117.0" fitWidth="266.0" layoutX="39.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                           <Image url="@views/images/MovieNight.jpg" />
+                        </image>
+                     </ImageView>
+                  </children>
+               </AnchorPane>
+            </children>
             </FlowPane>
         </VBox>
     </center>
