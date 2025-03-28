@@ -2,57 +2,37 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-<?import org.kordamp.ikonli.javafx.FontIcon?>
 
-<?import javafx.scene.control.ScrollPane?>
-<BorderPane prefHeight="700.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="easv.dk.eventticketsystem.gui.controllers.ManageOrdersController">
+<BorderPane fx:id="ordersPane" prefHeight="700.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="easv.dk.eventticketsystem.gui.controllers.ManageOrdersController">
     <!-- Left Sidebar -->
     <left>
         <fx:include source="components/Sidebar.fxml" />
     </left>
-
-    <!-- Main content for managing orders -->
     <center>
-        <VBox spacing="10">
-            <!--        <TableView fx:id="lstTicketOnOrder" layoutX="20.0" layoutY="50.0" prefHeight="487.0" prefWidth="890.0">-->
-            <!--            <columns>-->
-            <!--                <TableColumn fx:id="colOrderId" prefWidth="93" text="Order ID" />-->
-            <!--                <TableColumn fx:id="colCustomerName" prefWidth="131" text="Customer Name" />-->
-            <!--               <TableColumn fx:id="colCustomerEmail" prefWidth="131" text="Customer Email" />-->
-            <!--                <TableColumn fx:id="colEventName" prefWidth="120.0" text="Event" />-->
-            <!--                &lt;!&ndash; Print Ticket Column &ndash;&gt;-->
-            <!--                <TableColumn fx:id="colTicketId" prefWidth="112" text="Ticket ID" />-->
-            <!--                <TableColumn fx:id="colTicketType" prefWidth="112" text="Ticket type" />-->
-            <!--               <TableColumn fx:id="colCode" prefWidth="112" text="Code" />-->
-            <!--            </columns>-->
-            <!--            <VBox.margin>-->
-            <!--                <Insets left="40.0" right="40.0" top="40.0" />-->
-            <!--            </VBox.margin>-->
-            <!--        </TableView>-->
-            <ScrollPane fx:id="scrollPane" fitToWidth="true" style="-fx-background-color:transparent;">
-                <VBox fx:id="orderCardContainer" spacing="15" style="-fx-padding: 10;"/>
-            </ScrollPane>
-            <HBox alignment="CENTER_RIGHT" style="-fx-padding: 0 20 10 0;">
-                <Button fx:id="btnAddOrder" text="+ Add Order"
-                        onAction="#onAddOrderClick"
-                        styleClass="mainBtn"/>
-            </HBox>
-
-            <HBox alignment="CENTER">
-                <Button fx:id="btnPrintTickets" onMouseClicked="#onPrintTicketClick" prefHeight="40.0" prefWidth="140.0" styleClass="mainBtn" stylesheets="@views/Style.css" text="Print Ticket">
-                    <graphic>
-                        <FontIcon iconColor="WHITE" iconLiteral="bi-printer-fill" iconSize="20" />
-                    </graphic>
+        <VBox prefWidth="1000.0" spacing="10">
+            <!-- Top: Toolbar -->
+            <fx:include source="components/Toolbar.fxml" />
+            <!-- Container for the Create button aligned to right -->
+            <HBox alignment="CENTER_RIGHT" prefHeight="34.0" prefWidth="1000.0">
+                <Button fx:id="btnCreateNewOrder" onAction="#onClickAddOrder" style="-fx-background-color: transparent; -fx-border-color: #009640; -fx-text-fill: #009640; -fx-border-radius: 5; -fx-background-radius: 5; -fx-padding: 5 15;" text="Create New Order">
                     <HBox.margin>
-                        <Insets top="20.0" />
-                    </HBox.margin>
-                </Button>
+                        <Insets right="80.0" />
+                    </HBox.margin></Button>
+                <VBox.margin>
+                    <Insets bottom="10.0" top="15.0" />
+                </VBox.margin>
             </HBox>
+            <ScrollPane prefHeight="936.0" prefWidth="1000.0">
+                <content>
+                    <!-- FlowPane for user cards -->
+                    <FlowPane fx:id="orderCardContainer" alignment="TOP_CENTER" hgap="20.0" prefHeight="934.0" prefWidth="1000.0" vgap="20.0" />
+                </content>
+            </ScrollPane>
         </VBox>
     </center>
 </BorderPane>

@@ -15,6 +15,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -24,8 +26,9 @@ import java.util.*;
 
 public class ManageOrdersController implements Initializable {
 
+    public BorderPane ordersPane;
     @FXML
-    private VBox orderCardContainer;
+    private FlowPane orderCardContainer;
     @FXML
     private TableColumn<TicketOnOrder, String> colCustomerEmail;
     @FXML
@@ -52,7 +55,8 @@ public class ManageOrdersController implements Initializable {
 
 
     @FXML
-    private Button printTicketButton;
+    private Button btnCreateNewOrder;
+
 
     private final UUIDGenerator uuidGenerator = new UUIDGenerator();
 
@@ -100,7 +104,7 @@ public class ManageOrdersController implements Initializable {
         }
     }
     @FXML
-    private void onAddOrderClick() {
+    private void onClickAddOrder() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/easv/dk/eventticketsystem/components/OrderCard.fxml"));
             Parent card = loader.load();
@@ -168,5 +172,7 @@ public class ManageOrdersController implements Initializable {
         }
     }
 }
+
+
 
 
