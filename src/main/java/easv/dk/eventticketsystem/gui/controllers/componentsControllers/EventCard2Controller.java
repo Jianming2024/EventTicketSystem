@@ -38,4 +38,7 @@ public class EventCard2Controller {
 
     public void onClickDelete(ActionEvent actionEvent) {
     }
+
+    public void setDataPlaceholder() {
+    }
 }
