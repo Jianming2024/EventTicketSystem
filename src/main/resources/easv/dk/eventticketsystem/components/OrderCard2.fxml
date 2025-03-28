@@ -12,28 +12,28 @@
 <?import javafx.scene.text.Font?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
-<AnchorPane prefHeight="235.0" prefWidth="463.0" style="-fx-background-radius: 10; -fx-background-color: white;" styleClass="userCard" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="easv.dk.eventticketsystem.gui.controllers.OrderCard2">
+<AnchorPane prefHeight="215.0" prefWidth="463.0" style="-fx-background-radius: 10; -fx-background-color: white;" styleClass="userCard" stylesheets="@../views/Style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="easv.dk.eventticketsystem.gui.controllers.componentsControllers.OrderCardController2">
     <children>
-        <VBox alignment="CENTER_LEFT" layoutX="23.0" layoutY="10.0" prefHeight="215.0" prefWidth="417.0" spacing="10.0" styleClass="userCard" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="23.0" AnchorPane.rightAnchor="23.0" AnchorPane.topAnchor="10.0">
+        <VBox alignment="CENTER_LEFT" layoutX="23.0" layoutY="10.0" prefHeight="215.0" prefWidth="417.0" spacing="5.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="23.0" AnchorPane.rightAnchor="23.0" AnchorPane.topAnchor="10.0">
             <!-- Order Header -->
-            <Label style="-fx-font-size: 16px; -fx-font-weight: bold;" text="Order Number: #001" />
-             <Label text="Customer: John Doe" textFill="#009fda">
+            <Label fx:id="lblOrderNo" style="-fx-font-size: 16px; -fx-font-weight: bold;" text="Order Number: #001" />
+             <Label fx:id="lblCustomerName" text="Customer: John Doe" textFill="#009fda">
             <font>
                <Font name="System Bold" size="15.0" />
             </font>
          </Label>
              <!-- TableView for Ticket Breakdown -->
-             <TableView fx:id="ticketsTable" prefHeight="105.0" prefWidth="417.0" style="-fx-background-radius: 5;">
+             <TableView fx:id="ordersTable" prefHeight="105.0" prefWidth="417.0" style="-fx-background-radius: 5;">
                  <columns>
-                     <TableColumn fx:id="actionColumn" prefWidth="153.0" text="Event Name" />
-                     <TableColumn fx:id="ticketTypeColumn" prefWidth="154.0" text="Ticket Type" />
-                     <TableColumn fx:id="quantityColumn" prefWidth="109.0" text="Quantity" />
+                     <TableColumn fx:id="colEventName" prefWidth="153.0" text="Event Name" />
+                     <TableColumn fx:id="colEventType" prefWidth="154.0" text="Ticket Type" />
+                     <TableColumn fx:id="colTicketQty" prefWidth="109.0" text="Quantity" />
                  </columns>
              </TableView>
             <!-- Action Buttons using Icons -->
             <HBox alignment="CENTER_LEFT" prefWidth="437.0" spacing="2.0">
                 <!-- Print Order Button -->
-                <Button fx:id="printOrderButton" prefWidth="6.0" style="-fx-background-color: transparent;">
+                <Button fx:id="printOrderButton" onAction="#onClickPrint" prefWidth="6.0" style="-fx-background-color: transparent;">
                     <graphic>
                         <FontIcon iconColor="BLACK" iconLiteral="bi-printer-fill" iconSize="20" />
                     </graphic>
@@ -42,7 +42,7 @@
                </HBox.margin>
                 </Button>
                 <!-- Email Tickets Button -->
-                <Button fx:id="emailTicketsButton" style="-fx-background-color: transparent;">
+                <Button fx:id="emailTicketsButton" onAction="#onClickEmail" style="-fx-background-color: transparent;">
                     <graphic>
                         <FontIcon iconColor="BLACK" iconLiteral="bi-envelope-fill" iconSize="20" />
                     </graphic>
@@ -50,7 +50,7 @@
                 <!-- Spacer that grows and pushes remaining buttons to the right -->
                 <Region HBox.hgrow="ALWAYS" />
                 <!-- View Order Button -->
-                <Button fx:id="viewOrderButton" style="-fx-background-color: transparent;">
+                <Button fx:id="viewOrderButton" onAction="#onClickView" style="-fx-background-color: transparent;">
                     <graphic>
                         <FontIcon iconColor="#ffbc3d" iconLiteral="bi-eye-fill" iconSize="20" />
                     </graphic>
@@ -59,7 +59,7 @@
                     </HBox.margin>
                 </Button>
                 <!-- Edit Order Button -->
-                <Button fx:id="editOrderButton" style="-fx-background-color: transparent;">
+                <Button fx:id="editOrderButton" onAction="#onClickEdit" style="-fx-background-color: transparent;">
                     <graphic>
                         <FontIcon iconColor="#009640" iconLiteral="bi-pencil-fill" iconSize="20" />
                     </graphic>
@@ -68,7 +68,7 @@
                </HBox.margin>
                 </Button>
                 <!-- Delete Order Button -->
-                <Button fx:id="deleteOrderButton" style="-fx-background-color: transparent;">
+                <Button fx:id="deleteOrderButton" onAction="#onClickDelete" style="-fx-background-color: transparent;">
                     <graphic>
                         <FontIcon iconColor="#c00d0d" iconLiteral="bi-trash-fill" iconSize="20" />
                     </graphic>

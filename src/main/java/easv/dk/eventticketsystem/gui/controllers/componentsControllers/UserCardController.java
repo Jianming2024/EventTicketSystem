@@ -1,4 +1,4 @@
-package easv.dk.eventticketsystem.gui.controllers;
+package easv.dk.eventticketsystem.gui.controllers.componentsControllers;
 
 import easv.dk.eventticketsystem.be.Users;
 import javafx.event.ActionEvent;
@@ -8,7 +8,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
-import java.io.File;
 import java.io.InputStream;
 
 public class UserCardController {
@@ -28,29 +27,22 @@ public class UserCardController {
         lblUserEmail.setText(user.getUserEmail());
         lblRole.setText(user.getRole());
         lblUserPhone.setText(user.getUserPhone());
-        String imagePathFromDb = user.getUserImagePath();
-        // If the DB already contains the full absolute path, you don't need to adjust it.
-        // If not, we adjust the relative path by prepending the actual directory.
-        String adjustedPath = imagePathFromDb;
-        if (imagePathFromDb.startsWith("/userImg")) {
-            // Replace with your actual base directory
-            String baseDir = "/Users/janeyfan/Desktop/Projects/5th Ticket management system/EventTicketSystem/UserImg";
-            adjustedPath = baseDir + imagePathFromDb.substring("/userImg".length());
-        }
+        String imagePath = user.getUserImagePath(); // e.g., "/userImg/admin.jpg"
+        //System.out.println("DEBUG: Attempting to load image from resource: " + imagePath);
 
-        //System.out.println("DEBUG: Adjusted image path: " + adjustedPath);
-        File file = new File(adjustedPath);
-        if (file.exists()) {
-            avatar.setImage(new Image(file.toURI().toString()));
+        InputStream is = getClass().getResourceAsStream(imagePath);
+        if (is != null) {
+            avatar.setImage(new Image(is));
+            //System.out.println("DEBUG: Loaded image from resource: " + imagePath);
         } else {
-            System.err.println("DEBUG: File not found: " + adjustedPath);
-            // Load a placeholder image from resources (if available)
-            InputStream placeholderStream = getClass().getResourceAsStream("/easv/dk/eventticketsystem/views/images/placeholder.png");
+            System.err.println("DEBUG: Resource not found: " + imagePath);
+            // Optionally load a placeholder image if database no work
+            /*InputStream placeholderStream = getClass().getResourceAsStream("/userImg/placeholder.png");
             if (placeholderStream != null) {
                 avatar.setImage(new Image(placeholderStream));
             } else {
                 avatar.setImage(null);
-            }
+            }*/
         }
     }
 

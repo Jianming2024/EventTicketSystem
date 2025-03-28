@@ -8,7 +8,7 @@
 <AnchorPane fx:id="root" prefWidth="400" prefHeight="180"
             xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="easv.dk.eventticketsystem.gui.controllers.OrderCardController"
+            fx:controller="easv.dk.eventticketsystem.gui.controllers.componentsControllers.OrderCardController"
             style="-fx-background-color: #f4f4f4; -fx-border-color: #cccccc; -fx-border-radius: 10; -fx-background-radius: 10; -fx-padding: 10;">
 
     <VBox spacing="8" AnchorPane.topAnchor="10" AnchorPane.leftAnchor="10" AnchorPane.rightAnchor="10" AnchorPane.bottomAnchor="10">

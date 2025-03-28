@@ -13,10 +13,6 @@ public class TicketOnOrder {
     private String location;
     private String price;
 
-
-
-
-
     public TicketOnOrder(int orderId, String customerName, String customerEmail, String eventName, int ticketId, String ticketType, String code,String eventDate, String eventTime, String location, String price) {
         this.orderId = orderId;
         this.customerName = customerName;
@@ -66,7 +62,6 @@ public class TicketOnOrder {
         return eventTime;
     }
 
-
     public String getLocation() {
         return location;
     }
@@ -74,7 +69,6 @@ public class TicketOnOrder {
     public String getPrice() {
         return price;
     }
-
 
     @Override
     public String toString() {
