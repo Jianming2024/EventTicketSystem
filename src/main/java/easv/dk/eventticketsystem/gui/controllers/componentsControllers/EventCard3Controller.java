@@ -17,16 +17,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 
-public class EventCard3Controller implements Initializable {
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        try {
-            loadAllEvents();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
+public class EventCard3Controller {
     @FXML
     private Label lblEventName;
     @FXML
@@ -42,7 +33,6 @@ public class EventCard3Controller implements Initializable {
     @FXML
     private FlowPane eventCardPane;
 
-    private static final EventTicketSystemModel model = new EventTicketSystemModel();
 
     public void setEventData(Events event) {
         lblEventName.setText(event.getEventName());
@@ -51,22 +41,6 @@ public class EventCard3Controller implements Initializable {
         lblLocation.setText(event.getLocation());
         lblExpand.setText(event.getNotes());
     }
-
-    private void loadAllEvents() throws IOException {
-        eventCardPane.getChildren().clear();
-        List<Events> EventsList = model.getAllEvents();
-        for (Events event : EventsList) {
-            // Load the card component (EventCard3.fxml) dynamically
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/easv/dk/eventticketsystem/components/EventCard3.fxml"));
-            AnchorPane card = loader.load();
-            // Get the controller of the card and pass the event data
-            EventCardController cardController = loader.getController();
-            cardController.setEventData(event);
-            // Add the card to the FlowPane
-            eventCardPane.getChildren().add(card);
-        }
-    }
-
 
 
     public void onEditClick(ActionEvent actionEvent) {
