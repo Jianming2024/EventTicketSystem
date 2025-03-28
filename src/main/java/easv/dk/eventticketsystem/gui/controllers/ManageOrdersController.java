@@ -3,6 +3,7 @@ package easv.dk.eventticketsystem.gui.controllers;
 import easv.dk.eventticketsystem.MainApplication;
 import easv.dk.eventticketsystem.be.TicketOnOrder;
 import easv.dk.eventticketsystem.bll.UUIDGenerator;
+import easv.dk.eventticketsystem.gui.controllers.componentsControllers.OrderCardController;
 import easv.dk.eventticketsystem.gui.model.EventTicketSystemModel;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;

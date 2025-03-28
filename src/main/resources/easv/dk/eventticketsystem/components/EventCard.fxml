@@ -10,14 +10,14 @@
 <?import javafx.scene.layout.VBox?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
-<AnchorPane prefHeight="350.0" prefWidth="310.0" style="-fx-background-color: white; -fx-background-radius: 10; -fx-padding: 10;" styleClass="userCard" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="easv.dk.eventticketsystem.gui.controllers.EventCardController">
+<AnchorPane prefHeight="350.0" prefWidth="310.0" style="-fx-background-color: white; -fx-background-radius: 10; -fx-padding: 10;" styleClass="userCard" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="easv.dk.eventticketsystem.gui.controllers.componentsControllers.EventCardController">
 
     <children>
         <!-- Avatar -->
         <ImageView fx:id="avatar" fitHeight="167.0" fitWidth="270.0" layoutX="20.0" layoutY="20.0" preserveRatio="true">
 
             <image>
-                <Image url="@../../../../../../../EventImg/newYearParty.jpg" />
+                <Image url="@../../../../eventImg/newYearParty.jpg" />
             </image>
         </ImageView>
         <VBox alignment="CENTER_LEFT" layoutX="20.0" layoutY="178.0" prefHeight="152.0" prefWidth="270.0" spacing="5.0">

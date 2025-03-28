@@ -19,6 +19,25 @@ public class TicketOnOrderDAODB implements ITicketOnOrderDAO {
     public List<TicketOnOrder> getAllOrderDetails() {
         List<TicketOnOrder> orderDetails = new ArrayList<>();
         String sql = """
+                SELECT
+                 o.order_id,
+                 c.customer_name,
+                 c.customer_email,
+                 e.event_name,
+                 e.start_datetime,
+                 e.location,
+                 e.price,
+                 t.ticket_id AS ticket_id,
+                 tt.type_name AS ticket_type,
+                 t.unique_code AS code
+             FROM Orders o
+             JOIN Customer c ON o.customer_id = c.customer_id
+             JOIN Event e ON o.event_id = e.event_id
+             JOIN Ticket t ON t.order_id = o.order_id
+             JOIN Ticket_Type tt ON tt.ticket_type_id = t.ticket_type_id
+             ORDER BY o.order_id DESC               
+                """;
+        /*String sql = """
             SELECT
             o.order_id,
             c.customer_name,
@@ -36,7 +55,7 @@ public class TicketOnOrderDAODB implements ITicketOnOrderDAO {
            JOIN Ticket t ON t.order_id = o.order_id
            JOIN Ticket_Type tt ON tt.ticket_type_id = t.ticket_type_id
            ORDER BY o.order_id DESC
-            """;
+           """;*/
         try (Connection connection = con.getConnection();
              PreparedStatement ps = connection.prepareStatement(sql)) {
             ResultSet rs = ps.executeQuery();

@@ -11,7 +11,7 @@
 <?import javafx.scene.shape.Circle?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
-<AnchorPane fx:id="rootPane" onMouseClicked="#handleDoubleClick" prefHeight="200.0" prefWidth="250.0" style="-fx-background-color: white; -fx-background-radius: 10; -fx-padding: 10;" styleClass="userCard" stylesheets="@../views/Style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="easv.dk.eventticketsystem.gui.controllers.UserCardController">
+<AnchorPane fx:id="rootPane" onMouseClicked="#handleDoubleClick" prefHeight="200.0" prefWidth="250.0" style="-fx-background-color: white; -fx-background-radius: 10; -fx-padding: 10;" styleClass="userCard" stylesheets="@../views/Style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="easv.dk.eventticketsystem.gui.controllers.componentsControllers.UserCardController">
     <children>
          <!-- Avatar -->
          <ImageView fx:id="avatar" fitHeight="109.0" fitWidth="109.0" layoutX="26.0" layoutY="52.0" preserveRatio="true">

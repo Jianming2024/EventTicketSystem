@@ -1,4 +1,4 @@
-package easv.dk.eventticketsystem.gui.controllers;
+package easv.dk.eventticketsystem.gui.controllers.componentsControllers;
 
 import easv.dk.eventticketsystem.be.Users;
 import javafx.event.ActionEvent;
@@ -8,7 +8,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
-import java.io.File;
 import java.io.InputStream;
 
 public class UserCardController {
@@ -37,7 +36,7 @@ public class UserCardController {
             //System.out.println("DEBUG: Loaded image from resource: " + imagePath);
         } else {
             System.err.println("DEBUG: Resource not found: " + imagePath);
-            // Optionally load a placeholder image if desired
+            // Optionally load a placeholder image if database no work
             /*InputStream placeholderStream = getClass().getResourceAsStream("/userImg/placeholder.png");
             if (placeholderStream != null) {
                 avatar.setImage(new Image(placeholderStream));
