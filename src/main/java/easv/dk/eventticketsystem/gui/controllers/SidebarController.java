@@ -37,7 +37,7 @@ public class SidebarController implements Initializable {
         Stage currentStage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
         currentStage.close();
 
-        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("ManageOrdersView2.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("ManageOrdersView.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         Stage loginStage = new Stage();
         loginStage.setTitle("Orders Management");
@@ -71,7 +71,7 @@ public class SidebarController implements Initializable {
     public void onManageEventsClick(ActionEvent actionEvent) throws IOException {
         Stage currentStage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
         currentStage.close();
-        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("ManageEventsView2.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("ManageEventsView.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         Stage loginStage = new Stage();
         loginStage.setTitle("Events Management");

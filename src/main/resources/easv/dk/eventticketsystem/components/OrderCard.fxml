@@ -1,31 +1,59 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.*?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
 
-<AnchorPane fx:id="root" prefWidth="400" prefHeight="180"
-            xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="easv.dk.eventticketsystem.gui.controllers.componentsControllers.OrderCardController"
-            style="-fx-background-color: #f4f4f4; -fx-border-color: #cccccc; -fx-border-radius: 10; -fx-background-radius: 10; -fx-padding: 10;">
+<AnchorPane maxWidth="400" minWidth="400" prefHeight="270" prefWidth="400"
+            style="-fx-background-radius: 10; -fx-background-color: white;"
+            styleClass="userCard"
+            xmlns="http://javafx.com/javafx/22"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="easv.dk.eventticketsystem.gui.controllers.componentsControllers.OrderCardController">
 
-    <VBox spacing="8" AnchorPane.topAnchor="10" AnchorPane.leftAnchor="10" AnchorPane.rightAnchor="10" AnchorPane.bottomAnchor="10">
-        <HBox spacing="10">
-            <Label fx:id="lblOrderNumber" text="Order #1" style="-fx-font-weight: bold; -fx-font-size: 16px;"/>
-            <Region HBox.hgrow="ALWAYS"/>
-            <Button fx:id="btnDelete" text="🗑" style="-fx-background-color: transparent; -fx-cursor: hand;" />
-        </HBox>
+    <children>
+        <VBox alignment="CENTER_LEFT" spacing="10"
+              AnchorPane.topAnchor="10" AnchorPane.bottomAnchor="10"
+              AnchorPane.leftAnchor="10" AnchorPane.rightAnchor="10">
 
-        <TextField fx:id="txtCustomerName" promptText="Customer name" />
-        <TextField fx:id="txtCustomerEmail" promptText="Email address" />
+            <!-- Header -->
+            <Label fx:id="lblOrderNumber" style="-fx-font-size: 16px; -fx-font-weight: bold;" text="Order #001"/>
+            <Label fx:id="lblCustomerName" text="Customer: John Doe" textFill="#009fda">
+                <font><Font name="System Bold" size="15.0" /></font>
+            </Label>
 
-        <HBox fx:id="ticketContainer" spacing="6">
-            <!-- Example ticket blocks -->
-            <!-- These will be added dynamically in the controller -->
-        </HBox>
+            <!-- TableView -->
+            <TableView fx:id="ticketsTable" prefWidth="373.0"
+                       prefHeight="120" maxHeight="120"
+                       fixedCellSize="30"
+                       style="-fx-focus-color: transparent; -fx-hbar-policy: never;">
+                <columns>
+                    <TableColumn fx:id="actionColumn" text="Event Name" />
+                    <TableColumn fx:id="ticketTypeColumn" text="Ticket Type" />
+                    <TableColumn fx:id="quantityColumn" text="Qty" />
+                </columns>
+            </TableView>
 
-        <Button fx:id="btnAddTicket" text="+ Add Ticket" style="-fx-background-color: #e0e0e0; -fx-cursor: hand; -fx-background-radius: 5; -fx-padding: 5 10;" />
-    </VBox>
+            <!-- Action Buttons -->
+            <HBox alignment="CENTER_LEFT" spacing="6">
+                <Button fx:id="printOrderButton" style="-fx-background-color: transparent;">
+                    <graphic><FontIcon iconColor="BLACK" iconLiteral="bi-printer-fill" iconSize="20"/></graphic>
+                </Button>
+                <Button fx:id="emailTicketsButton" style="-fx-background-color: transparent;">
+                    <graphic><FontIcon iconColor="BLACK" iconLiteral="bi-envelope-fill" iconSize="20"/></graphic>
+                </Button>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Button fx:id="viewOrderButton" style="-fx-background-color: transparent;">
+                    <graphic><FontIcon iconColor="#ffbc3d" iconLiteral="bi-eye-fill" iconSize="20"/></graphic>
+                </Button>
+                <Button fx:id="editOrderButton" style="-fx-background-color: transparent;">
+                    <graphic><FontIcon iconColor="#009640" iconLiteral="bi-pencil-fill" iconSize="20"/></graphic>
+                </Button>
+                <Button fx:id="deleteOrderButton" style="-fx-background-color: transparent;">
+                    <graphic><FontIcon iconColor="#c00d0d" iconLiteral="bi-trash-fill" iconSize="20"/></graphic>
+                </Button>
+            </HBox>
+        </VBox>
+    </children>
 </AnchorPane>

@@ -2,64 +2,101 @@ package easv.dk.eventticketsystem.gui.controllers.componentsControllers;
 
 import easv.dk.eventticketsystem.be.TicketOnOrder;
 import easv.dk.eventticketsystem.gui.controllers.TicketController;
+import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.control.Alert;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.util.List;
 
 public class OrderCardController {
 
-    @FXML
-    private Label lblOrderNumber;
+    @FXML private Label lblOrderNumber;
+    @FXML private Label lblCustomerName;
+
+    @FXML private TableView<TicketOnOrder> ticketsTable;
+    @FXML private TableColumn<TicketOnOrder, String> actionColumn;
+    @FXML private TableColumn<TicketOnOrder, String> ticketTypeColumn;
+    @FXML private TableColumn<TicketOnOrder, Integer> quantityColumn;
+
+    @FXML private Button printOrderButton;
+    @FXML private Button emailTicketsButton;
+    @FXML private Button viewOrderButton;
+    @FXML private Button editOrderButton;
+    @FXML private Button deleteOrderButton;
 
 
+    private List<TicketOnOrder> ticketList;
+    private TicketOnOrder baseTicket;
     @FXML
-    private HBox ticketContainer;
-    @FXML
-    private Button btnDelete;
-    @FXML
-    private Button btnAddTicket;
-    @FXML
-    private AnchorPane root;
+    public void initialize() {
+        System.out.println("✅ OrderCardController initialized: " + this);
 
-    @FXML private TextField txtCustomerName;
-    @FXML private TextField txtCustomerEmail;
-
-    private TicketOnOrder ticketData;
+        ticketsTable.setRowFactory(tv -> {
+            TableRow<TicketOnOrder> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                if (!row.isEmpty() && event.getClickCount() == 2) {
+                    TicketOnOrder clickedTicket = row.getItem();
+                    openTicket(clickedTicket);
+                }
+            });
+            return row;
+        });
+    }
 
     public void setData(TicketOnOrder baseTicket, List<TicketOnOrder> allTickets) {
-        this.ticketData = baseTicket;
+        System.out.println("✅ setData called on OrderCardController - Order #" + baseTicket.getOrderId());
+        this.baseTicket = baseTicket;
+        this.ticketList = allTickets;
+        System.out.println("Tickets for order #" + baseTicket.getOrderId() + ": " + allTickets.size());
+
         lblOrderNumber.setText("Order #" + baseTicket.getOrderId());
-        txtCustomerName.setText(baseTicket.getCustomerName());
-        txtCustomerEmail.setText(baseTicket.getCustomerEmail());
+        lblCustomerName.setText("Customer: "+ baseTicket.getCustomerName());
 
-        for (TicketOnOrder ticket : allTickets) {
-            addTicketLabel("T" + ticket.getTicketId(), ticket);
-        }
+        ticketsTable.getItems().setAll(allTickets);
+        configureTicketTableSizes();
+
+        actionColumn.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getEventName()));
+        ticketTypeColumn.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getTicketType()));
+        quantityColumn.setCellValueFactory(data -> new ReadOnlyObjectWrapper<>(1));
+
+
     }
+    //    //Method for Configuring the ticket table columns to automatically resize
+    // * proportionally based on the table's total width.
+    private void configureTicketTableSizes(){
 
-    private void addTicketLabel(String ticketLabelText, TicketOnOrder ticket) {
-        Label lbl = new Label(ticketLabelText);
-        lbl.getStyleClass().add("ticket-box");
+        ticketsTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+        ticketsTable.setFixedCellSize(30);
+        ticketsTable.setPrefHeight(30 * 3 + 28); // 3 visible rows + header
 
-        lbl.setOnMouseClicked(event -> {
-            System.out.println("Clicked " + ticketLabelText);
-            handlePrintTicket(ticket); // ✅ actually using the correct ticket
+        // Prevent extra invisible column from showing up
+        ticketsTable.getColumns().forEach(col -> {
+            col.setResizable(false);
+            col.setReorderable(false);
         });
 
-        ticketContainer.getChildren().add(lbl);
+        ticketsTable.setPlaceholder(new Label("")); // prevents weird layout shift when empty
+
+        actionColumn.prefWidthProperty().bind(ticketsTable.widthProperty().multiply(0.5));
+        ticketTypeColumn.prefWidthProperty().bind(ticketsTable.widthProperty().multiply(0.3));
+        quantityColumn.prefWidthProperty().bind(ticketsTable.widthProperty().multiply(0.2));
+        ticketsTable.getItems().forEach(ticket -> {
+            System.out.println("Ticket for Order #" + ticket.getOrderId() + " - " + ticket.getEventName());
+        });
+
+    }
+    public void setDataPlaceholder() {
+        lblOrderNumber.setText("New Order");
+        lblCustomerName.setText("Customer: ");
+        ticketsTable.getItems().clear();
     }
 
-    private void handlePrintTicket(TicketOnOrder ticket) {
+    private void openTicket(TicketOnOrder ticket) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/easv/dk/eventticketsystem/StandardTicket.fxml"));
             Parent root = loader.load();
@@ -78,31 +115,39 @@ public class OrderCardController {
         }
     }
 
-    public void setDataPlaceholder() {
-        lblOrderNumber.setText("New Order");
-        txtCustomerName.setPromptText("Customer name");
-        txtCustomerEmail.setPromptText("Email address");
-
-    }
     @FXML
     private void onDeleteClicked() {
-        // Basic feedback for now
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Delete Order");
         alert.setHeaderText(null);
-        alert.setContentText("Delete clicked for Order #" + ticketData.getOrderId());
+        alert.setContentText("Delete clicked for Order #" + baseTicket.getOrderId());
         alert.showAndWait();
-
-        // In the future: notify parent controller to remove this card from the list
     }
 
     @FXML
     private void onAddTicketClicked() {
-        // Future: open modal to add new ticket to this order
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Add Ticket");
         alert.setHeaderText(null);
-        alert.setContentText("Add Ticket clicked for Order #" + ticketData.getOrderId());
+        alert.setContentText("Add Ticket clicked for Order #" + baseTicket.getOrderId());
         alert.showAndWait();
+    }
+
+    @FXML
+    private void onPrintOrderClicked() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/easv/dk/eventticketsystem/StandardTicket.fxml"));
+            Parent root = loader.load();
+            TicketController ticketController = loader.getController();
+            String qrPath = "qr_codes/" + baseTicket.getCode() + ".png";
+            ticketController.setTicketData(baseTicket, qrPath);
+
+            Stage stage = new Stage();
+            stage.setTitle("Print Ticket");
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
