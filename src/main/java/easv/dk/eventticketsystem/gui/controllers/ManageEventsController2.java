@@ -20,50 +20,50 @@ import java.util.ResourceBundle;
 
 public class ManageEventsController2 implements Initializable {
 
-        @FXML
-        public Button btnCreateNewEvent;
-        @FXML
-        private FlowPane eventCardPane;
-        @FXML
-        private BorderPane eventPane;
+    @FXML
+    public Button btnCreateNewEvent;
+    @FXML
+    private FlowPane eventCardPane;
+    @FXML
+    private BorderPane eventPane;
 
-        private static final EventTicketSystemModel model = new EventTicketSystemModel();
-        private List<Event> eventList;
+    private static final EventTicketSystemModel model = new EventTicketSystemModel();
+    private List<Event> eventList;
 
-        @Override
-        public void initialize(URL location, ResourceBundle resources) {
-            try {
-                loadAllEvents();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        }
-
-        private void loadAllEvents() throws IOException {
-            eventCardPane.getChildren().clear();
-            List<Event> eventList = model.getAllEvents();
-            for (Event event : eventList) {
-                // Load the card component (EventCard.fxml) dynamically
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/easv/dk/eventticketsystem/components/EventCard2.fxml"));
-                AnchorPane card = loader.load();
-                // Get the controller of the card and pass the event data
-                EventCard2Controller cardController = loader.getController();
-                cardController.setEventData(event);
-                // Add the card to the FlowPane
-                eventCardPane.getChildren().add(card);
-            }
-        }
-
-        private void onEditClicked(Event event) {
-            System.out.println("Edit clicked for event: " + event);
-
-        }
-
-        private void onDeleteClicked(Event event) {
-            System.out.println("Delete clicked for event: " + event);
-
-        }
-
-        public void onClickAddEvent(ActionEvent actionEvent) {
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        try {
+            loadAllEvents();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
+
+    private void loadAllEvents() throws IOException {
+        eventCardPane.getChildren().clear();
+        List<Event> eventList = model.getAllEvents();
+        for (Event event : eventList) {
+            // Load the card component (EventCard.fxml) dynamically
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/easv/dk/eventticketsystem/components/EventCard2.fxml"));
+            AnchorPane card = loader.load();
+            // Get the controller of the card and pass the event data
+            EventCard2Controller cardController = loader.getController();
+            cardController.setEventData(event);
+            // Add the card to the FlowPane
+            eventCardPane.getChildren().add(card);
+        }
+    }
+
+    private void onEditClicked(Event event) {
+        System.out.println("Edit clicked for event: " + event);
+
+    }
+
+    private void onDeleteClicked(Event event) {
+        System.out.println("Delete clicked for event: " + event);
+
+    }
+
+    public void onClickAddEvent(ActionEvent actionEvent) {
+    }
+}
