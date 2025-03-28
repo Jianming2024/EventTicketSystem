@@ -42,7 +42,7 @@
                     <Insets top="20.0" />
                 </VBox.margin>
             <children>
-               <AnchorPane opacity="0.71" prefHeight="407.0" prefWidth="314.0" styleClass="box" stylesheets="@views/Event.CSS.css">
+               <AnchorPane opacity="0.71" prefHeight="407.0" prefWidth="314.0" styleClass="box" stylesheets="@views/Event.css">
                   <children>
                      <AnchorPane layoutX="17.0" layoutY="182.0" prefHeight="130.0" prefWidth="280.0" styleClass="infoBox" stylesheets="@../../../../../../../EventSystem/src/main/resources/dk/haliimo/eventsystem/Style.css">
                         <children>
@@ -113,7 +113,7 @@
                      </ImageView>
                   </children>
                </AnchorPane>
-               <AnchorPane opacity="0.71" prefHeight="407.0" prefWidth="314.0" styleClass="box" stylesheets="@views/Event.CSS.css">
+               <AnchorPane opacity="0.71" prefHeight="407.0" prefWidth="314.0" styleClass="box" stylesheets="@views/Event.css">
                   <children>
                      <AnchorPane layoutX="17.0" layoutY="182.0" prefHeight="130.0" prefWidth="280.0" styleClass="infoBox" stylesheets="@../../../../../../../EventSystem/src/main/resources/dk/haliimo/eventsystem/Style.css">
                         <children>
