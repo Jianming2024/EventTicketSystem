@@ -105,3 +105,30 @@
 .userCard {
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 5, 0.3, 0, 0);
 }
+
+.upload-box {
+    -fx-border-color: #666666;           /* Grey border color */
+    -fx-border-width: 2;
+    -fx-border-style: dashed;            /* Dashed border */
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-alignment: center;               /* Center the label */
+}
+
+.upload-box:hover {
+    -fx-background-color: #666666;       /* Slightly lighter on hover */
+    -fx-border-color: #888888;           /* Change border color on hover */
+    -fx-cursor: hand;
+}
+
+.upload-label {
+    -fx-text-fill: #cccccc;              /* Light text */
+    -fx-font-size: 14px;
+    -fx-alignment: center;
+}
+
+.btnCancel:hover {
+    -fx-background-color: #666666;
+    -fx-cursor: hand;
+}
+
