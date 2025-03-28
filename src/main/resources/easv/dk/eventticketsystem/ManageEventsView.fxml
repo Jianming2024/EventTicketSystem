@@ -71,7 +71,7 @@
                            <Font name="System Bold Italic" size="14.0" />
                         </font>
                      </Text>
-                     <Button layoutX="111.0" layoutY="337.0" mnemonicParsing="false" onAction="#onClickDeleteEvent" prefHeight="35.0" prefWidth="35.0" styleClass="deleteEventBtn">
+                     <Button fx:id="deleteBtn" layoutX="111.0" layoutY="337.0" mnemonicParsing="false" onAction="#onClickDeleteEvent" prefHeight="35.0" prefWidth="35.0" styleClass="deleteEventBtn">
                         <graphic>
                            <ImageView fitHeight="18.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
                               <image>
@@ -80,7 +80,7 @@
                            </ImageView>
                         </graphic>
                      </Button>
-                     <Button layoutX="166.0" layoutY="337.0" mnemonicParsing="false" onAction="#onClickEditEvent" prefHeight="35.0" prefWidth="35.0" styleClass="editEventBtn">
+                     <Button fx:id="editBtn" layoutX="166.0" layoutY="337.0" mnemonicParsing="false" onAction="#onClickEditEvent" prefHeight="35.0" prefWidth="35.0" styleClass="editEventBtn">
                         <graphic>
                            <ImageView fitHeight="18.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
                               <image>
@@ -142,7 +142,7 @@
                            <Font name="System Bold Italic" size="14.0" />
                         </font>
                      </Text>
-                     <Button layoutX="111.0" layoutY="337.0" mnemonicParsing="false" onAction="#onClickDeleteEvent" prefHeight="35.0" prefWidth="35.0" styleClass="deleteEventBtn">
+                     <Button fx:id="deleteEventBtn" layoutX="111.0" layoutY="337.0" mnemonicParsing="false" onAction="#onClickDeleteEvent" prefHeight="35.0" prefWidth="35.0" styleClass="deleteEventBtn">
                         <graphic>
                            <ImageView fitHeight="18.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
                               <image>
