@@ -19,23 +19,23 @@ public class TicketOnOrderDAODB implements ITicketOnOrderDAO {
     public List<TicketOnOrder> getAllOrderDetails() {
         List<TicketOnOrder> orderDetails = new ArrayList<>();
         String sql = """
-                SELECT
-                 o.order_id,
-                 c.customer_name,
-                 c.customer_email,
-                 e.event_name,
-                 e.start_datetime,
-                 e.location,
-                 e.price,
-                 t.ticket_id AS ticket_id,
-                 tt.type_name AS ticket_type,
-                 t.unique_code AS code
-             FROM Orders o
-             JOIN Customer c ON o.customer_id = c.customer_id
-             JOIN Event e ON o.event_id = e.event_id
-             JOIN Ticket t ON t.order_id = o.order_id
-             JOIN Ticket_Type tt ON tt.ticket_type_id = t.ticket_type_id
-             ORDER BY o.order_id DESC               
+                   SELECT
+                    o.order_id,
+                    c.customer_name,
+                    c.customer_email,
+                    e.event_name,
+                    e.start_datetime,
+                    e.location,
+                    e.price,
+                    t.ticket_id AS ticket_id,
+                    tt.type_name AS ticket_type,
+                    t.unique_code AS code
+                FROM Orders o
+                JOIN Customer c ON o.customer_id = c.customer_id
+                          JOIN Ticket t ON t.order_id = o.order_id
+                          JOIN Event e ON t.event_id = e.event_id
+                JOIN Ticket_Type tt ON tt.ticket_type_id = t.ticket_type_id
+                ORDER BY o.order_id DESC               
                 """;
         /*String sql = """
             SELECT
@@ -60,13 +60,13 @@ public class TicketOnOrderDAODB implements ITicketOnOrderDAO {
              PreparedStatement ps = connection.prepareStatement(sql)) {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                int orderId         = rs.getInt("order_id");
+                int orderId = rs.getInt("order_id");
                 String customerName = rs.getString("customer_name");
-                String customerEmail= rs.getString("customer_email");
-                String eventName    = rs.getString("event_name");
-                int ticketId        = rs.getInt("ticket_id");
-                String ticketType   = rs.getString("ticket_type");
-                String code         = rs.getString("code");
+                String customerEmail = rs.getString("customer_email");
+                String eventName = rs.getString("event_name");
+                int ticketId = rs.getInt("ticket_id");
+                String ticketType = rs.getString("ticket_type");
+                String code = rs.getString("code");
                 String startDateTime = rs.getString("start_datetime");
                 String location = rs.getString("location");
                 String price = rs.getString("price");
@@ -80,7 +80,7 @@ public class TicketOnOrderDAODB implements ITicketOnOrderDAO {
                 String eventTime = dateTime.toLocalTime().format(DateTimeFormatter.ofPattern("HH:mm"));
 
 
-                TicketOnOrder too = new TicketOnOrder(orderId, customerName, customerEmail, eventName,ticketId, ticketType, code,eventDate,eventTime,location,price);
+                TicketOnOrder too = new TicketOnOrder(orderId, customerName, customerEmail, eventName, ticketId, ticketType, code, eventDate, eventTime, location, price);
                 orderDetails.add(too);
             }
         } catch (SQLException e) {
