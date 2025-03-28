@@ -8,29 +8,46 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane fx:id="ordersPane" prefHeight="700.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="easv.dk.eventticketsystem.gui.controllers.ManageOrdersController">
-    <!-- Left Sidebar -->
+<BorderPane fx:id="ordersPane" prefHeight="700.0" prefWidth="1200.0"
+            xmlns="http://javafx.com/javafx/23.0.1"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="easv.dk.eventticketsystem.gui.controllers.ManageOrdersController">
+
+    <!-- Sidebar -->
     <left>
-        <fx:include source="components/Sidebar.fxml" />
+        <fx:include source="components/Sidebar.fxml"/>
     </left>
+
+    <!-- Center Content -->
     <center>
-        <VBox prefWidth="1000.0" spacing="10">
-            <!-- Top: Toolbar -->
-            <fx:include source="components/Toolbar.fxml" />
-            <!-- Container for the Create button aligned to right -->
-            <HBox alignment="CENTER_RIGHT" prefHeight="34.0" prefWidth="1000.0">
-                <Button fx:id="btnCreateNewOrder" onAction="#onClickAddOrder" style="-fx-background-color: transparent; -fx-border-color: #009640; -fx-text-fill: #009640; -fx-border-radius: 5; -fx-background-radius: 5; -fx-padding: 5 15;" text="Create New Order">
+        <VBox spacing="10.0" prefWidth="1000.0" VBox.vgrow="ALWAYS">
+
+            <!-- TOOLBAR (no margin wrappers) -->
+            <fx:include source="components/Toolbar.fxml"/>
+
+            <!-- CREATE BUTTON -->
+            <HBox alignment="CENTER_RIGHT">
+                <Button fx:id="btnCreateNewOrder" onAction="#onClickAddOrder"
+                        style="-fx-background-color: transparent; -fx-border-color: #009640; -fx-text-fill: #009640; -fx-border-radius: 5; -fx-background-radius: 5; -fx-padding: 5 15;"
+                        text="Create New Order">
                     <HBox.margin>
-                        <Insets right="80.0" />
-                    </HBox.margin></Button>
-                <VBox.margin>
-                    <Insets bottom="10.0" top="15.0" />
-                </VBox.margin>
+                        <Insets right="80.0"/>
+                    </HBox.margin>
+                </Button>
             </HBox>
-            <ScrollPane prefHeight="936.0" prefWidth="1000.0">
+
+            <!-- SCROLLABLE ORDER CARDS -->
+            <ScrollPane fitToWidth="true" hbarPolicy="NEVER" vbarPolicy="ALWAYS" VBox.vgrow="ALWAYS">
                 <content>
-                    <!-- FlowPane for user cards -->
-                    <FlowPane fx:id="orderCardContainer" alignment="TOP_CENTER" hgap="20.0" prefHeight="934.0" prefWidth="1000.0" vgap="20.0" />
+                    <FlowPane fx:id="orderCardContainer"
+                              hgap="20.0"
+                              vgap="20.0"
+                              alignment="TOP_LEFT"
+                              style="-fx-background-color: transparent;">
+                        <padding>
+                            <Insets top="10" right="10" bottom="10" left="10"/>
+                        </padding>
+                    </FlowPane>
                 </content>
             </ScrollPane>
         </VBox>

@@ -70,6 +70,12 @@ public class ManageOrdersController implements Initializable {
 
     public void displayOrders() {
         orderCardContainer.getChildren().clear();
+        // Dynamically adjust wrap length to match current width
+        orderCardContainer.setPrefWrapLength(orderCardContainer.getWidth());
+        orderCardContainer.widthProperty().addListener((obs, oldVal, newVal) -> {
+            orderCardContainer.setPrefWrapLength(newVal.doubleValue());
+        });
+
         List<TicketOnOrder> tickets = eventTicketSystemModel.getAllOrderDetails();
 
         Map<Integer, List<TicketOnOrder>> groupedOrders = new HashMap<>();
