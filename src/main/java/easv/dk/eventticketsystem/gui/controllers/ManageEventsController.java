@@ -7,21 +7,27 @@ import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.TableCell;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
+import javafx.scene.control.Button;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 
 import java.awt.*;
+import java.awt.MenuItem;
+import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
 
 public class ManageEventsController implements Initializable {
+    @FXML
+    public ContextMenu contextMenu;
+    @FXML
+    public Button assignDropdown;
     @FXML
     private FlowPane eventCardPane;
 
@@ -36,6 +42,7 @@ public class ManageEventsController implements Initializable {
             throw new RuntimeException(e);
         }
     }
+
 
     private void loadAllEvents() throws IOException {
         /*eventCardPane.getChildren().clear();
@@ -65,4 +72,21 @@ public class ManageEventsController implements Initializable {
     }
 
 
+    public void onClickDeleteEvent(ActionEvent actionEvent) {
+        
+    }
+
+    public void onClickEditEvent(ActionEvent actionEvent) {
+    }
+
+    public void onClickTicketType(ActionEvent actionEvent) {
+    }
+
+    public void onClickAssign(ActionEvent mouseEvent) {
+
+    }
+
+    public void onMouseClick(ActionEvent actionEvent) {
+    }
 }
+
