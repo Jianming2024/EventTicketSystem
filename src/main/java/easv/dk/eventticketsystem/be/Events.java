@@ -2,7 +2,7 @@ package easv.dk.eventticketsystem.be;
 
 import java.time.LocalDateTime;
 
-public class Event {
+public class Events {
     private int eventId;
     private String eventName;
     private LocalDateTime startDatetime;
@@ -11,8 +11,8 @@ public class Event {
     private String notes;
     private String locationGuidance;
 
-    public Event(int eventId, String eventName, LocalDateTime startDatetime, LocalDateTime endDatetime,
-                 String location, String notes, String locationGuidance) {
+    public Events(int eventId, String eventName, LocalDateTime startDatetime, LocalDateTime endDatetime,
+                  String location, String notes, String eventLocationGuidance) {
         this.eventId = eventId;
         this.eventName = eventName;
         this.startDatetime = startDatetime;
@@ -46,9 +46,7 @@ public class Event {
         this.startDatetime = startDatetime;
     }
 
-    public LocalDateTime getEndDatetime() {
-        return endDatetime;
-    }
+    public LocalDateTime getEndDatetime() {return endDatetime; }
 
     public void setEndDatetime(LocalDateTime endDatetime) {
         this.endDatetime = endDatetime;
@@ -58,9 +56,7 @@ public class Event {
         return location;
     }
 
-    public void setLocation(String location) {
-        this.location = location;
-    }
+    public void setLocation(String location) { this.location = location; }
 
     public String getNotes() {
         return notes;

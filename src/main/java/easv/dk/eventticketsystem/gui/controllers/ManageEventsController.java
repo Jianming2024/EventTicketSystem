@@ -107,7 +107,7 @@ public class ManageEventsController implements Initializable {
 
     private void loadEditWindow() {
             try {
-                FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("EditWindow.fxml"));
+                FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("EditEventView.fxml"));
                 Scene scene = new Scene(fxmlLoader.load());
                 EditWindowController ew = fxmlLoader.getController();
                 Stage stage = new Stage();

@@ -1,42 +1,13 @@
-.name{
-    -fx-background-color:  #D9D9D9;
-    -fx-text-fill:   #65558F;
-}
-
 .box{
     -fx-background-color:  #D9D9D9;
-    -fx-background-radius: 30;
     -fx-border-color: black;
-    -fx-border-radius: 30;
 }
 
 .infoBox{
-    -fx-background-color: black;
+    -fx-background-color: #009FDA;
 }
+.editBtn{
 
-.deleteEventBtn{
-    -fx-background-image: url "/dk/haliimo/eventsystem/Pictures/bin.png";
-    -fx-background-size: cover;
-    -fx-background-repeat: no-repeat;
-    -fx-background-color:   #89CFF0;
-    -fx-border-color: grey;
 }
-
-.editEventBtn{
-    -fx-background-image: url "/dk/haliimo/eventsystem/Pictures/edit.png";
-    -fx-background-size: cover;
-    -fx-background-repeat: no-repeat;
-    -fx-background-color:   #89CFF0;
-    -fx-border-color: grey;
-}
-
-.assignBtn{
-    -fx-background-color:   #89CFF0;
-;
-    -fx-border-color: grey;
-}
-
-.ticketTypeBtn{
-    -fx-background-color:  #89CFF0;
-    -fx-border-color: grey;
+.deleteBtn {
 }

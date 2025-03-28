@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+
+<AnchorPane prefHeight="301.0" prefWidth="286.0" styleClass="box" stylesheets="@../views/Event.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="easv.dk.eventticketsystem.gui.controllers.componentsControllers.EventCard3Controller">
+   <children>
+      <Label layoutX="19.0" layoutY="21.0">
+         <graphic>
+            <ImageView fitHeight="56.0" fitWidth="251.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../views/images/EASYDVEST_negativ_lille.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Label>
+      <Label fx:id="lblEventName" layoutX="17.0" layoutY="96.0" text="Event Name">
+         <font>
+            <Font name="System Bold" size="25.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblStartTime" layoutX="18.0" layoutY="142.0" text="Start Time: ">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblEndTime" layoutX="137.0" layoutY="142.0" text="End Time: ">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblLocation" layoutX="20.0" layoutY="172.0" prefHeight="17.0" prefWidth="58.0" text="Location: ">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblExpand" layoutX="19.0" layoutY="256.0" text="⇩ Click here to read more..." />
+      <Button layoutX="245.0" layoutY="251.0" onAction="#onEditClick" prefHeight="14.0" prefWidth="16.0" style="-fx-background-color: transparent;" styleClass="editBtn" stylesheets="@../views/Style.css">
+         <graphic>
+            <FontIcon iconColor="#009640" iconLiteral="bi-pencil-fill" iconSize="18" onDragDetected="#onEditClick" text="" />
+         </graphic>
+      </Button>
+      <Button layoutX="217.0" layoutY="252.0" onAction="#onDeleteClick" style="-fx-background-color: transparent;" styleClass="deleteBtn" stylesheets="@../views/Style.css">
+         <graphic>
+            <FontIcon iconColor="#c00d0d" iconLiteral="bi-trash-fill" iconSize="18" onDragDetected="#onDeleteClick" />
+         </graphic>
+      </Button>
+   </children>
+</AnchorPane>
