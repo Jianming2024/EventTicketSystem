@@ -15,7 +15,7 @@
 }
 
 .deleteEventBtn{
-    -fx-background-image: url "/dk/haliimo/eventsystem/Pictures/bin.png" ;
+    -fx-background-image: url "/dk/haliimo/eventsystem/Pictures/bin.png";
     -fx-background-size: cover;
     -fx-background-repeat: no-repeat;
     -fx-background-color:   #89CFF0;
