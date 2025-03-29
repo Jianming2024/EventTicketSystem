@@ -8,10 +8,11 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane fx:id="ordersPane" prefHeight="700.0" prefWidth="1200.0"
+<BorderPane fx:id="ordersPane"
             xmlns="http://javafx.com/javafx/23.0.1"
             xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="easv.dk.eventticketsystem.gui.controllers.ManageOrdersController">
+            fx:controller="easv.dk.eventticketsystem.gui.controllers.ManageOrdersController"
+            prefHeight="700.0" prefWidth="1200.0">
 
     <!-- Sidebar -->
     <left>
@@ -20,12 +21,12 @@
 
     <!-- Center Content -->
     <center>
-        <VBox spacing="10.0" prefWidth="1000.0" VBox.vgrow="ALWAYS">
+        <VBox spacing="10.0" VBox.vgrow="ALWAYS" prefWidth="1000.0">
 
-            <!-- TOOLBAR (no margin wrappers) -->
+            <!-- Toolbar -->
             <fx:include source="components/Toolbar.fxml"/>
 
-            <!-- CREATE BUTTON -->
+            <!-- Create Order Button -->
             <HBox alignment="CENTER_RIGHT">
                 <Button fx:id="btnCreateNewOrder" onAction="#onClickAddOrder"
                         style="-fx-background-color: transparent; -fx-border-color: #009640; -fx-text-fill: #009640; -fx-border-radius: 5; -fx-background-radius: 5; -fx-padding: 5 15;"
@@ -36,14 +37,15 @@
                 </Button>
             </HBox>
 
-            <!-- SCROLLABLE ORDER CARDS -->
-            <ScrollPane fitToWidth="true" hbarPolicy="NEVER" vbarPolicy="ALWAYS" VBox.vgrow="ALWAYS">
+            <!-- Scrollable Content -->
+            <ScrollPane fx:id="scrollPane" fitToWidth="true" hbarPolicy="NEVER" vbarPolicy="ALWAYS" VBox.vgrow="ALWAYS">
                 <content>
                     <FlowPane fx:id="orderCardContainer"
-                              hgap="20.0"
-                              vgap="20.0"
+                              hgap="20.0" vgap="20.0"
                               alignment="TOP_LEFT"
-                              style="-fx-background-color: transparent;">
+                              style="-fx-background-color: transparent;"
+                              prefWidth="100.0"
+                              maxWidth="Infinity">
                         <padding>
                             <Insets top="10" right="10" bottom="10" left="10"/>
                         </padding>

@@ -34,6 +34,7 @@ public class TicketController {
     @FXML private Label lblTime;
     @FXML private Label lblPrice;
     @FXML private Label lblLocation;
+    @FXML private Label lblQuantity;
     @FXML private ImageView qrCodeImageView;
     @FXML Button btnPrintPDF;
 
@@ -53,7 +54,7 @@ public class TicketController {
         lblTime.setText(ticket.getEventTime());
         lblPrice.setText(ticket.getPrice());
         lblLocation.setText(ticket.getLocation());
-
+        lblQuantity.setText("Qty: " +ticket.getQuantity());
 
         // Set QR image
         File qrFile = new File(qrFilePath);

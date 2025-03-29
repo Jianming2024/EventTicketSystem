@@ -48,7 +48,7 @@
          </image>
       </ImageView>
 
-      <Label fx:id="lblPrice" layoutX="32.0" layoutY="265.0" text="200 kr" textFill="#fbbc28">
+      <Label fx:id="lblPrice" layoutX="14.0" layoutY="265.0" text="200 kr" textFill="#fbbc28">
          <font>
             <Font name="System Bold Italic" size="26.0" />
          </font>
@@ -60,5 +60,10 @@
             <FontIcon iconColor="WHITE" iconLiteral="bi-printer-fill" iconSize="20" />
          </graphic>
       </Button>
+      <Label fx:id="lblQuantity" layoutX="87.0" layoutY="266.0" text="qty: 1" textFill="#fbbc28">
+         <font>
+            <Font name="System Bold Italic" size="26.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

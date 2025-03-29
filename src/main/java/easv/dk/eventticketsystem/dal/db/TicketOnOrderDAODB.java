@@ -27,9 +27,11 @@ public class TicketOnOrderDAODB implements ITicketOnOrderDAO {
                     e.start_datetime,
                     e.location,
                     e.price,
+                    t.quantity,
                     t.ticket_id AS ticket_id,
                     tt.type_name AS ticket_type,
                     t.unique_code AS code
+                   
                 FROM Orders o
                 JOIN Customer c ON o.customer_id = c.customer_id
                           JOIN Ticket t ON t.order_id = o.order_id
@@ -51,6 +53,7 @@ public class TicketOnOrderDAODB implements ITicketOnOrderDAO {
                 String startDateTime = rs.getString("start_datetime");
                 String location = rs.getString("location");
                 String price = rs.getString("price");
+                int quantity = rs.getInt("quantity");
                 System.out.println("Retrieving order id: " + orderId);
 
                 // Convert string to LocalDateTime
@@ -61,7 +64,7 @@ public class TicketOnOrderDAODB implements ITicketOnOrderDAO {
                 String eventTime = dateTime.toLocalTime().format(DateTimeFormatter.ofPattern("HH:mm"));
 
 
-                TicketOnOrder too = new TicketOnOrder(orderId, customerName, customerEmail, eventName, ticketId, ticketType, code, eventDate, eventTime, location, price);
+                TicketOnOrder too = new TicketOnOrder(orderId, customerName, customerEmail, eventName, ticketId, ticketType, code, eventDate, eventTime, location, price, quantity);
                 orderDetails.add(too);
             }
         } catch (SQLException e) {

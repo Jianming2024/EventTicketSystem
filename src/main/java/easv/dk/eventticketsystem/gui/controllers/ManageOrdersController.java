@@ -10,10 +10,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
@@ -27,6 +24,7 @@ import java.util.*;
 public class ManageOrdersController implements Initializable {
 
     public BorderPane ordersPane;
+    public ScrollPane scrollPane;
     @FXML
     private FlowPane orderCardContainer;
     @FXML
@@ -65,6 +63,10 @@ public class ManageOrdersController implements Initializable {
     private List<TicketOnOrder> ticketOnOrderList;
 
     public void initialize(URL location, ResourceBundle resources) {
+
+        scrollPane.widthProperty().addListener((obs, oldVal, newVal) -> {
+            orderCardContainer.setPrefWidth(newVal.doubleValue() - 20);
+        });
         displayOrders();
     }
 

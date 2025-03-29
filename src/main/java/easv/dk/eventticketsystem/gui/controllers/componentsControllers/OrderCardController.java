@@ -3,6 +3,7 @@ package easv.dk.eventticketsystem.gui.controllers.componentsControllers;
 import easv.dk.eventticketsystem.be.TicketOnOrder;
 import easv.dk.eventticketsystem.gui.controllers.TicketController;
 import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -62,8 +63,7 @@ public class OrderCardController {
 
         actionColumn.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getEventName()));
         ticketTypeColumn.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getTicketType()));
-        quantityColumn.setCellValueFactory(data -> new ReadOnlyObjectWrapper<>(1));
-
+        quantityColumn.setCellValueFactory(data -> new SimpleIntegerProperty(data.getValue().getQuantity()).asObject());
 
     }
     //    //Method for Configuring the ticket table columns to automatically resize
