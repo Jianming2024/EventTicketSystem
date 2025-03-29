@@ -25,6 +25,7 @@ public class ManageOrdersController implements Initializable {
 
     public BorderPane ordersPane;
     public ScrollPane scrollPane;
+    public Button btnConfirmOrder;
     @FXML
     private FlowPane orderCardContainer;
     @FXML
@@ -50,6 +51,9 @@ public class ManageOrdersController implements Initializable {
     private TableColumn<TicketOnOrder, Integer>colTicketId;
     @FXML
     private TableColumn<TicketOnOrder, String>colTicketType;
+    private TicketOnOrder selectedOrder;
+
+    private Parent selectedCardNode;
 
 
     @FXML
@@ -60,9 +64,10 @@ public class ManageOrdersController implements Initializable {
 
 
     private final EventTicketSystemModel eventTicketSystemModel = new EventTicketSystemModel();
-    private List<TicketOnOrder> ticketOnOrderList;
+    private List<TicketOnOrder> ticketOnOrder;
 
     public void initialize(URL location, ResourceBundle resources) {
+
 
         scrollPane.widthProperty().addListener((obs, oldVal, newVal) -> {
             orderCardContainer.setPrefWidth(newVal.doubleValue() - 20);
@@ -100,6 +105,7 @@ public class ManageOrdersController implements Initializable {
 
                 OrderCardController controller = loader.getController();
                 System.out.println("👀 Loaded controller: " + controller);
+                controller.setParentController(this);
 
                 controller.setData(baseTicket, ticketList);
                 System.out.println("✅ Finished setData() for Order #" + baseTicket.getOrderId());
@@ -112,6 +118,21 @@ public class ManageOrdersController implements Initializable {
             }
         }
     }
+
+    public void setSelectedOrder(TicketOnOrder order, Parent cardNode) {
+        if (selectedCardNode != null) {
+            selectedCardNode.getStyleClass().remove("order-card-selected");
+            selectedCardNode.getStyleClass().add("order-card"); // return it to base style
+        }
+
+        selectedCardNode = cardNode;
+        selectedCardNode.getStyleClass().remove("order-card"); // remove base style
+        selectedCardNode.getStyleClass().add("order-card-selected"); // add selected
+
+        this.selectedOrder = order;
+        System.out.println("📌 Selected order #" + order.getOrderId());
+    }
+
     @FXML
     private void onClickAddOrder() {
         try {
@@ -122,9 +143,44 @@ public class ManageOrdersController implements Initializable {
             controller.setDataPlaceholder(); // Shows placeholder text like "New Order"
 
             orderCardContainer.getChildren().add(card);
+
+            int newOrderId = eventTicketSystemModel.getNextOrderId();
+            TicketOnOrder placeholderTicket = new TicketOnOrder(
+                    newOrderId, "Customer Name", "email@example.com", "Event Placeholder",
+                    0, "Type", "CODE123", "DD/MM/YYYY", "HH:mm", "Location", "0", 1
+            );
+            controller.setData(placeholderTicket, List.of(placeholderTicket));
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+    @FXML
+    private void onClickConfirmOrder() {
+        if (selectedOrder == null) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("No Order Selected");
+            alert.setHeaderText(null);
+            alert.setContentText("Please select an order to confirm.");
+            alert.showAndWait();
+            return;
+        }
+
+        // Update status in DB
+        eventTicketSystemModel.confirmOrder(selectedOrder.getOrderId());
+
+        // Refresh UI
+        displayOrders();
+
+        // Reset selected order
+        selectedOrder = null;
+        selectedCardNode = null;
+
+        // Confirmation message
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Order Confirmed");
+        alert.setHeaderText(null);
+        alert.setContentText("Order has been confirmed and moved to history.");
+        alert.showAndWait();
     }
 
 

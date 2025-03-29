@@ -16,6 +16,7 @@ public class TicketOnOrderDAODB implements ITicketOnOrderDAO {
     private DBConnection con = new DBConnection();
 
     @Override
+    //This method gets all order details with status = "pending"
     public List<TicketOnOrder> getAllOrderDetails() {
         List<TicketOnOrder> orderDetails = new ArrayList<>();
         String sql = """
@@ -37,6 +38,7 @@ public class TicketOnOrderDAODB implements ITicketOnOrderDAO {
                           JOIN Ticket t ON t.order_id = o.order_id
                           JOIN Event e ON t.event_id = e.event_id
                 JOIN Ticket_Type tt ON tt.ticket_type_id = t.ticket_type_id
+                WHERE o.status = 'Pending'
                 ORDER BY o.order_id DESC               
                 """;
         try (Connection connection = con.getConnection();
@@ -72,4 +74,6 @@ public class TicketOnOrderDAODB implements ITicketOnOrderDAO {
         }
         return orderDetails;
     }
+
+    // Create a method to getallOrderConfirmed = To retrieve old orders if needed
 }

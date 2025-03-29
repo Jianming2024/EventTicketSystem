@@ -1,21 +1,37 @@
 package easv.dk.eventticketsystem.gui.controllers.componentsControllers;
 
+import com.itextpdf.text.Document;
+import com.itextpdf.text.PageSize;
+import com.itextpdf.text.pdf.PdfWriter;
 import easv.dk.eventticketsystem.be.TicketOnOrder;
+import easv.dk.eventticketsystem.gui.controllers.ManageOrdersController;
 import easv.dk.eventticketsystem.gui.controllers.TicketController;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.WritableImage;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.util.List;
 
 public class OrderCardController {
 
+    @FXML private VBox cardRoot;
+    @FXML
+    private AnchorPane containerRoot;
     @FXML private Label lblOrderNumber;
     @FXML private Label lblCustomerName;
 
@@ -26,15 +42,16 @@ public class OrderCardController {
 
     @FXML private Button printOrderButton;
     @FXML private Button emailTicketsButton;
-    @FXML private Button viewOrderButton;
+    @FXML private Button addTicketButton;
     @FXML private Button editOrderButton;
     @FXML private Button deleteOrderButton;
-
+    private ManageOrdersController parentController;
 
     private List<TicketOnOrder> ticketList;
     private TicketOnOrder baseTicket;
     @FXML
     public void initialize() {
+        containerRoot.getStyleClass().add("order-card");
         System.out.println("✅ OrderCardController initialized: " + this);
 
         ticketsTable.setRowFactory(tv -> {
@@ -94,6 +111,7 @@ public class OrderCardController {
         lblOrderNumber.setText("New Order");
         lblCustomerName.setText("Customer: ");
         ticketsTable.getItems().clear();
+        configureTicketTableSizes();
     }
 
     private void openTicket(TicketOnOrder ticket) {
@@ -112,6 +130,16 @@ public class OrderCardController {
             stage.show();
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+    public void setParentController(ManageOrdersController controller) {
+        this.parentController = controller;
+    }
+
+    @FXML
+    private void onCardClicked() {
+        if (parentController != null && baseTicket != null) {
+            parentController.setSelectedOrder(baseTicket, containerRoot);
         }
     }
 
@@ -133,21 +161,59 @@ public class OrderCardController {
         alert.showAndWait();
     }
 
+
     @FXML
     private void onPrintOrderClicked() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/easv/dk/eventticketsystem/StandardTicket.fxml"));
-            Parent root = loader.load();
-            TicketController ticketController = loader.getController();
-            String qrPath = "qr_codes/" + baseTicket.getCode() + ".png";
-            ticketController.setTicketData(baseTicket, qrPath);
 
-            Stage stage = new Stage();
-            stage.setTitle("Print Ticket");
-            stage.setScene(new Scene(root));
-            stage.show();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+            //Chooses where to save the PDF = "Save as" function
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setTitle("Saved all tickets to PDF from Order" + baseTicket.getOrderId());
+            fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("PDF Files", "*.pdf"));
+
+            File file = fileChooser.showSaveDialog(null);
+
+            System.out.println("✅ Ticket PDF generated!");
+
+            if (file == null) return;
+
+            try {
+                Document document = new Document(PageSize.A4.rotate());
+                PdfWriter.getInstance(document, new FileOutputStream(file));
+                document.open();
+
+                for (TicketOnOrder ticket : ticketList) {
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/easv/dk/eventticketsystem/StandardTicket.fxml"));
+                    Parent root = loader.load();
+
+                    TicketController controller = loader.getController();
+                    String qrPath = "qr_codes/" + ticket.getCode() + ".png";
+                    controller.setTicketData(ticket, qrPath);
+
+                    // Render the node (scene snapshot)
+                    Scene tempScene = new Scene(root);
+                    WritableImage snapshot = tempScene.snapshot(null);
+                    BufferedImage bufferedImage = SwingFXUtils.fromFXImage(snapshot, null);
+
+                    File tempImage = File.createTempFile("ticket", ".png");
+                    ImageIO.write(bufferedImage, "png", tempImage);
+
+                    com.itextpdf.text.Image pdfImg = com.itextpdf.text.Image.getInstance(tempImage.getAbsolutePath());
+                    pdfImg.scaleToFit(800, 600);
+                    float x = (PageSize.A4.getHeight() - pdfImg.getScaledWidth()) / 2;
+                    float y = (PageSize.A4.getWidth() - pdfImg.getScaledHeight()) / 2;
+                    pdfImg.setAbsolutePosition(x, y);
+                    document.newPage();
+                    document.add(pdfImg);
+
+                    tempImage.delete(); // optional cleanup
+                }
+
+                document.close();
+                System.out.println("✅ All tickets exported to PDF: " + file.getAbsolutePath());
+            } catch (Exception e) {
+                e.printStackTrace();
+                System.err.println("❌ Failed to export all tickets: " + e.getMessage());
+            }
+
     }
 }

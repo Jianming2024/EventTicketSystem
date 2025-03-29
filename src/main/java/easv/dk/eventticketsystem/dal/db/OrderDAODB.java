@@ -11,29 +11,32 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OrderDAODB implements IOrderDAO {
+public class OrderDAODB {
     private DBConnection con = new DBConnection();
 
-    @Override
-    public List<Orders> getAllOrders() {
-        List<Orders> orders = new ArrayList<>();
-        String sql = "SELECT * FROM orders ORDER BY id DESC";
+    public int getNextOrderId() {
+        String sql = "SELECT ISNULL(MAX(order_id), 0) + 1 FROM Orders";
         try (Connection connection = con.getConnection();
-        PreparedStatement ps = connection.prepareStatement(sql)){
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-
-/*                int id = rs.getInt("id");
-                int orderId = rs.getInt("ticket_type_id");
-                int uniqueCode = rs.getInt("unique_code");*/
-
+             PreparedStatement ps = connection.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+            if (rs.next()) {
+                return rs.getInt(1);
             }
-
-        } catch (SQLServerException e) {
-            throw new RuntimeException(e);
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
-        return List.of();
+        return -1;
     }
+    public void updateOrderStatus(int orderId, String status) throws SQLException {
+        String sql = "UPDATE Orders SET status = ? WHERE order_id = ?";
+        try (Connection conn = con.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, status);
+            stmt.setInt(2, orderId);
+            stmt.executeUpdate();
+        }
+    }
+
+
+
 }

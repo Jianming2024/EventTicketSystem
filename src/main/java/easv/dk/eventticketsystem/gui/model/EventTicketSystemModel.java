@@ -1,6 +1,7 @@
 package easv.dk.eventticketsystem.gui.model;
 
 import easv.dk.eventticketsystem.be.Event;
+import easv.dk.eventticketsystem.dal.db.OrderDAODB;
 import easv.dk.eventticketsystem.be.TicketOnOrder;
 import easv.dk.eventticketsystem.be.Users;
 import easv.dk.eventticketsystem.bll.EventManager;
@@ -8,6 +9,7 @@ import easv.dk.eventticketsystem.bll.TicketOnOrderManager;
 import easv.dk.eventticketsystem.bll.UsersManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import java.sql.SQLException;
 
 import java.io.IOException;
 import java.util.List;
@@ -20,11 +22,24 @@ public class EventTicketSystemModel {
     private final ObservableList<Users> allUsers = FXCollections.observableArrayList();
     private final ObservableList<Event> allEvents = FXCollections.observableArrayList();
 
+    private final OrderDAODB orderDAODB = new OrderDAODB();
 
     public ObservableList<TicketOnOrder> getAllOrderDetails() {
         List<TicketOnOrder> orderDetails = ticketOnOrderManager.getAllOrderDetails();
         ticketOnOrders.setAll(orderDetails);
         return ticketOnOrders;
+    }
+
+    public int getNextOrderId() {
+        return orderDAODB.getNextOrderId();
+    }
+
+    public void confirmOrder(int orderId) {
+        try {
+            orderDAODB.updateOrderStatus(orderId, "Confirmed");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public ObservableList<Users> getAllUsers() throws IOException {
@@ -38,4 +53,5 @@ public class EventTicketSystemModel {
         allEvents.setAll(eventList);
         return allEvents;
     }
+
 }
