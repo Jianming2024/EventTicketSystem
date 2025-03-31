@@ -5,6 +5,7 @@ import easv.dk.eventticketsystem.gui.model.EventTicketSystemModel;
 import easv.dk.eventticketsystem.gui.util.AlertUtil;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
@@ -13,8 +14,10 @@ import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class UserEditorController {
+public class UserEditorController implements Initializable {
     @FXML
     private StackPane avatarUploadBox;
     @FXML
@@ -33,8 +36,13 @@ public class UserEditorController {
     private Button btnCancel;
 
     private Users user;
-    private EventTicketSystemModel model;
+    private final EventTicketSystemModel model = new EventTicketSystemModel();
     private String userImagePath;
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+
+    }
 
     public void onClickCancel(ActionEvent actionEvent) {
         Stage stage = (Stage) btnCancel.getScene().getWindow();
@@ -52,7 +60,8 @@ public class UserEditorController {
         } else {
             Users newUser = new Users(0, userName, path, role, email, phone);
             model.createNewUsers(newUser);
-
+            Stage stage = (Stage) btnCreate.getScene().getWindow();
+            stage.close();
         }
     }
 
@@ -72,4 +81,6 @@ public class UserEditorController {
             lblUploadAvatar.setText("Selected: " + selectedFile.getName());
         }
     }
+
+
 }

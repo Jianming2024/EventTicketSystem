@@ -48,7 +48,7 @@ public class UsersDAODB implements IUsersDAO {
 
     @Override
     public void createNewUsers(Users users) throws IOException {
-        String sql = "INSERT INTO User (user_name, user_image_path, role, user_email, user_phone) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO Users (user_name, user_image_path, role, user_email, user_phone) VALUES (?, ?, ?, ?, ?)";
         try (Connection connection = con.getConnection();
         PreparedStatement ps = connection.prepareStatement(sql)) {
             ps.setString(1, users.getUserName());
