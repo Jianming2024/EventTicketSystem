@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox spacing="20" style="-fx-padding: 20;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="easv.dk.eventticketsystem.gui.controllers.CreateNewUserController">
+<VBox spacing="20" style="-fx-padding: 20;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="easv.dk.eventticketsystem.gui.controllers.UserEditorController">
     <children>
         <!-- Title -->
         <Label prefHeight="26.0" prefWidth="173.0" style="-fx-font-size: 20px; -fx-font-weight: bold;" text="Create A New User">
@@ -53,7 +53,7 @@
                 <!-- StackPane for uploading photo -->
                 <StackPane fx:id="avatarUploadBox" onMouseClicked="#onClickBrowseAvatar" prefHeight="80" prefWidth="250" styleClass="upload-box" stylesheets="@views/Style.css" GridPane.columnIndex="1">
                     <!-- Label inside the box -->
-                    <Label fx:id="lblAvatarPrompt" styleClass="upload-label" text="+ Add avatar photo">
+                    <Label fx:id="lblUploadAvatar" styleClass="upload-label" text="+ Add avatar photo">
                         <font>
                             <Font size="14.0" />
                         </font>

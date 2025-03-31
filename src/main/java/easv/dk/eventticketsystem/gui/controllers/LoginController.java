@@ -1,6 +1,7 @@
 package easv.dk.eventticketsystem.gui.controllers;
 
 import easv.dk.eventticketsystem.MainApplication;
+import easv.dk.eventticketsystem.gui.util.AlertUtil;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -53,28 +54,13 @@ public class LoginController implements Initializable {
             currentStage.close();
             loadDashboardView(userRole, email);
         } else {
-            showBootstrapAlert("Login Failed", "Invalid email or password. Please try again.");
+            AlertUtil.showErrorAlert("Login Failed", "Invalid email or password. Please try again.");
         }
     }
 
     private boolean isValidUser(String email, String password) {
         // Replace with actual authentication logic (e.g., check from database)
         return "admin@gmail.com".equals(email) && "123456".equals(password);
-    }
-
-    private void showBootstrapAlert(String title, String message) {
-        Alert alert;
-        alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-
-        // Apply BootstrapFX style
-        alert.getDialogPane().getStylesheets().add(getClass().getResource("/org/kordamp/bootstrapfx/bootstrapfx.css").toExternalForm());
-        alert.getDialogPane().getStyleClass().add("alert-danger"); // BootstrapFX class for error alerts
-
-        alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE); // Prevents text cut-off
-        alert.showAndWait();
     }
 
     private String authenticateUser(String email, String password) {

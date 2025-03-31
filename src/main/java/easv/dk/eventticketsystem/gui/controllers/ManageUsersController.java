@@ -55,7 +55,7 @@ public class ManageUsersController implements Initializable {
 
     public void onClickCreateNewUser(ActionEvent actionEvent) throws IOException {
         System.out.println("Create clicked for user: ");
-        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("/easv/dk/eventticketsystem/CreateNewUserView.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("/easv/dk/eventticketsystem/UserEditorView.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         Stage loginStage = new Stage();
         loginStage.setTitle("Create A New User");
