@@ -45,7 +45,7 @@
                 </Button>
                 <Region HBox.hgrow="ALWAYS" />
                 <Button fx:id="addTicketButton" style="-fx-background-color: transparent;">
-                    <graphic><FontIcon iconColor="#ffbc3d" iconLiteral="bi-plus" iconSize="45" /></graphic>
+                    <graphic><FontIcon iconColor="#ffbc3d" iconLiteral="bi-plus-circle-fill" iconSize="20" /></graphic>
                 </Button>
                 <Button fx:id="editOrderButton" style="-fx-background-color: transparent;">
                     <graphic><FontIcon iconColor="#009640" iconLiteral="bi-pencil-fill" iconSize="20" /></graphic>

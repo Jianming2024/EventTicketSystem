@@ -8,4 +8,10 @@ import java.util.List;
 
 public interface IUsersDAO {
     List<Users> getAllUsers() throws IOException;
+
+    void createNewUsers(Users users) throws IOException;
+
+    void deleteUsers(Users users) throws IOException;
+
+    void updateUsers(Users users) throws IOException;
 }

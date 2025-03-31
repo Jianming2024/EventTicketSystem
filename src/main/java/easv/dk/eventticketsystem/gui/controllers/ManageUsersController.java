@@ -61,6 +61,5 @@ public class ManageUsersController implements Initializable {
         loginStage.setTitle("Create A New User");
         loginStage.setScene(scene);
         loginStage.show();
-
     }
 }

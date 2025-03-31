@@ -45,4 +45,49 @@ public class UsersDAODB implements IUsersDAO {
         }
         return allUsers;
     }
+
+    @Override
+    public void createNewUsers(Users users) throws IOException {
+        String sql = "INSERT INTO User (user_name, user_image_path, role, user_email, user_phone) VALUES (?, ?, ?, ?, ?)";
+        try (Connection connection = con.getConnection();
+        PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setString(1, users.getUserName());
+            ps.setString(2, users.getUserImagePath());
+            ps.setString(3, users.getRole());
+            ps.setString(4, users.getUserEmail());
+            ps.setString(5, users.getUserPhone());
+            ps.executeUpdate();
+        }catch (SQLException e) {
+            throw new RuntimeException("Error adding users to the database: " + e.getMessage(), e);
+        }
+    }
+
+    @Override
+    public void deleteUsers(Users users) throws IOException {
+        String sql = "DELETE FROM users where user_id = ?";
+        try (Connection connection = con.getConnection();
+        PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setInt(1, users.getUserId());
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            throw new IOException("Error deleting users and its dependencies: " + e.getMessage(), e);
+        }
+    }
+
+    @Override
+    public void updateUsers(Users users) throws IOException {
+        String sql = "UPDATE Users SET user_name = ?, user_image_path = ?, role = ?, user_email = ?, user_phone = ? WHERE user_id = ? ";
+        try (Connection connection = con.getConnection();
+        PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setString(1, users.getUserName());
+            ps.setString(2, users.getUserImagePath());
+            ps.setString(3, users.getRole());
+            ps.setString(4, users.getUserEmail());
+            ps.setString(5, users.getUserPhone());
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            throw new IOException("Error updating users in the database: " + e.getMessage(), e);
+        }
+    }
+
 }

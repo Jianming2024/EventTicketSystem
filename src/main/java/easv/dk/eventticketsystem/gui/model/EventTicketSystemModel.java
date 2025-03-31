@@ -48,6 +48,18 @@ public class EventTicketSystemModel {
         return allUsers;
     }
 
+    public void createNewUsers(Users users) throws IOException {
+        usersManager.createNewUsers(users);
+    }
+
+    public void deleteUsers(Users users) throws IOException {
+        usersManager.deleteUsers(users);
+    }
+
+    public void updateUsers(Users users) throws IOException {
+        usersManager.updateUsers(users);
+    }
+
     public ObservableList<Event> getAllEvents() throws IOException {
         List<Event> eventList = eventManager.getAllEvents();
         allEvents.setAll(eventList);
