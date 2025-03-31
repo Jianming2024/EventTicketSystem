@@ -8,9 +8,11 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
+import javax.swing.*;
 import java.io.InputStream;
 
 public class UserCardController {
+
     @FXML
     private ImageView avatar;
     @FXML
@@ -60,5 +62,6 @@ public class UserCardController {
 
     public void onClickDeleteUser(ActionEvent actionEvent) {
         System.out.println("Delete clicked for user: ");
+
     }
 }

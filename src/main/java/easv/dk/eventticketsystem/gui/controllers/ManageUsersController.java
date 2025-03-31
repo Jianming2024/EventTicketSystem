@@ -8,6 +8,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
@@ -38,7 +39,7 @@ public class ManageUsersController implements Initializable {
         }
     }
 
-    private void loadAllUsers() throws IOException {
+    public void loadAllUsers() throws IOException {
         userCardPane.getChildren().clear();
         List<Users> usersList = model.getAllUsers();
         for (Users user : usersList) {
@@ -54,12 +55,13 @@ public class ManageUsersController implements Initializable {
     }
 
     public void onClickCreateNewUser(ActionEvent actionEvent) throws IOException {
-        System.out.println("Create clicked for user: ");
+        //System.out.println("Create clicked for user: ");
         FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("/easv/dk/eventticketsystem/UserEditorView.fxml"));
-        Scene scene = new Scene(fxmlLoader.load());
-        Stage loginStage = new Stage();
-        loginStage.setTitle("Create A New User");
-        loginStage.setScene(scene);
-        loginStage.show();
+        Parent root = fxmlLoader.load();
+        UserEditorController editorController = fxmlLoader.getController();
+        editorController.setParentController(this); // 'this' is ManageUsersController instance
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.show();
     }
 }
