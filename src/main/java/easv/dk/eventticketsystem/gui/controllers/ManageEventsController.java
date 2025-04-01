@@ -1,6 +1,8 @@
 package easv.dk.eventticketsystem.gui.controllers;
 
 import easv.dk.eventticketsystem.MainApplication;
+import javafx.scene.Parent;
+import easv.dk.eventticketsystem.gui.util.AlertUtil;
 import easv.dk.eventticketsystem.be.Users;
 import easv.dk.eventticketsystem.gui.controllers.componentsControllers.EditWindowController;
 import easv.dk.eventticketsystem.gui.model.EventTicketSystemModel;
@@ -39,15 +41,14 @@ public class ManageEventsController implements Initializable {
     private Button deleteEventBtn;
 
     private static final EventTicketSystemModel model = new EventTicketSystemModel();
-    private List<Event> eventsList;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        try {
-            loadAllEvents();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+//        try {
+//            loadAllEvents();
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
     }
 
 
@@ -103,20 +104,54 @@ public class ManageEventsController implements Initializable {
 
     public void onClickEditEvent(ActionEvent actionEvent) {
         loadEditWindow();
+        if (false) {
+
+
+            AlertUtil.showErrorAlert("Error", "No event selected.");
+
+            return;
+
+        }
+        try {
+
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/easv/dk/eventticketsystem/EditEventView.fxml"));
+
+
+            Parent root = loader.load();
+
+
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+
+            stage.setTitle("Edit Event");
+
+            stage.showAndWait(); // Wait for edit to finish
+
+            // Refresh UI after editing
+
+            loadAllEvents();
+        } catch (IOException e) {
+
+
+            e.printStackTrace();
+
+
+        }
     }
 
     private void loadEditWindow() {
-            try {
-                FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("EditEventView.fxml"));
-                Scene scene = new Scene(fxmlLoader.load());
-                EditWindowController ew = fxmlLoader.getController();
-                Stage stage = new Stage();
-                stage.setTitle("Edit Event");
-                stage.setScene(scene);
-                stage.show();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+//            try {
+//                FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("EditEventView.fxml"));
+//                Scene scene = new Scene(fxmlLoader.load());
+//                EditWindowController ew = fxmlLoader.getController();
+//                Stage stage = new Stage();
+//                stage.setTitle("Edit Event");
+//                stage.setScene(scene);
+//                stage.show();
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
         }
 
     public void onMouseClick(ActionEvent actionEvent) {

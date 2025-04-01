@@ -1,6 +1,7 @@
 package easv.dk.eventticketsystem.gui.model;
 
 import easv.dk.eventticketsystem.be.Event;
+import easv.dk.eventticketsystem.gui.controllers.ManageEditWindow;
 import easv.dk.eventticketsystem.dal.db.OrderDAODB;
 import easv.dk.eventticketsystem.be.TicketOnOrder;
 import easv.dk.eventticketsystem.be.Users;
@@ -65,5 +66,11 @@ public class EventTicketSystemModel {
         allEvents.setAll(eventList);
         return allEvents;
     }
+    public void createNewEvent(Event newEvent) {
 
+    }
+
+    public void updateEvent(Event selectedEvent) {
+
+    }
 }

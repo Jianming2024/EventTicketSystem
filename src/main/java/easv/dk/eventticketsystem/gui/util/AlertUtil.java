@@ -112,4 +112,8 @@ public class AlertUtil {
         Optional<ButtonType> result = alert.showAndWait();
         return result.isPresent() && result.get() == ButtonType.OK;
     }
+
+    public static void showInfoAlert(String success, String s) {
+
+    }
 }

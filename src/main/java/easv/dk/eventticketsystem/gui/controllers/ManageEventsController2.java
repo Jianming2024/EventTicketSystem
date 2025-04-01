@@ -3,7 +3,8 @@ package easv.dk.eventticketsystem.gui.controllers;
 import easv.dk.eventticketsystem.MainApplication;
 import easv.dk.eventticketsystem.be.Event;
 import easv.dk.eventticketsystem.gui.controllers.componentsControllers.EventCard2Controller;
-import easv.dk.eventticketsystem.gui.controllers.componentsControllers.EventCardController;
+import easv.dk.eventticketsystem.gui.controllers.componentsControllers.EditWindowController;
+
 import easv.dk.eventticketsystem.gui.model.EventTicketSystemModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -27,12 +28,13 @@ public class ManageEventsController2 implements Initializable {
     @FXML
     public Button btnCreateNewEvent;
     @FXML
-    private FlowPane eventCardPane;
+    public FlowPane eventCardPane;
+
     @FXML
     private BorderPane eventPane;
 
     private static final EventTicketSystemModel model = new EventTicketSystemModel();
-    private List<Event> eventList;
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -43,7 +45,7 @@ public class ManageEventsController2 implements Initializable {
         }
     }
 
-    private void loadAllEvents() throws IOException {
+    public void loadAllEvents() throws IOException {
         eventCardPane.getChildren().clear();
         List<Event> eventList = model.getAllEvents();
         for (Event event : eventList) {
@@ -58,27 +60,28 @@ public class ManageEventsController2 implements Initializable {
         }
     }
 
-    private void onEditClicked(Event event) {
-        System.out.println("Edit clicked for event: " + event);
 
-    }
-
-    private void onDeleteClicked(Event event) {
-        System.out.println("Delete clicked for event: " + event);
-
-    }
 
 //Opens window for create new event
     @FXML
-    public void onClickAddEvent(ActionEvent actionEvent)throws IOException {
-            FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("/easv/dk/eventticketsystem/CreateNewEventView.fxml"));
-            Scene scene = new Scene(fxmlLoader.load());
-            Stage loginStage = new Stage();
-            loginStage.setTitle("Create A New Event");
-            loginStage.setScene(scene);
-            loginStage.show();
+    public void onClickAddEvent(ActionEvent actionEvent) throws IOException {
+
+        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("/easv/dk/eventticketsystem/CreateNewEventView.fxml"));
 
 
+        Scene scene = new Scene(fxmlLoader.load());
+
+
+        Stage loginStage = new Stage();
+
+
+        loginStage.setTitle("Create A New Event");
+
+
+        loginStage.setScene(scene);
+
+
+        loginStage.show();
 
     }
 }
