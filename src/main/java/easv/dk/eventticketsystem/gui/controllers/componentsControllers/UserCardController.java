@@ -1,6 +1,8 @@
 package easv.dk.eventticketsystem.gui.controllers.componentsControllers;
 
 import easv.dk.eventticketsystem.be.Users;
+import easv.dk.eventticketsystem.gui.model.EventTicketSystemModel;
+import easv.dk.eventticketsystem.gui.util.AlertUtil;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -23,6 +25,9 @@ public class UserCardController {
     private Label lblUserPhone;
     @FXML
     private Label lblRole;
+
+    private Users user;
+    private final EventTicketSystemModel model = new EventTicketSystemModel();
 
     public void setUserData(Users user) {
         lblUserName.setText(user.getUserName());
@@ -57,11 +62,12 @@ public class UserCardController {
 
     public void onClickEditUser(ActionEvent actionEvent) {
         System.out.println("Edit clicked for user: ");
-
+        AlertUtil.showSuccessAlert("Confirmation to delete the user?", "Are you sure you want to delete this user?");
     }
 
     public void onClickDeleteUser(ActionEvent actionEvent) {
         System.out.println("Delete clicked for user: ");
-
+        AlertUtil.showWarningAlert("Confirmation to delete the user?", "Are you sure you want to delete this user?");
+       //model.deleteUsers(users);
     }
 }
