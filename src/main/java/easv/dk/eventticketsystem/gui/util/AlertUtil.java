@@ -102,7 +102,7 @@ public class AlertUtil {
         }
         Button cancelButton = (Button) alert.getDialogPane().lookupButton(ButtonType.CANCEL);
         if (cancelButton != null) {
-            okButton.setStyle(
+            cancelButton.setStyle(
                     "-fx-border-color: #ffa500; " +
                             "-fx-border-width: 2; " +
                             "-fx-border-style: solid; " +
