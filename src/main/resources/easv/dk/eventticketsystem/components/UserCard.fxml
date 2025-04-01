@@ -33,11 +33,11 @@
             <HBox alignment="CENTER_LEFT">
                 <Button onAction="#onClickEditUser" style="-fx-background-color: transparent;" styleClass="editBtn" stylesheets="@../views/Style.css">
                     <graphic>
-                        <FontIcon iconColor="#009640" iconLiteral="bi-pencil-fill" iconSize="18" />
+                        <FontIcon fx:id="btnEdit" iconColor="#009640" iconLiteral="bi-pencil-fill" iconSize="18" />
                     </graphic>
                 </Button>
                 <!-- Delete button with trash icon -->
-                <Button onAction="#onClickDeleteUser" style="-fx-background-color: transparent;" styleClass="deleteBtn" stylesheets="@../views/Style.css">
+                <Button fx:id="btnDelete" onAction="#onClickDeleteUser" style="-fx-background-color: transparent;" styleClass="deleteBtn" stylesheets="@../views/Style.css">
                     <graphic>
                         <FontIcon iconColor="#c00d0d" iconLiteral="bi-trash-fill" iconSize="18" />
                     </graphic>
