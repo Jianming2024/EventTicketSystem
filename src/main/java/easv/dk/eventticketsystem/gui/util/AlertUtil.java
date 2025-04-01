@@ -53,4 +53,7 @@ public class AlertUtil {
         }
         alert.showAndWait();
     }
+
+    public static void showInfoAlert(String success, String s) {
+    }
 }

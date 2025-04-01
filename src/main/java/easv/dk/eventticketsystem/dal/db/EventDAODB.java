@@ -9,7 +9,6 @@ import java.sql.*;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class EventDAODB implements IEventDAO {
@@ -33,8 +32,9 @@ public class EventDAODB implements IEventDAO {
                 String eventLocation = rs.getString("location");
                 String eventNotes = rs.getString("notes");
                 String eventLocationGuidance = rs.getString("location_guidance");
+                String eventImagePath = rs.getString("event_image_path");
 
-                Event event = new Event(eventId, eventName, startDatetime, endDatetime, eventLocation, eventNotes, eventLocationGuidance);
+                Event event = new Event(eventId, eventName, startDatetime, endDatetime, eventLocation, eventNotes, eventLocationGuidance, eventImagePath);
                 allEvents.add(event);
                 allEvents.add(event);
             }
@@ -44,6 +44,61 @@ public class EventDAODB implements IEventDAO {
             throw new RuntimeException(e);
         }
         return allEvents;
+    }
+
+    @Override
+    public void createNewEvent(Event event) throws IOException {
+        String sql = "INSERT INTO Event (event_name, start_datetime, end_datetime, location, notes, location_guidance, price, event_image_path) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        try (Connection connection = con.getConnection();
+             PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setString(1, event.getEventName());
+            ps.setString(2, event.getStartDatetime().toString());
+            ps.setString(3, event.getEndDatetime().toString());
+            ps.setString(4, event.getLocation());
+            ps.setString(5, event.getNotes());
+            ps.setString(6, event.getLocationGuidance());
+            ps.setString(7, event.getEventImagePath());
+            ps.executeUpdate();
+        }catch (SQLException e) {
+            throw new RuntimeException("Error adding event to the database: " + e.getMessage(), e);
+        }
+
+    }
+
+    @Override
+    public void deleteEvent(Event event) throws IOException {
+        String sql = "DELETE FROM event where event_id = ?";
+        try (Connection connection = con.getConnection();
+             PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setInt(1, event.getEventId());
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            throw new IOException("Error deleting event and its dependencies: " + e.getMessage(), e);
+        }
+
+    }
+
+    @Override
+    public void updateEvent(Event event) throws IOException {
+        String sql = "UPDATE Event SET event_name = ?, start_datetime = ?, end_datetime = ?, location = ?, notes = ?, location_guidance = ?, event_img_path = ? WHERE event_id = ? ";
+        try (Connection connection = con.getConnection();
+             PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setString(1, event.getEventName());
+            ps.setString(3, event.getStartDatetime().toString());
+            ps.setString(4, event.getEndDatetime().toString());
+            ps.setString(5, event.getLocation());
+            ps.setString(6, event.getNotes());
+            ps.setString(7, event.getLocationGuidance());
+            ps.setString(2, event.getEventImagePath());
+            ps.executeUpdate();
+
+            int rowsUpdated = ps.executeUpdate();
+            if (rowsUpdated > 0) {
+                System.out.println("Record updated successfully!");
+            }
+        } catch (SQLException e) {
+            throw new IOException("Error updating event in the database: " + e.getMessage(), e);
+        }
     }
 
 }

@@ -7,6 +7,7 @@ import easv.dk.eventticketsystem.be.Users;
 import easv.dk.eventticketsystem.bll.EventManager;
 import easv.dk.eventticketsystem.bll.TicketOnOrderManager;
 import easv.dk.eventticketsystem.bll.UsersManager;
+import easv.dk.eventticketsystem.gui.controllers.ManageEditWindow;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import java.sql.SQLException;
@@ -66,4 +67,10 @@ public class EventTicketSystemModel {
         return allEvents;
     }
 
+    public void createNewEvent(Event newEvent) {
+    }
+
+    public void updateEvent(Event selectedEvent) {
+
+    }
 }

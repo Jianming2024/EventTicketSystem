@@ -10,9 +10,10 @@ public class Event {
     private String location;
     private String notes;
     private String locationGuidance;
+    private String eventImagePath;
 
     public Event(int eventId, String eventName, LocalDateTime startDatetime, LocalDateTime endDatetime,
-                 String location, String notes, String eventLocationGuidance) {
+                 String location, String notes, String locationGuidance, String eventImagePath) {
         this.eventId = eventId;
         this.eventName = eventName;
         this.startDatetime = startDatetime;
@@ -20,6 +21,17 @@ public class Event {
         this.location = location;
         this.notes = notes;
         this.locationGuidance = locationGuidance;
+        this.eventImagePath = eventImagePath;
+    }
+
+    public Event(int eventId, String eventName, LocalDateTime startDatetime, LocalDateTime endDatetime, String location, String notes, String eventImagePath) {
+        this.eventId = eventId;
+        this.eventName = eventName;
+        this.startDatetime = startDatetime;
+        this.endDatetime = endDatetime;
+        this.location = location;
+        this.notes = notes;
+        this.eventImagePath = eventImagePath;
     }
 
     public int getEventId() {
@@ -74,6 +86,14 @@ public class Event {
         this.locationGuidance = locationGuidance;
     }
 
+    public String getEventImagePath() {
+        return eventImagePath;
+    }
+
+    public void setEventImagePath(String eventImagePath) {
+        this.eventImagePath = eventImagePath;
+    }
+
     @Override
     public String toString() {
         return "Event{" +
@@ -84,6 +104,8 @@ public class Event {
                 ", location='" + location + '\'' +
                 ", notes='" + notes + '\'' +
                 ", locationGuidance='" + locationGuidance + '\'' +
+                ", eventImagePath='" + eventImagePath + '\'' +
                 '}';
     }
+
 }
