@@ -1,20 +1,31 @@
 package easv.dk.eventticketsystem.gui.controllers.componentsControllers;
 
 import easv.dk.eventticketsystem.be.Users;
+import easv.dk.eventticketsystem.gui.controllers.ManageUsersController;
 import easv.dk.eventticketsystem.gui.model.EventTicketSystemModel;
 import easv.dk.eventticketsystem.gui.util.AlertUtil;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
+import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
+import org.kordamp.ikonli.javafx.FontIcon;
 
 import javax.swing.*;
+import java.io.IOException;
 import java.io.InputStream;
+import java.util.Optional;
 
 public class UserCardController {
-
+    @FXML
+    private FontIcon btnEdit;
+    @FXML
+    private Button btnDelete;
     @FXML
     private ImageView avatar;
     @FXML
@@ -28,8 +39,11 @@ public class UserCardController {
 
     private Users user;
     private final EventTicketSystemModel model = new EventTicketSystemModel();
+    private ManageUsersController manageUsersController;
 
     public void setUserData(Users user) {
+        this.user = user;
+
         lblUserName.setText(user.getUserName());
         lblUserEmail.setText(user.getUserEmail());
         lblRole.setText(user.getRole());
@@ -62,12 +76,30 @@ public class UserCardController {
 
     public void onClickEditUser(ActionEvent actionEvent) {
         System.out.println("Edit clicked for user: ");
-        AlertUtil.showSuccessAlert("Confirmation to delete the user?", "Are you sure you want to delete this user?");
+
     }
 
-    public void onClickDeleteUser(ActionEvent actionEvent) {
-        System.out.println("Delete clicked for user: ");
-        AlertUtil.showWarningAlert("Confirmation to delete the user?", "Are you sure you want to delete this user?");
-       //model.deleteUsers(users);
+    public void onClickDeleteUser(ActionEvent actionEvent) throws IOException {
+        boolean confirmed = AlertUtil.showConfirmationAlert("Delete User Confirmation",
+                "Are you sure you want to delete this user?");
+        if (confirmed) {
+            // Call your model's delete method with the current user
+            model.deleteUsers(user);
+            System.out.println("User deleted: " + user.getUserName());
+            // Optionally update the UI (e.g., remove this user card from the list)
+        } else {
+            System.out.println("User deletion canceled");
+        }
+
+        // Refresh the list of users using the parent controller, if available
+        if (manageUsersController != null) {
+            manageUsersController.loadAllUsers();
+        } else {
+            System.err.println("Parent controller is not set!");
+        }
+    }
+
+    public void setParentController(ManageUsersController manageUsersController) {
+        this.manageUsersController = manageUsersController;
     }
 }

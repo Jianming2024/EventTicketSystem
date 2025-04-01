@@ -48,9 +48,15 @@ public class ManageUsersController implements Initializable {
             AnchorPane card = loader.load();
             // Get the controller of the card and pass the user data
             UserCardController cardController = loader.getController();
+            // Set the reference to the parent controller
+            cardController.setParentController(this);
             cardController.setUserData(user);
             // Add the card to the FlowPane
             userCardPane.getChildren().add(card);
+            URL resource = getClass().getResource("/easv/dk/eventticketsystem/components/UserCard.fxml");
+            if (resource == null) {
+                System.err.println("UserCard.fxml resource not found!");
+            }
         }
     }
 
