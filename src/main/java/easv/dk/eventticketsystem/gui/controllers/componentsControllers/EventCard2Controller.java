@@ -63,32 +63,32 @@ public class EventCard2Controller {
         loadEditWindow();
     }
 
-   private void loadEditWindow() {
-       if (currentEvent == null) {
-           AlertUtil.showErrorAlert("Error", "No event selected.");
-           System.out.println("DEBUG: No event selected in loadEditWindow()");
-           return;
-       }
+    private void loadEditWindow() {
+        if (currentEvent == null) {
+            AlertUtil.showErrorAlert("Error", "No event selected.");
+            System.out.println("DEBUG: No event selected in loadEditWindow()");
+            return;
+        }
 
-       try {
-           FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("EditEventView.fxml"));
-           Parent root = fxmlLoader.load();
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("EditEventView.fxml"));
+            Parent root = fxmlLoader.load();
 
-           // Get the edit window controller
-           EditWindowController ew = fxmlLoader.getController();
-           ew.setEvent(currentEvent);  // Pass selected event
-           ew.setParentController(getManageEditWindow()); // Pass parent controller
-           ew.loadEventData(currentEvent);
+            // Get the edit window controller
+            EditWindowController ew = fxmlLoader.getController();
+            ew.setEvent(currentEvent);  // Pass selected event
+            ew.setParentController(getManageEditWindow()); // Pass parent controller
+            ew.loadEventData(currentEvent);
 
-           Stage stage = new Stage();
-           stage.setTitle("Edit Event");
-           stage.setScene(new Scene(root));
-           stage.show();
-       } catch (IOException e) {
-           e.printStackTrace();
-           AlertUtil.showErrorAlert("Error", "Failed to load the edit window.");
-       }
-   }
+            Stage stage = new Stage();
+            stage.setTitle("Edit Event");
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            AlertUtil.showErrorAlert("Error", "Failed to load the edit window.");
+        }
+    }
 
     private ManageEditWindow getManageEditWindow() {
         return new ManageEditWindow();
