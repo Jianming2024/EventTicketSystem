@@ -15,6 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
+<?import javafx.scene.image.ImageView?>
 <VBox spacing="20" style="-fx-padding: 20;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="easv.dk.eventticketsystem.gui.controllers.UserEditorController">
     <children>
         <!-- Title -->
@@ -51,7 +52,8 @@
                 <!-- Avatar Label -->
                 <Label text="Avatar:" GridPane.columnIndex="0" />
                 <!-- StackPane for uploading photo -->
-                <StackPane fx:id="avatarUploadBox" onMouseClicked="#onClickBrowseAvatar" prefHeight="80" prefWidth="250" styleClass="upload-box" stylesheets="@views/Style.css" GridPane.columnIndex="1">
+                <StackPane fx:id="avatarUploadBox" onMouseClicked="#onClickBrowseAvatar" prefHeight="100" prefWidth="250" styleClass="upload-box" stylesheets="@views/Style.css" GridPane.columnIndex="1">
+                    <ImageView fx:id="avatarImageView" fitWidth="100" fitHeight="100" preserveRatio="true"/>
                     <!-- Label inside the box -->
                     <Label fx:id="lblUploadAvatar" styleClass="upload-label" text="+ Add avatar photo">
                         <font>

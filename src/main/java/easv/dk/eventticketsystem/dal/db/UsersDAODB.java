@@ -84,6 +84,7 @@ public class UsersDAODB implements IUsersDAO {
             ps.setString(3, users.getRole());
             ps.setString(4, users.getUserEmail());
             ps.setString(5, users.getUserPhone());
+            ps.setInt(6, users.getUserId());
             ps.executeUpdate();
         } catch (SQLException e) {
             throw new IOException("Error updating users in the database: " + e.getMessage(), e);

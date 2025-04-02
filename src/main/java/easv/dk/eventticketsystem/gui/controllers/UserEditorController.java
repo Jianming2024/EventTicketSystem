@@ -9,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.stage.FileChooser;
@@ -23,6 +24,8 @@ import java.nio.file.StandardCopyOption;
 import java.util.ResourceBundle;
 
 public class UserEditorController implements Initializable {
+    @FXML
+    private ImageView avatarImageView;
     @FXML
     private StackPane avatarUploadBox;
     @FXML
@@ -62,21 +65,58 @@ public class UserEditorController implements Initializable {
         String role = comboRole.getValue();
         String imgPath = (userImagePath != null) ? userImagePath : "";
 
-        if (userName.isEmpty() || email.isEmpty() || phone.isEmpty() || role.isEmpty()) {
-            AlertUtil.showErrorAlert("Fail to create a new user", "Username, email or phone is empty");
+        // Debug output: Print values retrieved from the fields.
+        System.out.println("Username: " + userName);
+        System.out.println("Email: " + email);
+        System.out.println("Phone: " + phone);
+        System.out.println("Role: " + role);
+        System.out.println("Image Path: " + imgPath);
+
+        if (userName.isEmpty() || email.isEmpty() || phone.isEmpty() || role == null || role.isEmpty()) {
+            AlertUtil.showErrorAlert("Fail to create a new user", "Username, email, phone or role is empty");
             return;
-        } if (!email.matches("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$")) {
+        }
+        if (!email.matches("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$")) {
             AlertUtil.showErrorAlert("Invalid Email", "Please enter a valid email address.");
             return;
-        } if (!phone.matches("^\\+?[0-9]{7,15}$")) {
+        }
+        if (!phone.matches("^\\+?[0-9]{7,15}$")) {
             AlertUtil.showErrorAlert("Invalid Phone", "Please enter a valid phone number (7 to 15 digits, optional +).");
             return;
         }
-            Users newUser = new Users(0, userName, imgPath, role, email, phone);
+
+        // Check whether we are updating an existing user or creating a new one.
+        if (user != null && user.getUserId() > 0) {
+            // Editing an existing user: update its properties and call an update method.
+            System.out.println("Updating existing user with ID: " + user.getUserId());
+            user.setUserName(userName);
+            user.setUserEmail(email);
+            user.setUserPhone(phone);
+            user.setRole(role);
+            // Only update image if a new image path is provided
+            if (userImagePath != null && !userImagePath.isEmpty()) {
+                user.setUserImagePath(userImagePath);
+            }
+            model.updateUsers(user);
+        } else {
+            // Creating a new user
+            System.out.println("Creating a new user.");
+            // Use the provided image path if available, otherwise set it to empty or a default placeholder
+            String finalImgPath = (userImagePath != null && !userImagePath.isEmpty()) ? userImagePath : "";
+            Users newUser = new Users(0, userName, finalImgPath, role, email, phone);
             model.createNewUsers(newUser);
+        }
+
+        // Refresh the Manage Users view.
+        if (manageUsersController != null) {
             manageUsersController.loadAllUsers();
-            Stage stage = (Stage) btnCreate.getScene().getWindow();
-            stage.close();
+        } else {
+            System.err.println("manageUsersController is null, cannot refresh user list.");
+        }
+
+        // Close the current window.
+        Stage stage = (Stage) btnCreate.getScene().getWindow();
+        stage.close();
     }
 
     public void onClickBrowseAvatar(MouseEvent actionEvent) {
@@ -113,5 +153,22 @@ public class UserEditorController implements Initializable {
         this.manageUsersController = manageUsersController;
     }
 
-
+    public void setUserData(Users user) {
+        this.user = user;
+        // Pre-populate the UI components with the user data
+        txtUsername.setText(user.getUserName());
+        txtPhone.setText(user.getUserPhone());
+        txtEmail.setText(user.getUserEmail());
+        comboRole.setValue(user.getRole());
+        String imagePath = user.getUserImagePath();  // Example: "/userImg/avatar.png"
+        if (imagePath != null && !imagePath.isEmpty()) {
+            InputStream is = getClass().getResourceAsStream(imagePath);
+            if (is != null) {
+                Image avatarImage = new Image(is);
+                avatarImageView.setImage(avatarImage);
+            } else {
+                System.err.println("Resource not found: " + imagePath);
+            }
+        }
+    }
 }

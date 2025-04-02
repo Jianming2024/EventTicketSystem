@@ -48,7 +48,6 @@ public class UserCardController {
 
     public void setUserData(Users user) {
         this.user = user;
-
         lblUserName.setText(user.getUserName());
         lblUserEmail.setText(user.getUserEmail());
         lblRole.setText(user.getRole());
@@ -80,33 +79,39 @@ public class UserCardController {
     }
 
     public void onClickEditUser(ActionEvent actionEvent) throws IOException {
-        openUserEditor();
-
-    }
-
-    public void openUserEditor() throws IOException {
-        System.out.println("Edit clicked for user: ");
+// Load the UserEditorView FXML file
         FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("/easv/dk/eventticketsystem/UserEditorView.fxml"));
         Parent root = fxmlLoader.load();
+
+        // Get the UserEditorController instance from the loader
         UserEditorController editorController = fxmlLoader.getController();
-        //editorController.setParentController(this); // 'this' is ManageUsersController instance
+        // Pass the selected user data to the editor controller
+        editorController.setUserData(user);
+        // pass the parent controller reference if needed
+        editorController.setParentController(manageUsersController);
+
+        // Create a new stage for the user editor
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
+        stage.setTitle("Edit User");
         stage.show();
+
+        if (manageUsersController != null) {
+            manageUsersController.loadAllUsers();
+        } else {
+            System.err.println("Parent controller is not set!");
+        }
     }
 
     public void onClickDeleteUser(ActionEvent actionEvent) throws IOException {
         boolean confirmed = AlertUtil.showConfirmationAlert("Delete User Confirmation",
                 "Are you sure you want to delete this user?");
         if (confirmed) {
-            // Call your model's delete method with the current user
             model.deleteUsers(user);
             System.out.println("User deleted: " + user.getUserName());
-            // Optionally update the UI (e.g., remove this user card from the list)
         } else {
             System.out.println("User deletion canceled");
         }
-
         // Refresh the list of users using the parent controller, if available
         if (manageUsersController != null) {
             manageUsersController.loadAllUsers();

@@ -18,6 +18,8 @@ import java.util.ResourceBundle;
 
 public class SidebarController implements Initializable {
     @FXML
+    private Button btnLogout;
+    @FXML
     private Button dashboardButton;
     @FXML
     private Button usersButton;
@@ -82,7 +84,6 @@ public class SidebarController implements Initializable {
     public void onManageTicketsClick(ActionEvent actionEvent) throws IOException {
         Stage currentStage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
         currentStage.close();
-
         FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("ManageTicketsView.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         Stage loginStage = new Stage();
@@ -92,18 +93,8 @@ public class SidebarController implements Initializable {
     }
 
     public void onLogout(ActionEvent actionEvent) throws IOException {
-        // Close current Dashboard window
-        Stage currentStage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
-        currentStage.close();
-
-        // Load and open the Login view
-        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("LoginView.fxml"));
-        Scene scene = new Scene(fxmlLoader.load());
-
-        Stage loginStage = new Stage();
-        loginStage.setTitle("Login");
-        loginStage.setScene(scene);
-        loginStage.show();
+        Stage stage = (Stage) btnLogout.getScene().getWindow();
+        stage.close();
     }
 
     public void onManageCustomersClick(ActionEvent actionEvent) {
