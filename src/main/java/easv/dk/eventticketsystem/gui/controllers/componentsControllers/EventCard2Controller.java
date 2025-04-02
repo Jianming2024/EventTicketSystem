@@ -50,11 +50,11 @@ public class EventCard2Controller {
         lblStartTime.setText(event.getStartDatetime().toString());
         lblEndTime.setText(event.getEndDatetime().toString());
 
-        String imagePath = event.getEventImagePath();
-        if (imagePath != null && !imagePath.isEmpty()) {
-            Image image = new Image(getClass().getResourceAsStream(imagePath));
-            eventImage.setImage(image);
-        }
+//        String imagePath = event.getEventImagePath();
+//        if (imagePath != null && !imagePath.isEmpty()) {
+//            Image image = new Image(getClass().getResourceAsStream(imagePath));
+//            eventImage.setImage(image);
+//        }
 
         System.out.println("DEBUG: Event stored successfully -> " + currentEvent.getEventName());
     }

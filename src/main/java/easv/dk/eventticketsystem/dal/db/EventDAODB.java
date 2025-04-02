@@ -37,7 +37,7 @@ public class EventDAODB implements IEventDAO {
 
                 Event event = new Event(eventId, eventName, startDatetime, endDatetime, eventLocation, eventNotes, eventLocationGuidance, eventImagePath);
                 allEvents.add(event);
-                allEvents.add(event);
+
             }
         } catch (SQLServerException e) {
             throw new RuntimeException(e);
