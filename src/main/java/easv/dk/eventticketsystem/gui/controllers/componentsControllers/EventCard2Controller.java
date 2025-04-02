@@ -3,6 +3,8 @@ package easv.dk.eventticketsystem.gui.controllers.componentsControllers;
 import easv.dk.eventticketsystem.MainApplication;
 import easv.dk.eventticketsystem.be.Event;
 import easv.dk.eventticketsystem.gui.controllers.ManageEditWindow;
+import easv.dk.eventticketsystem.gui.controllers.ManageEventsController2;
+import easv.dk.eventticketsystem.gui.controllers.ManageUsersController;
 import easv.dk.eventticketsystem.gui.model.EventTicketSystemModel;
 import easv.dk.eventticketsystem.gui.util.AlertUtil;
 import javafx.event.ActionEvent;
@@ -36,8 +38,13 @@ public class EventCard2Controller {
     @FXML
     private Label lblEndTime;
 
+    private Event event;
+    private final EventTicketSystemModel model = new EventTicketSystemModel();
+    private ManageEventsController2  manageEventsController;
+
 
     public void setEventData(Event event) {
+        this.event = event;
         if (event == null) {
             System.out.println("DEBUG: setEventData called with null event");
             return;
@@ -95,9 +102,27 @@ public class EventCard2Controller {
     }
 
 
-    public void onClickDelete(ActionEvent actionEvent) {
+    public void onClickDelete(ActionEvent actionEvent)throws IOException {
+        boolean confirmed = AlertUtil.showConfirmationAlert("Delete Event Confirmation",
+                "Are you sure you want to delete this event?");
+        if (confirmed) {
+            model.deleteEvent(event);
+
+        } else {
+            System.out.println("Event deletion canceled");
+        }
+        // Refresh the list of users using the parent controller, if available
+        if (manageEventsController != null) {
+            manageEventsController.loadAllEvents();
+        } else {
+            System.err.println("Parent controller is not set!");
+        }
     }
 
-    public void setDataPlaceholder() {
+    public void setParentController(ManageEventsController2 manageEventsController) {
+        this.manageEventsController = manageEventsController;
+       // System.out.println("Parent controller set to " + this.manageEventsController);
     }
+
+
 }

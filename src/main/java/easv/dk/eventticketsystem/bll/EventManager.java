@@ -23,12 +23,7 @@ public class EventManager {
     }
 
 
-
-
-
-    public void deleteUsers(Event event) throws IOException {
-
-
+    public void deleteEvent(Event event) throws IOException {
         eventsDAO.deleteEvent(event);
 
 

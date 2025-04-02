@@ -54,9 +54,14 @@ public class ManageEventsController2 implements Initializable {
             AnchorPane card = loader.load();
             // Get the controller of the card and pass the event data
             EventCard2Controller cardController = loader.getController();
+            cardController.setParentController(this);
             cardController.setEventData(event);
             // Add the card to the FlowPane
             eventCardPane.getChildren().add(card);
+            URL resource = getClass().getResource("/easv/dk/eventticketsystem/components/EventCard2.fxml");
+            if (resource == null) {
+                System.err.println("EventCard2.fxml resource not found!");
+            }
         }
     }
 

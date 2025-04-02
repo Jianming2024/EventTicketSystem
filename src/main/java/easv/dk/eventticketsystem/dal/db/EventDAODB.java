@@ -105,37 +105,18 @@ public class EventDAODB implements IEventDAO {
 
 
     @Override
-
-
     public void deleteEvent(Event event) throws IOException {
-
-
         String sql = "DELETE FROM event where event_id = ?";
-
-
         try (Connection connection = con.getConnection();
-
-
              PreparedStatement ps = connection.prepareStatement(sql)) {
+                 ps.setInt(1, event.getEventId());
+                 ps.executeUpdate();
 
-
-            ps.setInt(1, event.getEventId());
-
-
-            ps.executeUpdate();
-
-
-        } catch (SQLException e) {
-
-
+                }
+                catch (SQLException e) {
             throw new IOException("Error deleting event and its dependencies: " + e.getMessage(), e);
 
-
         }
-
-
-
-
 
     }
 

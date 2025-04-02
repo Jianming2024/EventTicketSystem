@@ -84,6 +84,11 @@ public class EventTicketSystemModel {
 
     }
 
+    public void deleteEvent(Event event) throws IOException {
+        eventManager.deleteEvent(event);
+
+    }
+
     public void updateEvent(Event selectedEvent) {
 
     }
