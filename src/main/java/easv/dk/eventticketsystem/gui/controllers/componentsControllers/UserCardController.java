@@ -79,6 +79,8 @@ public class UserCardController {
 
     }
 
+
+
     public void onClickDeleteUser(ActionEvent actionEvent) throws IOException {
         boolean confirmed = AlertUtil.showConfirmationAlert("Delete User Confirmation",
                 "Are you sure you want to delete this user?");

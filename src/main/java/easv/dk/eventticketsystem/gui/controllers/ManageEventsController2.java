@@ -2,8 +2,9 @@ package easv.dk.eventticketsystem.gui.controllers;
 
 import easv.dk.eventticketsystem.MainApplication;
 import easv.dk.eventticketsystem.be.Event;
-import easv.dk.eventticketsystem.gui.controllers.componentsControllers.EditWindowController;
 import easv.dk.eventticketsystem.gui.controllers.componentsControllers.EventCard2Controller;
+import easv.dk.eventticketsystem.gui.controllers.componentsControllers.EditWindowController;
+
 import easv.dk.eventticketsystem.gui.model.EventTicketSystemModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -28,6 +29,7 @@ public class ManageEventsController2 implements Initializable {
     public Button btnCreateNewEvent;
     @FXML
     public FlowPane eventCardPane;
+
     @FXML
     private BorderPane eventPane;
 
@@ -58,17 +60,30 @@ public class ManageEventsController2 implements Initializable {
         }
     }
 
-    //Opens window for create new event
+
+
+//Opens window for create new event
     @FXML
     public void onClickAddEvent(ActionEvent actionEvent) throws IOException {
+
         FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("/easv/dk/eventticketsystem/CreateNewEventView.fxml"));
+
+
         Scene scene = new Scene(fxmlLoader.load());
+
+
         Stage loginStage = new Stage();
+
+
         loginStage.setTitle("Create A New Event");
+
+
         loginStage.setScene(scene);
+
+
         loginStage.show();
+
     }
 }
-
 
 
