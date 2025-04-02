@@ -1,12 +1,17 @@
 package easv.dk.eventticketsystem.gui.controllers.componentsControllers;
 
+import easv.dk.eventticketsystem.MainApplication;
 import easv.dk.eventticketsystem.be.Users;
 import easv.dk.eventticketsystem.gui.controllers.ManageUsersController;
+import easv.dk.eventticketsystem.gui.controllers.UserEditorController;
 import easv.dk.eventticketsystem.gui.model.EventTicketSystemModel;
 import easv.dk.eventticketsystem.gui.util.AlertUtil;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
@@ -74,12 +79,21 @@ public class UserCardController {
         }
     }
 
-    public void onClickEditUser(ActionEvent actionEvent) {
-        System.out.println("Edit clicked for user: ");
+    public void onClickEditUser(ActionEvent actionEvent) throws IOException {
+        openUserEditor();
 
     }
 
-
+    public void openUserEditor() throws IOException {
+        System.out.println("Edit clicked for user: ");
+        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("/easv/dk/eventticketsystem/UserEditorView.fxml"));
+        Parent root = fxmlLoader.load();
+        UserEditorController editorController = fxmlLoader.getController();
+        //editorController.setParentController(this); // 'this' is ManageUsersController instance
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.show();
+    }
 
     public void onClickDeleteUser(ActionEvent actionEvent) throws IOException {
         boolean confirmed = AlertUtil.showConfirmationAlert("Delete User Confirmation",

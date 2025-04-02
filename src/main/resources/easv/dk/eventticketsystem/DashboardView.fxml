@@ -31,48 +31,12 @@
                <Insets top="20.0" />
             </VBox.margin>
          </HBox>
-
-                  <StackPane fx:id="carouselPane" prefHeight="400.0" prefWidth="808.0">
+            <StackPane fx:id="carouselPane" prefHeight="400.0" prefWidth="808.0">
                 <ImageView fx:id="carouselImageView" fitHeight="400" fitWidth="600.0" preserveRatio="true" style="-fx-background-radius: 5; -fx-image-radius: 5; -fx-border-radius: 5;" />
             <VBox.margin>
                <Insets top="20.0" />
             </VBox.margin>
             </StackPane>
-
-            <!-- Main Content: Summary cards, charts, etc. -->
-            <!--<VBox fx:id="centerContent" alignment="TOP_CENTER" prefHeight="1014.0" prefWidth="1000.0" style="-fx-padding: 10;">
-                &lt;!&ndash; 1) Summary Cards &ndash;&gt;
-                <HBox fx:id="summaryCards" alignment="CENTER" prefHeight="258.0" prefWidth="980.0" spacing="20.0">
-                    <VBox prefHeight="113.0" prefWidth="150.0" style="-fx-background-color: #fbbc28; -fx-background-radius: 5; -fx-padding: 10;" styleClass="card" stylesheets="@views/Style.css">
-                        <Label styleClass="card-title" stylesheets="@views/Style.css" text="Total Profit" />
-                        <Label styleClass="card-value" text="12,500" />
-                    </VBox>
-                    <VBox prefHeight="113.0" prefWidth="150.0" style="-fx-background-color: #fbbc28; -fx-background-radius: 5; -fx-padding: 10;" styleClass="card" stylesheets="@views/Style.css">
-                        <Label styleClass="card-title" text="Total Customers" />
-                        <Label styleClass="card-value" text="1,200" />
-                    </VBox>
-                    <VBox prefHeight="113.0" prefWidth="150.0" style="-fx-background-color: #fbbc28; -fx-background-radius: 5; -fx-padding: 10;" styleClass="card" stylesheets="@views/Style.css">
-                        <Label styleClass="card-title" text="Tickets This Week" />
-                        <Label styleClass="card-value" text="2,549" />
-                    </VBox>
-               <VBox.margin>
-                  <Insets />
-               </VBox.margin>
-                </HBox>
-                <LineChart fx:id="salesChart" prefHeight="511.0" prefWidth="900.0" style="-fx-background-color: transparent;" stylesheets="@views/Style.css">
-                    <xAxis>
-                        <CategoryAxis label="Months" />
-                    </xAxis>
-                    <yAxis>
-                        <NumberAxis label="Tickets Sold" />
-                    </yAxis>
-                    &lt;!&ndash; You can style the series via an external CSS or via the chart API in your controller &ndash;&gt;
-
-               <VBox.margin>
-                  <Insets left="40.0" right="40.0" top="40.0" />
-               </VBox.margin>
-                </LineChart>
-            </VBox>-->
         </VBox>
     </center>
 </BorderPane>

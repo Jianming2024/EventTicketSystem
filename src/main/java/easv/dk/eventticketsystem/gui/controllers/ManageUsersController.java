@@ -45,14 +45,14 @@ public class ManageUsersController implements Initializable {
         for (Users user : usersList) {
             // Load the card component (UserCard.fxml) dynamically
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/easv/dk/eventticketsystem/components/UserCard.fxml"));
-            AnchorPane card = loader.load();
+            AnchorPane userCard = loader.load();
             // Get the controller of the card and pass the user data
             UserCardController cardController = loader.getController();
             // Set the reference to the parent controller
             cardController.setParentController(this);
             cardController.setUserData(user);
             // Add the card to the FlowPane
-            userCardPane.getChildren().add(card);
+            userCardPane.getChildren().add(userCard);
             URL resource = getClass().getResource("/easv/dk/eventticketsystem/components/UserCard.fxml");
             if (resource == null) {
                 System.err.println("UserCard.fxml resource not found!");
