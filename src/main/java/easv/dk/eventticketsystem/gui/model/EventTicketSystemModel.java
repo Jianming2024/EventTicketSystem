@@ -1,6 +1,7 @@
 package easv.dk.eventticketsystem.gui.model;
 
 import easv.dk.eventticketsystem.be.Event;
+import easv.dk.eventticketsystem.bll.OrderManager;
 import easv.dk.eventticketsystem.gui.controllers.ManageEditWindow;
 import easv.dk.eventticketsystem.dal.db.OrderDAODB;
 import easv.dk.eventticketsystem.be.TicketOnOrder;
@@ -23,7 +24,9 @@ public class EventTicketSystemModel {
     private final ObservableList<Users> allUsers = FXCollections.observableArrayList();
     private final ObservableList<Event> allEvents = FXCollections.observableArrayList();
 
-    private final OrderDAODB orderDAODB = new OrderDAODB();
+
+    ///
+    private final OrderManager orderManager = new OrderManager();
 
     public ObservableList<TicketOnOrder> getAllOrderDetails() {
         List<TicketOnOrder> orderDetails = ticketOnOrderManager.getAllOrderDetails();
@@ -32,16 +35,27 @@ public class EventTicketSystemModel {
     }
 
     public int getNextOrderId() {
-        return orderDAODB.getNextOrderId();
+        return orderManager.getNextOrderId();
     }
 
     public void confirmOrder(int orderId) {
         try {
-            orderDAODB.updateOrderStatus(orderId, "Confirmed");
+            orderManager.updateOrderStatus(orderId, "Confirmed");
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
+
+    public void deleteOrder(int orderId) {
+        try {
+            orderManager.deleteOrder(orderId);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
 
     public ObservableList<Users> getAllUsers() throws IOException {
         List<Users> usersList = usersManager.getAllUsers();

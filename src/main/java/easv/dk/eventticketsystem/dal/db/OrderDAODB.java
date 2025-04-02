@@ -1,15 +1,11 @@
 package easv.dk.eventticketsystem.dal.db;
 
-import com.microsoft.sqlserver.jdbc.SQLServerException;
-import easv.dk.eventticketsystem.be.Orders;
-import easv.dk.eventticketsystem.dal.IOrderDAO;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
+
+// Class that Only handles raw SQL
 
 public class OrderDAODB {
     private DBConnection con = new DBConnection();
@@ -37,6 +33,24 @@ public class OrderDAODB {
         }
     }
 
+    public void deleteOrder(int orderId) throws SQLException {
 
+        try (Connection conn = con.getConnection()){
+
+        String deleteTicketsSql = "DELETE FROM Ticket WHERE order_id = ?";
+            try (PreparedStatement psTickets = conn.prepareStatement(deleteTicketsSql)) {
+            psTickets.setInt(1, orderId);
+            psTickets.executeUpdate();
+        }
+
+        String deleteOrderSql = "DELETE FROM Orders WHERE order_id = ?";
+
+            try (PreparedStatement stmt = conn.prepareStatement(deleteOrderSql)) {
+            stmt.setInt(1, orderId);
+            stmt.executeUpdate();
+        }
+    }
+
+    }
 
 }

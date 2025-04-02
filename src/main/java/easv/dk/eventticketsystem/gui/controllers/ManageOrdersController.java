@@ -2,6 +2,7 @@ package easv.dk.eventticketsystem.gui.controllers;
 
 import easv.dk.eventticketsystem.MainApplication;
 import easv.dk.eventticketsystem.be.TicketOnOrder;
+import easv.dk.eventticketsystem.bll.TicketManager;
 import easv.dk.eventticketsystem.bll.UUIDGenerator;
 import easv.dk.eventticketsystem.gui.controllers.componentsControllers.OrderCardController;
 import easv.dk.eventticketsystem.gui.model.EventTicketSystemModel;
@@ -26,6 +27,7 @@ public class ManageOrdersController implements Initializable {
     public BorderPane ordersPane;
     public ScrollPane scrollPane;
     public Button btnConfirmOrder;
+    public Button btnDeleteOrder;
     @FXML
     private FlowPane orderCardContainer;
     @FXML
@@ -57,7 +59,7 @@ public class ManageOrdersController implements Initializable {
 
 
     @FXML
-    private Button btnCreateNewOrder;
+    public Button btnCreateNewOrder;
 
 
     private final UUIDGenerator uuidGenerator = new UUIDGenerator();
@@ -184,58 +186,49 @@ public class ManageOrdersController implements Initializable {
     }
 
 
+    @FXML
+    private void onClickDeleteOrder() {
 
-
-    public void onPrintTicketClick(MouseEvent event) {
-        System.out.println("Button clicked");
-
-        TicketOnOrder selected = lstTicketOnOrder.getSelectionModel().getSelectedItem();
-        if (selected == null) return;
-
-        String code = selected.getCode(); // the uniqueCode
-        String qrFilePath = System.getProperty("user.dir") + "/qr_codes/" + code + ".png";
-
-        setTicket(selected, qrFilePath, event);
-
-
-    }
-
-    private void setTicket(TicketOnOrder ticket, String qrFilePath, MouseEvent action) {
-        try {
-            // Load the FXML file using the MainApplication class reference
-            FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("StandardTicket.fxml"));
-
-            if (fxmlLoader.getLocation() == null) {
-                System.err.println("❌ FXML file not found! Java is looking in: " + MainApplication.class.getResource("/"));
-                return;
-            } else {
-                System.out.println("✅ FXML file found at: " + fxmlLoader.getLocation());
-            }
-            Parent root = fxmlLoader.load();
-            // Get the TicketController
-            TicketController ticketController = fxmlLoader.getController();
-            // Pass the QR code image path to the TicketController
-            ticketController.setTicketData(ticket, qrFilePath);
-
-
-            Stage stage = new Stage();
-            stage.setTitle("Event Ticket System");
-            stage.setScene(new Scene(root));
-            stage.show();
-        } catch (Exception e) {
-            e.printStackTrace();
-
-            // Print the exact cause of the error
-            System.err.println("❌ ERROR MESSAGE: " + e.getMessage());
-
-            // Show an alert to the user
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText("Failed to load ticket view");
-            alert.setContentText("Full Error: " + e.toString());
+        if (selectedOrder == null) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("No Order Selected");
+            alert.setHeaderText(null);
+            alert.setContentText("Please select an order to delete.");
             alert.showAndWait();
+            return;
         }
+
+        Alert confirmAlert = new Alert(Alert.AlertType.CONFIRMATION);
+        confirmAlert.setTitle("Confirm Deletion");
+        confirmAlert.setHeaderText("Are you sure you want to delete this order?");
+        confirmAlert.setContentText("Order ID: " + selectedOrder.getOrderId());
+
+        ///  TODO maybe change this Lambda
+        confirmAlert.showAndWait().ifPresent(result -> {
+            if (result == ButtonType.OK) {
+                try {
+                    eventTicketSystemModel.deleteOrder(selectedOrder.getOrderId());
+                    orderCardContainer.getChildren().remove(selectedCardNode);
+
+                    System.out.println("🗑️ Deleted order ID: " + selectedOrder.getOrderId());
+
+                    selectedOrder = null;
+                    selectedCardNode = null;
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Error");
+                    alert.setHeaderText("Failed to delete order.");
+                    alert.setContentText(e.getMessage());
+                    alert.showAndWait();
+                }
+            }
+        });
+
     }
+
+
 }
 
 

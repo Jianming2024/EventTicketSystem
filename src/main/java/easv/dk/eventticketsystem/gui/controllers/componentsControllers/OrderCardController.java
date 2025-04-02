@@ -166,6 +166,8 @@ public class OrderCardController {
         confirmAlert.showAndWait().ifPresent(result -> {
             if (result == ButtonType.OK) {
                 try {
+
+                    // Should probably change the Ticket manager to model - lucas
                     TicketManager ticketManager = new TicketManager();
                     ticketManager.deleteTicket(selectedTicket.getCode()); // ✅ delete from DB
 
