@@ -4,6 +4,7 @@ import com.itextpdf.text.Document;
 import com.itextpdf.text.PageSize;
 import com.itextpdf.text.pdf.PdfWriter;
 import easv.dk.eventticketsystem.be.TicketOnOrder;
+import easv.dk.eventticketsystem.bll.TicketManager;
 import easv.dk.eventticketsystem.gui.controllers.ManageOrdersController;
 import easv.dk.eventticketsystem.gui.controllers.TicketController;
 import javafx.beans.property.ReadOnlyObjectWrapper;
@@ -29,6 +30,8 @@ import java.util.List;
 
 public class OrderCardController {
 
+    @FXML private Button deleteTicketButton;
+    @FXML private Button addTicketButton;
     @FXML private VBox cardRoot;
     @FXML
     private AnchorPane containerRoot;
@@ -42,7 +45,7 @@ public class OrderCardController {
 
     @FXML private Button printOrderButton;
     @FXML private Button emailTicketsButton;
-    @FXML private Button addTicketButton;
+
     @FXML private Button editOrderButton;
     @FXML private Button deleteOrderButton;
     private ManageOrdersController parentController;
@@ -145,11 +148,40 @@ public class OrderCardController {
 
     @FXML
     private void onDeleteClicked() {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Delete Order");
-        alert.setHeaderText(null);
-        alert.setContentText("Delete clicked for Order #" + baseTicket.getOrderId());
-        alert.showAndWait();
+        TicketOnOrder selectedTicket = ticketsTable.getSelectionModel().getSelectedItem();
+
+        if (selectedTicket == null) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("No Ticket Selected");
+            alert.setHeaderText(null);
+            alert.setContentText("Please select a ticket to delete.");
+            alert.showAndWait();
+            return;
+        }
+        Alert confirmAlert = new Alert(Alert.AlertType.CONFIRMATION);
+        confirmAlert.setTitle("Confirm Deletion");
+        confirmAlert.setHeaderText("Are you sure you want to delete this ticket?");
+        confirmAlert.setContentText("Ticket: " + selectedTicket.getTicketType());
+
+        confirmAlert.showAndWait().ifPresent(result -> {
+            if (result == ButtonType.OK) {
+                try {
+                    TicketManager ticketManager = new TicketManager();
+                    ticketManager.deleteTicket(selectedTicket.getCode()); // ✅ delete from DB
+
+                    ticketsTable.getItems().remove(selectedTicket); // ✅ remove from UI
+                    System.out.println("🗑️ Deleted ticket with code: " + selectedTicket.getCode());
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Error");
+                    alert.setHeaderText("Failed to delete ticket.");
+                    alert.setContentText(e.getMessage());
+                    alert.showAndWait();
+                }
+            }
+        });
     }
 
     @FXML
@@ -165,55 +197,55 @@ public class OrderCardController {
     @FXML
     private void onPrintOrderClicked() {
 
-            //Chooses where to save the PDF = "Save as" function
-            FileChooser fileChooser = new FileChooser();
-            fileChooser.setTitle("Saved all tickets to PDF from Order" + baseTicket.getOrderId());
-            fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("PDF Files", "*.pdf"));
+        //Chooses where to save the PDF = "Save as" function
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Saved all tickets to PDF from Order" + baseTicket.getOrderId());
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("PDF Files", "*.pdf"));
 
-            File file = fileChooser.showSaveDialog(null);
+        File file = fileChooser.showSaveDialog(null);
 
-            System.out.println("✅ Ticket PDF generated!");
+        System.out.println("✅ Ticket PDF generated!");
 
-            if (file == null) return;
+        if (file == null) return;
 
-            try {
-                Document document = new Document(PageSize.A4.rotate());
-                PdfWriter.getInstance(document, new FileOutputStream(file));
-                document.open();
+        try {
+            Document document = new Document(PageSize.A4.rotate());
+            PdfWriter.getInstance(document, new FileOutputStream(file));
+            document.open();
 
-                for (TicketOnOrder ticket : ticketList) {
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/easv/dk/eventticketsystem/StandardTicket.fxml"));
-                    Parent root = loader.load();
+            for (TicketOnOrder ticket : ticketList) {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/easv/dk/eventticketsystem/StandardTicket.fxml"));
+                Parent root = loader.load();
 
-                    TicketController controller = loader.getController();
-                    String qrPath = "qr_codes/" + ticket.getCode() + ".png";
-                    controller.setTicketData(ticket, qrPath);
+                TicketController controller = loader.getController();
+                String qrPath = "qr_codes/" + ticket.getCode() + ".png";
+                controller.setTicketData(ticket, qrPath);
 
-                    // Render the node (scene snapshot)
-                    Scene tempScene = new Scene(root);
-                    WritableImage snapshot = tempScene.snapshot(null);
-                    BufferedImage bufferedImage = SwingFXUtils.fromFXImage(snapshot, null);
+                // Render the node (scene snapshot)
+                Scene tempScene = new Scene(root);
+                WritableImage snapshot = tempScene.snapshot(null);
+                BufferedImage bufferedImage = SwingFXUtils.fromFXImage(snapshot, null);
 
-                    File tempImage = File.createTempFile("ticket", ".png");
-                    ImageIO.write(bufferedImage, "png", tempImage);
+                File tempImage = File.createTempFile("ticket", ".png");
+                ImageIO.write(bufferedImage, "png", tempImage);
 
-                    com.itextpdf.text.Image pdfImg = com.itextpdf.text.Image.getInstance(tempImage.getAbsolutePath());
-                    pdfImg.scaleToFit(800, 600);
-                    float x = (PageSize.A4.getHeight() - pdfImg.getScaledWidth()) / 2;
-                    float y = (PageSize.A4.getWidth() - pdfImg.getScaledHeight()) / 2;
-                    pdfImg.setAbsolutePosition(x, y);
-                    document.newPage();
-                    document.add(pdfImg);
+                com.itextpdf.text.Image pdfImg = com.itextpdf.text.Image.getInstance(tempImage.getAbsolutePath());
+                pdfImg.scaleToFit(800, 600);
+                float x = (PageSize.A4.getHeight() - pdfImg.getScaledWidth()) / 2;
+                float y = (PageSize.A4.getWidth() - pdfImg.getScaledHeight()) / 2;
+                pdfImg.setAbsolutePosition(x, y);
+                document.newPage();
+                document.add(pdfImg);
 
-                    tempImage.delete(); // optional cleanup
-                }
-
-                document.close();
-                System.out.println("✅ All tickets exported to PDF: " + file.getAbsolutePath());
-            } catch (Exception e) {
-                e.printStackTrace();
-                System.err.println("❌ Failed to export all tickets: " + e.getMessage());
+                tempImage.delete(); // optional cleanup
             }
+
+            document.close();
+            System.out.println("✅ All tickets exported to PDF: " + file.getAbsolutePath());
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.err.println("❌ Failed to export all tickets: " + e.getMessage());
+        }
 
     }
 }

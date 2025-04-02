@@ -14,5 +14,10 @@ public class TicketManager {
     public void createTicket(int orderId, int ticketTypeId) throws SQLException {
         ticketDAO.createTicket(orderId, ticketTypeId);
     }
+
+    public void deleteTicket(String uniqueCode) throws SQLException {
+        ticketDAO.deleteTicket(uniqueCode);
+    }
+
 }
 
