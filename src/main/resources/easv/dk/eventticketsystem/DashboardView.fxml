@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.chart.CategoryAxis?>
-<?import javafx.scene.chart.LineChart?>
-<?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <BorderPane fx:id="dashboardPane" prefHeight="700" prefWidth="1200" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="easv.dk.eventticketsystem.gui.controllers.DashboardController">
     <!-- Left Sidebar -->
@@ -16,12 +16,32 @@
     </left>
     <!-- Center region: contains the top bar and the main content -->
     <center>
-        <VBox spacing="10.0">
+        <VBox prefWidth="970.0" spacing="10.0">
             <!-- Toolbar starts -->
             <fx:include source="components/Toolbar.fxml" />
+         <HBox alignment="CENTER">
+            <children>
+               <Label alignment="TOP_CENTER" contentDisplay="CENTER" text="Welcome to EASV Event Ticket System!" textAlignment="CENTER">
+                  <font>
+                     <Font name="Arial Unicode MS" size="41.0" />
+                  </font>
+               </Label>
+            </children>
+            <VBox.margin>
+               <Insets top="20.0" />
+            </VBox.margin>
+         </HBox>
+
+                  <StackPane fx:id="carouselPane" prefHeight="400.0" prefWidth="808.0">
+                <ImageView fx:id="carouselImageView" fitHeight="400" fitWidth="600.0" preserveRatio="true" style="-fx-background-radius: 5; -fx-image-radius: 5; -fx-border-radius: 5;" />
+            <VBox.margin>
+               <Insets top="20.0" />
+            </VBox.margin>
+            </StackPane>
+
             <!-- Main Content: Summary cards, charts, etc. -->
-            <VBox fx:id="centerContent" alignment="TOP_CENTER" prefHeight="1014.0" prefWidth="1000.0" style="-fx-padding: 10;">
-                <!-- 1) Summary Cards -->
+            <!--<VBox fx:id="centerContent" alignment="TOP_CENTER" prefHeight="1014.0" prefWidth="1000.0" style="-fx-padding: 10;">
+                &lt;!&ndash; 1) Summary Cards &ndash;&gt;
                 <HBox fx:id="summaryCards" alignment="CENTER" prefHeight="258.0" prefWidth="980.0" spacing="20.0">
                     <VBox prefHeight="113.0" prefWidth="150.0" style="-fx-background-color: #fbbc28; -fx-background-radius: 5; -fx-padding: 10;" styleClass="card" stylesheets="@views/Style.css">
                         <Label styleClass="card-title" stylesheets="@views/Style.css" text="Total Profit" />
@@ -46,13 +66,13 @@
                     <yAxis>
                         <NumberAxis label="Tickets Sold" />
                     </yAxis>
-                    <!-- You can style the series via an external CSS or via the chart API in your controller -->
+                    &lt;!&ndash; You can style the series via an external CSS or via the chart API in your controller &ndash;&gt;
 
                <VBox.margin>
                   <Insets left="40.0" right="40.0" top="40.0" />
                </VBox.margin>
                 </LineChart>
-            </VBox>
+            </VBox>-->
         </VBox>
     </center>
 </BorderPane>
