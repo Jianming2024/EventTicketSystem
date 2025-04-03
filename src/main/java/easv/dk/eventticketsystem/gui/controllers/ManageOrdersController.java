@@ -86,7 +86,7 @@ public class ManageOrdersController implements Initializable {
         });
 
         List<TicketOnOrder> tickets = eventTicketSystemModel.getAllOrderDetails();
-
+/// Groups tickets with Order
         Map<Integer, List<TicketOnOrder>> groupedOrders = new HashMap<>();
         for (TicketOnOrder ticket : tickets) {
             int orderId = ticket.getOrderId();
