@@ -4,11 +4,33 @@ public class Ticket {
     private final int id;
     private int ticketTypeId;
     private String uniqueCode;
+    private int eventId;
+    private int quantity;
 
-    public Ticket(int id, int ticketTypeId, String uniqueCode) {
+    public Ticket(int id, int ticketTypeId, String uniqueCode, int eventId,int quantity) {
         this.id = id;
         this.ticketTypeId = ticketTypeId;
         this.uniqueCode = uniqueCode;
+        this.eventId = eventId;
+        this.quantity= quantity;
+
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+
+    public int getEventId() {
+        return eventId;
+    }
+
+    public void setEventId(int eventId) {
+        this.eventId = eventId;
     }
 
     public int getId() {

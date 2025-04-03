@@ -3,12 +3,14 @@ package easv.dk.eventticketsystem.be;
 public class TicketType {
     private int ticketTypeId;
     private String typeName;
-    private String description;
+    private String category;
+    private double price;
 
-    public TicketType(int ticketTypeId, String typeName, String description) {
+    public TicketType(int ticketTypeId, String typeName, String category, double price) {
         this.ticketTypeId = ticketTypeId;
         this.typeName = typeName;
-        this.description = description;
+        this.category = category;
+        this.price = price;
     }
 
     public int getTicketTypeId() {
@@ -27,12 +29,18 @@ public class TicketType {
         this.typeName = typeName;
     }
 
-    public String getDescription() {
-        return description;
+    public String getCategory() {
+        return category;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setCategory(String category) {
+        this.category = category;
+    }
+    public double getPrice() {
+        return price;
+    }
+    public void setPrice(double price) {
+        this.price = price;
     }
 
     @Override
@@ -40,7 +48,8 @@ public class TicketType {
         return "TicketType{" +
                 "ticketTypeId=" + ticketTypeId +
                 ", typeName='" + typeName + '\'' +
-                ", description='" + description + '\'' +
+                ", category='" + category + '\'' +
+                ", price=" + price +
                 '}';
     }
 }

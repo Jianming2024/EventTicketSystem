@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox spacing="20" style="-fx-padding: 20;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="easv.dk.eventticketsystem.gui.controllers.componentsControllers.NewTicketTypeController">
+   <children>
+      <Label prefHeight="30.0" prefWidth="206.0" style="-fx-font-size: 20px; -fx-font-weight: bold;" text="New type of ticket">
+         <VBox.margin>
+            <Insets left="9.0" />
+         </VBox.margin>
+      </Label>
+      <GridPane hgap="10" prefWidth="271.0" vgap="10">
+         <padding>
+            <Insets bottom="10" left="10" right="10" top="10" />
+         </padding>
+         <children>            <Label text="Name" GridPane.columnIndex="0" />
+            <TextField fx:id="txtStartTime" maxWidth="181.0" prefHeight="26.0" prefWidth="181.0" promptText="(e.g. FRONT ROW Acess)" GridPane.columnIndex="1" />
+            <Label fx:id="thisone" text="Category" GridPane.rowIndex="1" />
+            <ComboBox fx:id="comboAssign" prefHeight="26.0" prefWidth="181.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Label text="Price (DKK)" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+            <TextField promptText="(e.g. 199.00)" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+         </children>
+         <columnConstraints>
+            <ColumnConstraints />
+            <ColumnConstraints maxWidth="183.0" minWidth="167.0" prefWidth="181.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" />
+            <RowConstraints />
+         </rowConstraints>
+      </GridPane>
+      <HBox alignment="CENTER_RIGHT" prefHeight="29.0" prefWidth="271.0" spacing="10">
+         <children>
+            <Button fx:id="btnCancel" onAction="#onClickCancel" style="-fx-background-color: transparent; -fx-border-color: C00D0D; -fx-text-fill: C00D0D; -fx-border-radius: 5; -fx-background-radius: 5; -fx-padding: 5 15;" styleClass="btnCancel" stylesheets="@views/Style.css" text="Cancel" />
+            <Button fx:id="btnSaveChanges" onAction="#onClickSaveChanges" style="-fx-background-color: transparent; -fx-border-color: #009640; -fx-text-fill: #009640; -fx-border-radius: 5; -fx-background-radius: 5; -fx-padding: 5 15;" styleClass="btnCreate" stylesheets="@views/Style.css" text="Create">
+               <HBox.margin>
+                  <Insets right="10.0" />
+               </HBox.margin>
+            </Button>
+         </children>
+      </HBox>
+   </children>
+</VBox>

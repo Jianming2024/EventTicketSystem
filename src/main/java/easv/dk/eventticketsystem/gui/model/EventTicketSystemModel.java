@@ -1,6 +1,7 @@
 package easv.dk.eventticketsystem.gui.model;
 
 import easv.dk.eventticketsystem.be.Event;
+import easv.dk.eventticketsystem.be.TicketType;
 import easv.dk.eventticketsystem.bll.*;
 import easv.dk.eventticketsystem.gui.controllers.ManageEditWindow;
 import easv.dk.eventticketsystem.dal.db.OrderDAODB;
@@ -22,9 +23,44 @@ public class EventTicketSystemModel {
     private final ObservableList<Event> allEvents = FXCollections.observableArrayList();
 
 
-    ///
+
+    /// Ticket functions
+
+    private final TicketManager ticketManager = new TicketManager();
+    public TicketManager getTicketManager() {
+        return ticketManager;
+    }
+    
+
+
+    /// Ticket Type functions
+    private final TicketTypeManager ticketTypeManager = new TicketTypeManager();
+    private final ObservableList<TicketType> allTicketTypes = FXCollections.observableArrayList();
+;
+
+    public void createTicketType(TicketType ticketType) {
+        try {
+            ticketTypeManager.createTicketType(ticketType);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public ObservableList<TicketType> getAllTicketTypes() {
+        try {
+            List<TicketType> types = ticketTypeManager.getAllTicketTypes();
+            allTicketTypes.setAll(types);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return allTicketTypes;
+    }
+
+
+
+
+    /// Orders functions
     private final OrderManager orderManager = new OrderManager();
-    private final CustomerManager customerManager = new CustomerManager();
 
     public ObservableList<TicketOnOrder> getAllOrderDetails() {
         List<TicketOnOrder> orderDetails = ticketOnOrderManager.getAllOrderDetails();
@@ -51,6 +87,11 @@ public class EventTicketSystemModel {
             e.printStackTrace();
         }
     }
+
+    /// Customer functions
+    private final CustomerManager customerManager = new CustomerManager();
+
+
     public int getOrCreateCustomerId(String name, String email) throws Exception {
         return customerManager.getOrCreateCustomerId(name, email);
     }
@@ -61,6 +102,8 @@ public class EventTicketSystemModel {
             e.printStackTrace();
         }
     }
+
+    /// User functions
 
 
 
@@ -82,7 +125,7 @@ public class EventTicketSystemModel {
     public void updateUsers(Users users) throws IOException {
         usersManager.updateUsers(users);
     }
-
+    /// Event functions
     public ObservableList<Event> getAllEvents() throws IOException {
         List<Event> eventList = eventManager.getAllEvents();
         allEvents.setAll(eventList);

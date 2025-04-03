@@ -4,6 +4,7 @@ import com.itextpdf.text.Document;
 import com.itextpdf.text.PageSize;
 import com.itextpdf.text.pdf.PdfWriter;
 import easv.dk.eventticketsystem.be.TicketOnOrder;
+import easv.dk.eventticketsystem.be.Ticket;
 import easv.dk.eventticketsystem.bll.TicketManager;
 import easv.dk.eventticketsystem.gui.controllers.ManageOrdersController;
 import easv.dk.eventticketsystem.gui.controllers.TicketController;
@@ -28,6 +29,7 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.List;
 
 public class OrderCardController {
@@ -97,7 +99,7 @@ public class OrderCardController {
 
         actionColumn.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getEventName()));
         ticketTypeColumn.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getTicketType()));
-//        quantityColumn.setCellValueFactory(data -> new SimpleIntegerProperty(data.getValue().getQuantity()).asObject());
+        quantityColumn.setCellValueFactory(data -> new SimpleIntegerProperty(data.getValue().getQuantity()).asObject());
 
     }
     //    //Method for Configuring the ticket table columns to automatically resize
@@ -124,6 +126,17 @@ public class OrderCardController {
         });
 
     }
+    public void refreshTickets() {
+        if (model != null && baseTicket != null) {
+            List<TicketOnOrder> updatedTickets = model.getAllOrderDetails().stream()
+                    .filter(ticket -> ticket.getOrderId() == baseTicket.getOrderId())
+                    .toList();
+
+            ticketList = updatedTickets;
+            ticketsTable.getItems().setAll(updatedTickets);
+        }
+    }
+
     public void setDataPlaceholder() {
         lblOrderNumber.setText("New Order");
         txtCustomerName.setText("Customer: ");
@@ -206,11 +219,25 @@ public class OrderCardController {
 
     @FXML
     private void onAddTicketClicked() {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Add Ticket");
-        alert.setHeaderText(null);
-        alert.setContentText("Add Ticket clicked for Order #" + baseTicket.getOrderId());
-        alert.showAndWait();
+
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/easv/dk/eventticketsystem/components/AddTicket.fxml"));
+            Parent root = loader.load();
+
+            AddTicketController controller = loader.getController();
+            controller.setModel(model);
+            controller.setOrderId(baseTicket.getOrderId()); // 👈 Pass current order ID
+            controller.setParentController(this);           // 👈 So we can refresh tickets
+
+            Stage stage = new Stage();
+            stage.setTitle("Add Ticket");
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Could not open Add Ticket window.");
+            alert.showAndWait();
+        }
     }
 
     @FXML
