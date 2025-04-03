@@ -21,8 +21,6 @@ public class EventTicketSystemModel {
     private final ObservableList<Users> allUsers = FXCollections.observableArrayList();
     private final ObservableList<Event> allEvents = FXCollections.observableArrayList();
 
-
-    ///
     private final OrderManager orderManager = new OrderManager();
     private final CustomerManager customerManager = new CustomerManager();
 
@@ -62,9 +60,6 @@ public class EventTicketSystemModel {
         }
     }
 
-
-
-
     public ObservableList<Users> getAllUsers() throws IOException {
         List<Users> usersList = usersManager.getAllUsers();
         allUsers.setAll(usersList);
@@ -88,8 +83,8 @@ public class EventTicketSystemModel {
         allEvents.setAll(eventList);
         return allEvents;
     }
-    public void createNewEvent(Event newEvent) {
-
+    public void createNewEvent(Event newEvent) throws IOException {
+        eventManager.createNewEvent(newEvent);
     }
 
     public void deleteEvent(Event event) throws IOException {

@@ -21,6 +21,11 @@ import javafx.scene.layout.FlowPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 public class EventCard2Controller {
     public AnchorPane eventPane;
@@ -34,6 +39,12 @@ public class EventCard2Controller {
     private Label lblStartTime;
     @FXML
     private Label lblEndTime;
+    @FXML
+    private Label lblPersonAssigned;
+    @FXML
+    private Label lblDate;
+
+    //private static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("HH:mm");;
 
     private Event currentEvent;
 
@@ -47,23 +58,51 @@ public class EventCard2Controller {
 
     private ManageEventsController2  manageEventsController;
 
-
     public void setEventData(Event event) {
         this.event = event;
         if (event == null) {
             System.out.println("DEBUG: setEventData called with null event");
             return;
         }
-
         this.currentEvent = event; // Store the event properly
 
         lblEventName.setText(event.getEventName());
         lblLocation.setText(event.getLocation());
+
+        // Extract and format the date
+        LocalDate eventDate = event.getStartDatetime().toLocalDate();
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        lblDate.setText(eventDate.format(dateFormatter)); // Update the event card date label
+
+        // Extract and format the time
+        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
+        lblStartTime.setText(event.getStartDatetime().toLocalTime().format(timeFormatter));
+        lblEndTime.setText(event.getEndDatetime().toLocalTime().format(timeFormatter));
+
+
+        //LocalDate date = LocalDate.parse(lblDate.getText());
+
+        // Convert LocalDateTime to LocalDate
+        //LocalDate eventDate = event.getStartDatetime().toLocalDate();
+
+        // Format and display the date
+      //  lblDate.setText(date.format(TIME_FORMATTER));
+
+        // Format and display time separately
+       // DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
+        //lblStartTime.setText(event.getStartDatetime().toLocalTime().format(timeFormatter));
+       // lblEndTime.setText(event.getEndDatetime().toLocalTime().format(timeFormatter));
+
+      //  LocalTime startTime = LocalTime.parse((CharSequence) lblStartTime, TIME_FORMATTER);
+     //   LocalTime endTime = LocalTime.parse((CharSequence) lblEndTime, TIME_FORMATTER);
+
         lblStartTime.setText(event.getStartDatetime().toString());
         lblEndTime.setText(event.getEndDatetime().toString());
+
+        lblPersonAssigned.setText(event.getAssignedUser());
         String imgPath = event.getEventImagePath();
         if (imgPath != null && !imgPath.isEmpty()) {
-            Image image = new Image(getClass().getResourceAsStream(imgPath));
+            Image image = new Image("file:" + System.getProperty("user.dir") + imgPath);
             eventImage.setImage(image);
         }
         System.out.println("DEBUG: Event stored successfully -> " + currentEvent.getEventName());
@@ -79,8 +118,9 @@ public class EventCard2Controller {
             System.out.println("DEBUG: No event selected in loadEditWindow()");
             return;
         }
-
         try {
+            System.out.println("DEBUG: Loading Edit Window...");
+
             FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("EditEventView.fxml"));
             Parent root = fxmlLoader.load();
 
@@ -99,6 +139,9 @@ public class EventCard2Controller {
             stage.setTitle("Edit Event");
             stage.setScene(new Scene(root));
             stage.show();
+
+            System.out.println("DEBUG: Edit Window loaded successfully -> " + currentEvent.getEventName());
+
         } catch (IOException e) {
             e.printStackTrace();
             AlertUtil.showErrorAlert("Error", "Failed to load the edit window.");
@@ -117,6 +160,7 @@ public class EventCard2Controller {
         // Refresh the list of users using the parent controller, if available
         if (manageEventsController != null) {
             manageEventsController.loadAllEvents();
+
         } else {
             System.err.println("Parent controller is not set!");
         }
@@ -140,12 +184,14 @@ public class EventCard2Controller {
         lblLocation.setText(currentEvent.getLocation());
         lblStartTime.setText(currentEvent.getStartDatetime().toString());
         lblEndTime.setText(currentEvent.getEndDatetime().toString());
+        lblPersonAssigned.setText(currentEvent.getAssignedUser());
+        //lblDate.setText(currentEvent.getDate());
 
 
         // Update image if available
         String imgPath = currentEvent.getEventImagePath();
         if (imgPath != null && !imgPath.isEmpty()) {
-            Image image = new Image(getClass().getResourceAsStream(imgPath));
+            Image image = new Image("file:" + System.getProperty("user.dir") + imgPath);
             eventImage.setImage(image);
         }
         System.out.println("DEBUG: UI Updated with new event details: " + currentEvent.getEventName());

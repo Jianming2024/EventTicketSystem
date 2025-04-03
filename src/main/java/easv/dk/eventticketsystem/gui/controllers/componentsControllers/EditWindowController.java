@@ -1,6 +1,9 @@
 package easv.dk.eventticketsystem.gui.controllers.componentsControllers;
 
 import easv.dk.eventticketsystem.be.Event;
+import easv.dk.eventticketsystem.be.Users;
+import easv.dk.eventticketsystem.bll.UsersManager;
+import easv.dk.eventticketsystem.dal.db.UsersDAODB;
 import easv.dk.eventticketsystem.gui.controllers.ManageEditWindow;
 import easv.dk.eventticketsystem.gui.controllers.ManageEventsController2;
 import easv.dk.eventticketsystem.gui.model.EventTicketSystemModel;
@@ -21,7 +24,12 @@ import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 
@@ -36,7 +44,7 @@ public class EditWindowController implements Initializable {
     @FXML
     public TextField txtLocation;
     @FXML
-    public ComboBox comboAssign;
+    public ComboBox<String> comboAssign;
     @FXML
     public TextArea txtAreaDescription;
     @FXML
@@ -48,7 +56,15 @@ public class EditWindowController implements Initializable {
     @FXML
     public TextField txtEndTime;
     @FXML
+    private DatePicker editDatePicker;
+    @FXML
     private StackPane avatarUploadBox;
+
+    //private static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("HH:mm");;
+
+    //LocalDate date =editDatePicker.getValue();                  // Date from DatePicker
+   // LocalTime startTime = LocalTime.parse(txtStartTime.getText(), TIME_FORMATTER);  // Time from TextField
+  //  LocalDateTime startDateTime = LocalDateTime.of(date, startTime);  // Combined
 
     private final EventTicketSystemModel model = new EventTicketSystemModel();
 
@@ -58,14 +74,40 @@ public class EditWindowController implements Initializable {
 
     private Event currentEvent;
 
-
     public void setEvent(Event event) {
         this.currentEvent = event;
     }
 
+    private UsersManager usersManager = new UsersManager();
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        try {
+            List<Users> usersList = usersManager.getAllUsers(); // Get all users
+            List<String> usernames = new ArrayList<>();
+            for (Users user : usersList) {
+                usernames.add(user.getUserName());
+            }
+            comboAssign.getItems().clear();
+            comboAssign.getItems().addAll(usernames); // Add usernames to ComboBox
 
+            if (!usernames.isEmpty()) {
+                comboAssign.getSelectionModel().clearSelection();
+            }
+
+            if (currentEvent != null) {
+                loadEventData(currentEvent);  // Ensure assigned user is displayed
+            }
+
+           /* System.out.println("DEBUG: Initializing EditWindowController...");
+            if (editDatePicker == null) {
+                System.out.println("ERROR: editDatePicker is NULL! Check FXML fx:id.");
+            } else {
+                System.out.println("DEBUG: editDatePicker successfully initialized.");
+            }*/
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void onClickBrowseAvatar(MouseEvent mouseEvent) {
@@ -104,15 +146,18 @@ public class EditWindowController implements Initializable {
         Stage stage = (Stage) btnCancel.getScene().getWindow();
         stage.close();
     }
+
     public void onClickSaveChanges(ActionEvent actionEvent) throws IOException {
         try {
             // Retrieve values from form fields
             String eventName = txtEventName.getText();
             LocalDateTime startDatetime = LocalDateTime.parse(txtStartTime.getText());
             LocalDateTime endDatetime = LocalDateTime.parse(txtEndTime.getText());
+            LocalDate selectedDate = editDatePicker.getValue();
             String location = txtLocation.getText();
             String notes = txtAreaDescription.getText();
             String imgPath = lblUploadAvatar.getText();
+            String assignUser = comboAssign.getSelectionModel().getSelectedItem().toString();
             if (currentEvent == null) {
                 AlertUtil.showErrorAlert("Error", "No event selected.");
                 return;
@@ -135,6 +180,7 @@ public class EditWindowController implements Initializable {
             selectedEvent.setLocation(location);
             selectedEvent.setNotes(notes);
             selectedEvent.setEventImagePath(imgPath);
+            selectedEvent.setAssignedUser(assignUser);
             // Call database update method
             model.updateEvent(selectedEvent);
 
@@ -160,6 +206,12 @@ public class EditWindowController implements Initializable {
             txtLocation.setText(event.getLocation());
             txtAreaDescription.setText(event.getNotes());
             lblUploadAvatar.setText(event.getEventImagePath());
+            editDatePicker.setValue(event.getStartDatetime().toLocalDate());
+            comboAssign.getSelectionModel().clearSelection();
+
+            if (event.getAssignedUser() != null) {
+                comboAssign.getSelectionModel().select(event.getAssignedUser());
+            }
         }
     }
     public void setParentController(EventCard2Controller parentController) {
