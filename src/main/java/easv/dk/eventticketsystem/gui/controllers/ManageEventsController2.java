@@ -63,8 +63,6 @@ public class ManageEventsController2 implements Initializable {
         }
     }
 
-
-
 //Opens window for create new event
     @FXML
     public void onClickAddEvent(ActionEvent actionEvent) throws IOException {

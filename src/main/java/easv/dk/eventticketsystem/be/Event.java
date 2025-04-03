@@ -12,23 +12,24 @@ public class Event {
     private String location;
     private String notes;
     private String eventImagePath;
+    private String assignedUser;
 
     private LocalDateTime dateTime;
     private static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
 
     public Event(int eventId, String eventName, LocalDateTime startDatetime, LocalDateTime endDatetime,
-                 String location, String notes, String locationGuidance, String eventImagePath) {
+                 String location, String notes, String locationGuidance, String eventImagePath, String assignedUser) {
         this.eventId = eventId;
         this.eventName = eventName;
         this.startDatetime = startDatetime;
         this.endDatetime = endDatetime;
         this.location = location;
         this.notes = notes;
-
         this.eventImagePath = eventImagePath;
+        this.assignedUser = assignedUser;
     }
 
-    public Event(int eventId, String eventName, LocalDateTime startDatetime, LocalDateTime endDatetime, String location, String notes, String eventImagePath) {
+    public Event(int eventId, String eventName, LocalDateTime startDatetime, LocalDateTime endDatetime, String location, String notes, String eventImagePath, String assignedUser) {
         this.eventId = eventId;
         this.eventName = eventName;
         this.startDatetime = startDatetime;
@@ -36,6 +37,15 @@ public class Event {
         this.location = location;
         this.notes = notes;
         this.eventImagePath = eventImagePath;
+        this.assignedUser  = assignedUser;
+    }
+
+    public String getAssignedUser() {
+        return assignedUser;
+    }
+
+    public void setAssignedUser(String assignedUser) {
+        this.assignedUser = assignedUser;
     }
 
     public int getEventId() {
@@ -93,6 +103,7 @@ public class Event {
                 ", location='" + location + '\'' +
                 ", notes='" + notes + '\'' +
                 ", eventImagePath='" + eventImagePath + '\'' +
+                ", assignedUser='" + assignedUser + '\'' +
                 '}';
     }
 }

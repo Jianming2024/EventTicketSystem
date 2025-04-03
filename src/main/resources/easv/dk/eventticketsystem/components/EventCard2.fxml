@@ -23,7 +23,7 @@
       </Label>
 
       <!-- LOCATION (Icon + Label) -->
-      <HBox layoutX="20.0" layoutY="250.0" spacing="5" AnchorPane.leftAnchor="37.0">
+      <HBox layoutX="20.0" layoutY="250.0" spacing="5" AnchorPane.bottomAnchor="221.0" AnchorPane.leftAnchor="36.0">
          <!-- Location Icon -->
          <FontIcon iconColor="#000000" iconLiteral="bi-geo" iconSize="16" />
          <!-- Location Label -->
@@ -33,11 +33,17 @@
             </font>
          </Label>
       </HBox>
+      <HBox layoutX="37.0" layoutY="276.0" prefHeight="18.0" prefWidth="187.0" spacing="5.0" AnchorPane.leftAnchor="37.0">
+         <children>
+            <FontIcon iconColor="#000000" iconLiteral="bi-calendar2-minus" iconSize="16" />
+            <Label fx:id="lblDate" text="Date: 04/04/2025" />
+         </children>
+      </HBox>
 
       <!-- START DATE/TIME (Icon + Label) -->
-      <HBox layoutX="20.0" layoutY="280.0" spacing="5" AnchorPane.leftAnchor="37.0">
+      <HBox layoutX="38.0" layoutY="303.0" spacing="5" AnchorPane.leftAnchor="37.0">
          <FontIcon iconColor="#000000" iconLiteral="bi-calendar2-minus" iconSize="16" />
-         <Label fx:id="lblStartTime" text="Start: 10/19 10:00 PM">
+         <Label fx:id="lblStartTime" text="Start: 10:00 PM">
             <font>
                <Font size="14.0" />
             </font>
@@ -45,9 +51,9 @@
       </HBox>
 
       <!-- END DATE/TIME (Icon + Label) -->
-      <HBox layoutX="20.0" layoutY="310.0" spacing="5" AnchorPane.leftAnchor="37.0">
+      <HBox layoutX="39.0" layoutY="332.0" spacing="5" AnchorPane.leftAnchor="37.0">
          <FontIcon iconColor="#000000" iconLiteral="bi-calendar2-minus" iconSize="16" />
-         <Label fx:id="lblEndTime" text="End: 10/19 09:00 PM">
+         <Label fx:id="lblEndTime" text="End: 09:00 PM">
             <font>
                <Font size="14.0" />
             </font>
@@ -55,17 +61,18 @@
       </HBox>
 
       <!-- PRICE (Icon + Label) -->
-      <HBox layoutX="20.0" layoutY="340.0" spacing="5" AnchorPane.leftAnchor="37.0">
-         <FontIcon iconColor="#000000" iconLiteral="bi-cash" iconSize="16" />
-         <Label fx:id="lblEventPrice" text="Price: Free">
+      <HBox layoutX="37.0" layoutY="361.0" spacing="5" AnchorPane.leftAnchor="37.0">
+         <FontIcon iconColor="#000000" iconLiteral="bi-cash" iconSize="16" text="" />
+         <Label fx:id="lblAssignedUser" text="Assigned:">
             <font>
                <Font size="14.0" />
             </font>
          </Label>
+         <Label fx:id="lblPersonAssigned" lineSpacing="5.0" />
       </HBox>
 
       <!-- EVENT INFO / DESCRIPTION -->
-      <Label fx:id="lblInformation" layoutX="37.0" layoutY="372.0" prefWidth="250.0" style="-fx-text-fill: #bbbbbb;" text="Extra information about the event..." wrapText="true" AnchorPane.leftAnchor="37.0" AnchorPane.topAnchor="372.0">
+      <Label fx:id="lblInformation" layoutX="37.0" layoutY="404.0" prefWidth="250.0" style="-fx-text-fill: #bbbbbb;" text="Extra information about the event..." wrapText="true" AnchorPane.leftAnchor="37.0" AnchorPane.topAnchor="404.0">
          <font>
             <Font size="14.0" />
          </font>

@@ -34,8 +34,9 @@ public class EventDAODB implements IEventDAO {
                 String eventLocation = rs.getString("location");
                 String eventNotes = rs.getString("notes");
                 String eventImagePath = rs.getString("event_image_path");
+                String assignedUser = rs.getString("assigned_user");
 
-                Event event = new Event(eventId, eventName, startDatetime, endDatetime, eventLocation, eventNotes, eventImagePath);
+                Event event = new Event(eventId, eventName, startDatetime, endDatetime, eventLocation, eventNotes, eventImagePath, assignedUser);
                 allEvents.add(event);
             }
         } catch (SQLServerException e) {
@@ -48,7 +49,7 @@ public class EventDAODB implements IEventDAO {
 
     @Override
     public void createNewEvent(Event event) throws IOException {
-        String sql = "INSERT INTO Event (event_name, start_datetime, end_datetime, location, notes, event_image_path) VALUES (?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO Event (event_name, start_datetime, end_datetime, location, notes, event_image_path, assigned_user) VALUES (?, ?, ?, ?, ?, ?,?)";
         try (Connection connection = con.getConnection();
              PreparedStatement ps = connection.prepareStatement(sql)) {
             ps.setString(1, event.getEventName());
@@ -57,6 +58,7 @@ public class EventDAODB implements IEventDAO {
             ps.setString(4, event.getLocation());
             ps.setString(5, event.getNotes());
             ps.setString(6, event.getEventImagePath());
+            ps.setString(7, event.getAssignedUser());
             ps.executeUpdate();
         }catch (SQLException e) {
             throw new RuntimeException("Error adding event to the database: " + e.getMessage(), e);
@@ -83,7 +85,7 @@ public class EventDAODB implements IEventDAO {
 
     @Override
     public void updateEvent(Event event) throws IOException {
-        String sql = "UPDATE Event SET event_name = ?, start_datetime = ?, end_datetime = ?, location = ?, notes = ?, event_image_path = ? WHERE event_id = ? ";
+        String sql = "UPDATE Event SET event_name = ?, start_datetime = ?, end_datetime = ?, location = ?, notes = ?, event_image_path = ?, assigned_user = ? WHERE event_id = ? ";
         try (Connection connection = con.getConnection();
              PreparedStatement ps = connection.prepareStatement(sql)) {
             ps.setString(1, event.getEventName());
@@ -92,7 +94,8 @@ public class EventDAODB implements IEventDAO {
             ps.setString(4, event.getLocation());
             ps.setString(5, event.getNotes());
             ps.setString(6, event.getEventImagePath());
-            ps.setInt(7, event.getEventId());
+            ps.setString(7, event.getAssignedUser());
+            ps.setInt(8, event.getEventId());
             ps.executeUpdate();
 
             int rowsUpdated = ps.executeUpdate();

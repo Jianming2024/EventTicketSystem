@@ -1,6 +1,9 @@
 package easv.dk.eventticketsystem.gui.controllers.componentsControllers;
 
 import easv.dk.eventticketsystem.be.Event;
+import easv.dk.eventticketsystem.be.Users;
+import easv.dk.eventticketsystem.bll.UsersManager;
+import easv.dk.eventticketsystem.dal.db.UsersDAODB;
 import easv.dk.eventticketsystem.gui.controllers.ManageEditWindow;
 import easv.dk.eventticketsystem.gui.controllers.ManageEventsController2;
 import easv.dk.eventticketsystem.gui.model.EventTicketSystemModel;
@@ -22,6 +25,8 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 
@@ -36,7 +41,7 @@ public class EditWindowController implements Initializable {
     @FXML
     public TextField txtLocation;
     @FXML
-    public ComboBox comboAssign;
+    public ComboBox<String> comboAssign;
     @FXML
     public TextArea txtAreaDescription;
     @FXML
@@ -50,6 +55,7 @@ public class EditWindowController implements Initializable {
     @FXML
     private StackPane avatarUploadBox;
 
+
     private final EventTicketSystemModel model = new EventTicketSystemModel();
 
     private EventCard2Controller parentController; // Store reference to main controller
@@ -58,14 +64,35 @@ public class EditWindowController implements Initializable {
 
     private Event currentEvent;
 
-
     public void setEvent(Event event) {
         this.currentEvent = event;
     }
 
+    private UsersManager usersManager = new UsersManager();
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        try {
+            List<Users> usersList = usersManager.getAllUsers(); // Get all users
+            List<String> usernames = new ArrayList<>();
 
+            for (Users user : usersList) {
+                usernames.add(user.getUserName());
+            }
+            comboAssign.getItems().clear();
+            comboAssign.getItems().addAll(usernames); // Add usernames to ComboBox
+
+            if (!usernames.isEmpty()) {
+                comboAssign.getSelectionModel().clearSelection();
+            }
+
+            if (currentEvent != null) {
+                loadEventData(currentEvent);  // Ensure assigned user is displayed
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void onClickBrowseAvatar(MouseEvent mouseEvent) {
@@ -104,6 +131,7 @@ public class EditWindowController implements Initializable {
         Stage stage = (Stage) btnCancel.getScene().getWindow();
         stage.close();
     }
+
     public void onClickSaveChanges(ActionEvent actionEvent) throws IOException {
         try {
             // Retrieve values from form fields
@@ -113,6 +141,7 @@ public class EditWindowController implements Initializable {
             String location = txtLocation.getText();
             String notes = txtAreaDescription.getText();
             String imgPath = lblUploadAvatar.getText();
+            String assignUser = comboAssign.getSelectionModel().getSelectedItem().toString();
             if (currentEvent == null) {
                 AlertUtil.showErrorAlert("Error", "No event selected.");
                 return;
@@ -135,6 +164,7 @@ public class EditWindowController implements Initializable {
             selectedEvent.setLocation(location);
             selectedEvent.setNotes(notes);
             selectedEvent.setEventImagePath(imgPath);
+            selectedEvent.setAssignedUser(assignUser);
             // Call database update method
             model.updateEvent(selectedEvent);
 
@@ -160,6 +190,11 @@ public class EditWindowController implements Initializable {
             txtLocation.setText(event.getLocation());
             txtAreaDescription.setText(event.getNotes());
             lblUploadAvatar.setText(event.getEventImagePath());
+            comboAssign.getSelectionModel().clearSelection();
+
+            if (event.getAssignedUser() != null) {
+                comboAssign.getSelectionModel().select(event.getAssignedUser());
+            }
         }
     }
     public void setParentController(EventCard2Controller parentController) {

@@ -21,8 +21,6 @@ public class EventTicketSystemModel {
     private final ObservableList<Users> allUsers = FXCollections.observableArrayList();
     private final ObservableList<Event> allEvents = FXCollections.observableArrayList();
 
-
-    ///
     private final OrderManager orderManager = new OrderManager();
     private final CustomerManager customerManager = new CustomerManager();
 
@@ -61,9 +59,6 @@ public class EventTicketSystemModel {
             e.printStackTrace();
         }
     }
-
-
-
 
     public ObservableList<Users> getAllUsers() throws IOException {
         List<Users> usersList = usersManager.getAllUsers();

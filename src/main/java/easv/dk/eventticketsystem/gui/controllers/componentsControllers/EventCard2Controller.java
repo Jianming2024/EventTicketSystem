@@ -21,6 +21,11 @@ import javafx.scene.layout.FlowPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 public class EventCard2Controller {
     public AnchorPane eventPane;
@@ -34,6 +39,12 @@ public class EventCard2Controller {
     private Label lblStartTime;
     @FXML
     private Label lblEndTime;
+    @FXML
+    private Label lblPersonAssigned;
+    @FXML
+    private Label lblDate;
+
+    private static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("HH:mm");;
 
     private Event currentEvent;
 
@@ -47,20 +58,21 @@ public class EventCard2Controller {
 
     private ManageEventsController2  manageEventsController;
 
-
     public void setEventData(Event event) {
         this.event = event;
         if (event == null) {
             System.out.println("DEBUG: setEventData called with null event");
             return;
         }
-
         this.currentEvent = event; // Store the event properly
 
         lblEventName.setText(event.getEventName());
         lblLocation.setText(event.getLocation());
+        
         lblStartTime.setText(event.getStartDatetime().toString());
         lblEndTime.setText(event.getEndDatetime().toString());
+
+        lblPersonAssigned.setText(event.getAssignedUser());
         String imgPath = event.getEventImagePath();
         if (imgPath != null && !imgPath.isEmpty()) {
             Image image = new Image("file:" + System.getProperty("user.dir") + imgPath);
@@ -79,7 +91,6 @@ public class EventCard2Controller {
             System.out.println("DEBUG: No event selected in loadEditWindow()");
             return;
         }
-
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("EditEventView.fxml"));
             Parent root = fxmlLoader.load();
@@ -117,7 +128,7 @@ public class EventCard2Controller {
         // Refresh the list of users using the parent controller, if available
         if (manageEventsController != null) {
             manageEventsController.loadAllEvents();
-//
+
         } else {
             System.err.println("Parent controller is not set!");
         }
@@ -141,6 +152,8 @@ public class EventCard2Controller {
         lblLocation.setText(currentEvent.getLocation());
         lblStartTime.setText(currentEvent.getStartDatetime().toString());
         lblEndTime.setText(currentEvent.getEndDatetime().toString());
+        lblPersonAssigned.setText(currentEvent.getAssignedUser());
+        //lblDate.setText(currentEvent.getDate());
 
 
         // Update image if available

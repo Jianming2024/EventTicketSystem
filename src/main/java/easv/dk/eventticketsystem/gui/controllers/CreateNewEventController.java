@@ -1,13 +1,13 @@
 package easv.dk.eventticketsystem.gui.controllers;
 
 import easv.dk.eventticketsystem.be.Event;
-import easv.dk.eventticketsystem.gui.controllers.componentsControllers.EventCard2Controller;
+import easv.dk.eventticketsystem.be.Users;
+import easv.dk.eventticketsystem.bll.UsersManager;
 import easv.dk.eventticketsystem.gui.model.EventTicketSystemModel;
 import easv.dk.eventticketsystem.gui.util.AlertUtil;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
+import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -17,14 +17,18 @@ import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.ResourceBundle;
 
-public class CreateNewEventController {
+public class CreateNewEventController implements Initializable {
     public Label lblAvatarPrompt;
     @FXML
     private ImageView avatarImageView;
@@ -45,11 +49,12 @@ public class CreateNewEventController {
     @FXML
     private TextArea txtDescription;
     private String avatarImagePath;
-
     @FXML
     private Button btnCreate;
     @FXML
     private Button btnCancel;
+    @FXML
+    private ComboBox<String> createComboAssign;
 
     private String price;
     private String locationG;
@@ -59,6 +64,28 @@ public class CreateNewEventController {
     private Event event;
     private static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("HH:mm");;
 
+    private UsersManager usersManager = new UsersManager();
+
+    public void initialize(URL location, ResourceBundle resources) {
+        try {
+            List<Users> usersList = usersManager.getAllUsers(); // Get all users
+            List<String> usernames = new ArrayList<>();
+
+            for (Users user : usersList) {
+                usernames.add(user.getUserName());
+            }
+            createComboAssign.getItems().clear();
+            createComboAssign.getItems().addAll(usernames); // Add usernames to ComboBox
+
+            // Optional: Select the first user if list is not empty
+            if (!usernames.isEmpty()) {
+                createComboAssign.getSelectionModel().clearSelection();
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     public void onClickBrowseAvatar(MouseEvent mouseEvent) {
         // Open a FileChooser to select an image
@@ -90,15 +117,12 @@ public class CreateNewEventController {
         }
     }
 
-
     public void onClickCancel(ActionEvent actionEvent) {
         Stage stage = (Stage) btnCancel.getScene().getWindow();
         stage.close();
     }
 
-
     public void onClickCreateEvent(ActionEvent actionEvent) throws IOException {
-
         String eventName = txtEventName.getText();
         LocalDate date = txtDate.getValue();
         String startTimeStr = txtStartTime.getText();
@@ -106,19 +130,23 @@ public class CreateNewEventController {
         String location = txtLocation.getText();
         String eventImagePath = avatarImagePath != null ? avatarImagePath : "N/A";
         String notes = txtDescription.getText();
+        String assignUser = createComboAssign.getSelectionModel().getSelectedItem().toString();
 
         // Step 1: Check for required fields
         if (eventName.isEmpty() || date == null || startTimeStr.isEmpty() || endTimeStr.isEmpty() || location.isEmpty()) {
             AlertUtil.showErrorAlert("Fail to create a new event", "Please fill in all required fields");
             return;
         }
-
         // ✅ Step 2: Validate time format (this is where you add it)
         if (!startTimeStr.matches("^\\d{2}:\\d{2}$") || !endTimeStr.matches("^\\d{2}:\\d{2}$")) {
             AlertUtil.showErrorAlert("Invalid Time Format", "Please enter time in HH:mm format (e.g. 14:30)");
             return;
         }
-
+        String assignedUser = createComboAssign.getSelectionModel().getSelectedItem();
+        if (assignedUser == null || assignedUser.isEmpty()) {
+            AlertUtil.showErrorAlert("User Assignment", "No user assigned to this event. Please select a user.");
+            return;
+        }
         try {
             // Step 3: Safely parse the times
             LocalTime startTime = LocalTime.parse(startTimeStr, TIME_FORMATTER);
@@ -139,11 +167,10 @@ public class CreateNewEventController {
                     endDateTime,
                     location,
                     notes,
-                    eventImagePath
+                    eventImagePath,
+                    assignedUser
             );
-
             model.createNewEvent(newEvent);
-
             if (manageEventsController2 != null) {
                 manageEventsController2.loadAllEvents();
             }
@@ -153,8 +180,8 @@ public class CreateNewEventController {
         } catch (Exception e) {
             AlertUtil.showErrorAlert("Fail to create a new event", e.getMessage());
         }
-
     }
+
     public void setParentController(ManageEventsController2 manageEventsController2) {
         this.manageEventsController2 = manageEventsController2;
     }
