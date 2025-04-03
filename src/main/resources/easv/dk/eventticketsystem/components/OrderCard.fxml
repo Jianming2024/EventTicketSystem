@@ -13,13 +13,13 @@
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
 <?import javafx.scene.control.TextField?>
-<AnchorPane fx:id="containerRoot" maxWidth="400" minWidth="400" prefHeight="270" prefWidth="400" style="-fx-background-radius: 10; -fx-background-color: white;" styleClass="userCard" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="easv.dk.eventticketsystem.gui.controllers.componentsControllers.OrderCardController">
+<AnchorPane fx:id="containerRoot" onMouseClicked="#onCardClicked" maxWidth="400" minWidth="400" prefHeight="270" prefWidth="400" style="-fx-background-radius: 10; -fx-background-color: white;" styleClass="userCard" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="easv.dk.eventticketsystem.gui.controllers.componentsControllers.OrderCardController">
     <padding>
         <Insets bottom="5" left="5" right="5" top="5" />
     </padding>
 
     <children>
-        <VBox fx:id="cardRoot" alignment="CENTER_LEFT" layoutX="24.0" layoutY="23.0" onMouseClicked="#onCardClicked" prefHeight="239.0" prefWidth="361.0" spacing="5" style="-fx-padding: 10" AnchorPane.bottomAnchor="13.0" AnchorPane.leftAnchor="19.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="18.0">
+        <VBox fx:id="cardRoot" alignment="CENTER_LEFT" layoutX="24.0" layoutY="23.0"  prefHeight="239.0" prefWidth="361.0" spacing="5" style="-fx-padding: 10" AnchorPane.bottomAnchor="13.0" AnchorPane.leftAnchor="19.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="18.0">
 
             <!-- Header -->
             <Label fx:id="lblOrderNumber" style="-fx-font-size: 16px; -fx-font-weight: bold;" text="Order #001" />
