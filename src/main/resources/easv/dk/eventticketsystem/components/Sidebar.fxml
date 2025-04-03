@@ -55,7 +55,7 @@
     </Button>
 
     <!-- Manage Tickets Button -->
-    <Button fx:id="btnManageTickets" onAction="#onManageTicketsClick" prefHeight="40.0" prefWidth="200.0" style="-fx-alignment: center-left;" styleClass="mainBtn" stylesheets="@../views/Style.css">
+   <!-- <Button fx:id="btnManageTickets" onAction="#onManageTicketsClick" prefHeight="40.0" prefWidth="200.0" style="-fx-alignment: center-left;" styleClass="mainBtn" stylesheets="@../views/Style.css">
         <graphic>
             <HBox spacing="10">
                 <ImageView fitHeight="20" fitWidth="20" preserveRatio="true">
@@ -66,7 +66,7 @@
                 <Label text="Tickets" textFill="WHITE" />
             </HBox>
         </graphic>
-    </Button>
+    </Button>-->
 
     <!-- Manage Customers Button -->
 <!--    <Button fx:id="btnManageCustomers" onAction="#onManageCustomersClick" prefHeight="40.0" prefWidth="200.0" style="-fx-alignment: center-left;" styleClass="mainBtn" stylesheets="@../views/Style.css">
@@ -81,8 +81,16 @@
     <!-- Manager Orders Button -->
     <Button fx:id="btnManageOrders" onAction="#onManageOrdersClick" prefHeight="40.0" prefWidth="200.0" style="-fx-alignment: center-left;" styleClass="mainBtn" stylesheets="@../views/Style.css">
         <graphic>
-            <HBox spacing="10">
+<!--            <HBox spacing="10">
                 <FontIcon iconColor="WHITE" iconLiteral="bi-tablet-landscape-fill" iconSize="20" />
+                <Label text="Orders" textFill="WHITE" />
+            </HBox>-->
+            <HBox spacing="10">
+                <ImageView fitHeight="20" fitWidth="20" preserveRatio="true">
+                    <image>
+                        <Image url="@../views/images/ticket.png" />
+                    </image>
+                </ImageView>
                 <Label text="Orders" textFill="WHITE" />
             </HBox>
         </graphic>
