@@ -68,6 +68,12 @@ public class ManageEventsController2 implements Initializable {
     public void onClickAddEvent(ActionEvent actionEvent) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("/easv/dk/eventticketsystem/CreateNewEventView.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
+
+        //pass itself to the new controller
+        CreateNewEventController createController = fxmlLoader.getController();
+        createController.setParentController(this);
+
+
         Stage loginStage = new Stage();
         loginStage.setTitle("Create A New Event");
         loginStage.setScene(scene);
