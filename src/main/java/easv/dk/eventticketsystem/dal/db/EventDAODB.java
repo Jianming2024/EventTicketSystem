@@ -30,6 +30,7 @@ public class EventDAODB implements IEventDAO {
                 Timestamp endTimestamp = rs.getTimestamp("end_datetime");
                 LocalDateTime startDatetime = startTimestamp.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
                 LocalDateTime endDatetime = endTimestamp.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
+
                 String eventLocation = rs.getString("location");
                 String eventNotes = rs.getString("notes");
                 String eventLocationGuidance = rs.getString("location_guidance");
@@ -37,7 +38,6 @@ public class EventDAODB implements IEventDAO {
 
                 Event event = new Event(eventId, eventName, startDatetime, endDatetime, eventLocation, eventNotes, eventLocationGuidance, eventImagePath);
                 allEvents.add(event);
-
             }
         } catch (SQLServerException e) {
             throw new RuntimeException(e);
@@ -46,63 +46,25 @@ public class EventDAODB implements IEventDAO {
         }
         return allEvents;
     }
+
     @Override
-
-
-
     public void createNewEvent(Event event) throws IOException {
-
-
         String sql = "INSERT INTO Event (event_name, start_datetime, end_datetime, location, notes, location_guidance, price, event_image_path) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-
-
         try (Connection connection = con.getConnection();
-
-
              PreparedStatement ps = connection.prepareStatement(sql)) {
-
-
             ps.setString(1, event.getEventName());
-
-
-            ps.setString(2, event.getStartDatetime().toString());
-
-
-            ps.setString(3, event.getEndDatetime().toString());
-
-
+            ps.setTimestamp(2, Timestamp.valueOf(event.getStartDatetime()));
+            ps.setTimestamp(3, Timestamp.valueOf(event.getEndDatetime()));
             ps.setString(4, event.getLocation());
-
-
             ps.setString(5, event.getNotes());
-
-
             ps.setString(6, event.getLocationGuidance());
-
-
             ps.setString(7, event.getEventImagePath());
-
-
             ps.executeUpdate();
-
-
         }catch (SQLException e) {
-
-
             throw new RuntimeException("Error adding event to the database: " + e.getMessage(), e);
 
-
         }
-
-
-
-
-
     }
-
-
-
-
 
     @Override
     public void deleteEvent(Event event) throws IOException {
@@ -120,74 +82,28 @@ public class EventDAODB implements IEventDAO {
 
     }
 
-
-
-
-
     @Override
-
-
     public void updateEvent(Event event) throws IOException {
-
-
-        String sql = "UPDATE Event SET event_name = ?, start_datetime = ?, end_datetime = ?, location = ?, notes = ?, location_guidance = ?, event_img_path = ? WHERE event_id = ? ";
-
-
+        String sql = "UPDATE Event SET event_name = ?, start_datetime = ?, end_datetime = ?, location = ?, notes = ?, location_guidance = ?, event_image_path = ? WHERE event_id = ? ";
         try (Connection connection = con.getConnection();
-
-
              PreparedStatement ps = connection.prepareStatement(sql)) {
-
-
             ps.setString(1, event.getEventName());
-
-
-            ps.setString(3, event.getStartDatetime().toString());
-
-
-            ps.setString(4, event.getEndDatetime().toString());
-
-
-            ps.setString(5, event.getLocation());
-
-
-            ps.setString(6, event.getNotes());
-
-
-            ps.setString(7, event.getLocationGuidance());
-
-
-            ps.setString(2, event.getEventImagePath());
-
-
+            ps.setTimestamp(2, Timestamp.valueOf(event.getStartDatetime()));
+            ps.setTimestamp(3, Timestamp.valueOf(event.getEndDatetime()));
+            ps.setString(4, event.getLocation());
+            ps.setString(5, event.getNotes());
+            ps.setString(6, event.getLocationGuidance());
+            ps.setString(7, event.getEventImagePath());
+            ps.setInt(8, event.getEventId());
             ps.executeUpdate();
 
-
-
-
-
             int rowsUpdated = ps.executeUpdate();
-
-
             if (rowsUpdated > 0) {
-
-
                 System.out.println("Record updated successfully!");
-
-
             }
-
-
         } catch (SQLException e) {
-
-
             throw new IOException("Error updating event in the database: " + e.getMessage(), e);
-
-
         }
-
-
     }
-
 }
 

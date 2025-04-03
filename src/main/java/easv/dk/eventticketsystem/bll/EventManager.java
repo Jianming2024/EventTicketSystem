@@ -14,31 +14,15 @@ public class EventManager {
         return eventsDAO.getAllEvents();
     }
     public void createNewEvent(Event event) throws IOException {
-
-
-
         eventsDAO.createNewEvent(event);
-
-
     }
-
 
     public void deleteEvent(Event event) throws IOException {
         eventsDAO.deleteEvent(event);
-
-
     }
 
-
-
-
-
     public void updateEvent(Event event) throws IOException {
-
-
         eventsDAO.updateEvent(event);
-
-
     }
 }
 

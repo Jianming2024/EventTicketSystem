@@ -97,7 +97,7 @@ public class EventTicketSystemModel {
 
     }
 
-    public void updateEvent(Event selectedEvent) {
-
+    public void updateEvent(Event selectedEvent) throws IOException {
+        eventManager.updateEvent(selectedEvent);
     }
 }

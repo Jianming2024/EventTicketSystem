@@ -11,16 +11,7 @@ public interface IEventDAO {
 
     void createNewEvent(Event event) throws IOException;
 
-
-
-
-
-
     void deleteEvent(Event event) throws IOException;
-
-
-
-
 
     void updateEvent(Event event) throws IOException;
 }

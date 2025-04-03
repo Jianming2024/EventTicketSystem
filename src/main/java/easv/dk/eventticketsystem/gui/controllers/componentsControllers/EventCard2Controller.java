@@ -16,17 +16,14 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 
 public class EventCard2Controller {
-    private Event currentEvent;
-    public void setEvent(Event event) {
-        this.currentEvent = event;
-    }
-
+    public AnchorPane eventPane;
     @FXML
     private ImageView eventImage;
     @FXML
@@ -38,8 +35,16 @@ public class EventCard2Controller {
     @FXML
     private Label lblEndTime;
 
+    private Event currentEvent;
+
+    public void setEvent(Event event) {
+        this.currentEvent = event;
+    }
+
     private Event event;
+
     private final EventTicketSystemModel model = new EventTicketSystemModel();
+
     private ManageEventsController2  manageEventsController;
 
 
@@ -56,13 +61,11 @@ public class EventCard2Controller {
         lblLocation.setText(event.getLocation());
         lblStartTime.setText(event.getStartDatetime().toString());
         lblEndTime.setText(event.getEndDatetime().toString());
-
-//        String imagePath = event.getEventImagePath();
-//        if (imagePath != null && !imagePath.isEmpty()) {
-//            Image image = new Image(getClass().getResourceAsStream(imagePath));
-//            eventImage.setImage(image);
-//        }
-
+        String imgPath = event.getEventImagePath();
+        if (imgPath != null && !imgPath.isEmpty()) {
+            Image image = new Image(getClass().getResourceAsStream(imgPath));
+            eventImage.setImage(image);
+        }
         System.out.println("DEBUG: Event stored successfully -> " + currentEvent.getEventName());
     }
 
@@ -81,11 +84,16 @@ public class EventCard2Controller {
             FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("EditEventView.fxml"));
             Parent root = fxmlLoader.load();
 
+            EditWindowController editWindowController =  fxmlLoader.getController();
+            if (editWindowController == null) {
+                System.out.println("DEBUG: EditWindowController is NULL");
+                return;
+            }
+
             // Get the edit window controller
-            EditWindowController ew = fxmlLoader.getController();
-            ew.setEvent(currentEvent);  // Pass selected event
-            ew.setParentController(getManageEditWindow()); // Pass parent controller
-            ew.loadEventData(currentEvent);
+            editWindowController.setEvent(currentEvent);  // Pass selected event
+            editWindowController.setParentController(this); // Pass parent controller
+            editWindowController.loadEventData(currentEvent);
 
             Stage stage = new Stage();
             stage.setTitle("Edit Event");
@@ -96,11 +104,6 @@ public class EventCard2Controller {
             AlertUtil.showErrorAlert("Error", "Failed to load the edit window.");
         }
     }
-
-    private ManageEditWindow getManageEditWindow() {
-        return new ManageEditWindow();
-    }
-
 
     public void onClickDelete(ActionEvent actionEvent)throws IOException {
         boolean confirmed = AlertUtil.showConfirmationAlert("Delete Event Confirmation",
@@ -125,4 +128,26 @@ public class EventCard2Controller {
     }
 
 
+    public void refreshEventData(Event currentEvent) {
+        if (currentEvent == null) {
+            System.out.println("ERROR: refreshEventData called with NULL event!");
+            return;
+        }
+        this.currentEvent = currentEvent;
+
+        // Update UI elements
+        lblEventName.setText(currentEvent.getEventName());
+        lblLocation.setText(currentEvent.getLocation());
+        lblStartTime.setText(currentEvent.getStartDatetime().toString());
+        lblEndTime.setText(currentEvent.getEndDatetime().toString());
+
+
+        // Update image if available
+        String imgPath = currentEvent.getEventImagePath();
+        if (imgPath != null && !imgPath.isEmpty()) {
+            Image image = new Image(getClass().getResourceAsStream(imgPath));
+            eventImage.setImage(image);
+        }
+        System.out.println("DEBUG: UI Updated with new event details: " + currentEvent.getEventName());
+    }
 }
