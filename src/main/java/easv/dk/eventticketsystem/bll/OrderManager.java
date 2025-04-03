@@ -21,4 +21,9 @@ public class OrderManager {
         orderDAO.deleteOrder(orderId);
     }
 
+    public void updateOrderCustomer(int orderId, int customerId) throws SQLException {
+        orderDAO.updateCustomerId(orderId, customerId);
+    }
+
+
 }

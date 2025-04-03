@@ -12,19 +12,27 @@
 <?import javafx.scene.text.Font?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
+<?import javafx.scene.control.TextField?>
 <AnchorPane fx:id="containerRoot" maxWidth="400" minWidth="400" prefHeight="270" prefWidth="400" style="-fx-background-radius: 10; -fx-background-color: white;" styleClass="userCard" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="easv.dk.eventticketsystem.gui.controllers.componentsControllers.OrderCardController">
     <padding>
         <Insets bottom="5" left="5" right="5" top="5" />
     </padding>
 
     <children>
-        <VBox fx:id="cardRoot" alignment="CENTER_LEFT" onMouseClicked="#onCardClicked" spacing="10" style="-fx-padding: 10" AnchorPane.bottomAnchor="10" AnchorPane.leftAnchor="10" AnchorPane.rightAnchor="10" AnchorPane.topAnchor="10">
+        <VBox fx:id="cardRoot" alignment="CENTER_LEFT" layoutX="24.0" layoutY="23.0" onMouseClicked="#onCardClicked" prefHeight="239.0" prefWidth="361.0" spacing="5" style="-fx-padding: 10" AnchorPane.bottomAnchor="13.0" AnchorPane.leftAnchor="19.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="18.0">
 
             <!-- Header -->
             <Label fx:id="lblOrderNumber" style="-fx-font-size: 16px; -fx-font-weight: bold;" text="Order #001" />
-            <Label fx:id="lblCustomerName" text="Customer: John Doe" textFill="#009fda">
-                <font><Font name="System Bold" size="15.0" /></font>
-            </Label>
+            <TextField fx:id="txtCustomerName"
+                       text="Customer: John Doe"
+                       editable="false"
+                       focusTraversable="false"
+                       style="-fx-background-color: transparent; -fx-border-color: transparent; -fx-font-size: 15px; -fx-font-weight: bold; -fx-text-fill: #009fda; -fx-padding: 0;"/>
+            <TextField fx:id="txtCustomerEmail"
+                       editable="false"
+                       focusTraversable="false"
+                       style="-fx-background-color: transparent; -fx-border-color: transparent; -fx-font-size: 13px; -fx-font-weight: bold; -fx-text-fill: #ffbc3d; -fx-padding: 0;" />
+
 
             <!-- TableView -->
             <TableView fx:id="ticketsTable" fixedCellSize="30" maxHeight="120" prefHeight="120" prefWidth="373.0" style="-fx-focus-color: transparent; -fx-hbar-policy: never;">
@@ -47,7 +55,7 @@
                 <Button fx:id="addTicketButton" onAction="#onAddTicketClicked" style="-fx-background-color: transparent;">
                     <graphic><FontIcon iconColor="#ffbc3d" iconLiteral="bi-plus-circle-fill" iconSize="20" /></graphic>
                 </Button>
-                <Button fx:id="editOrderButton" style="-fx-background-color: transparent;">
+                <Button fx:id="editOrderButton" onAction="#onEditOrderClicked" style="-fx-background-color: transparent;">
                     <graphic><FontIcon iconColor="#009640" iconLiteral="bi-pencil-fill" iconSize="20" /></graphic>
                 </Button>
                 <Button fx:id="deleteTicketButton" onAction="#onDeleteClicked" style="-fx-background-color: transparent;">

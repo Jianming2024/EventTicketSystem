@@ -1,14 +1,11 @@
 package easv.dk.eventticketsystem.gui.model;
 
 import easv.dk.eventticketsystem.be.Event;
-import easv.dk.eventticketsystem.bll.OrderManager;
+import easv.dk.eventticketsystem.bll.*;
 import easv.dk.eventticketsystem.gui.controllers.ManageEditWindow;
 import easv.dk.eventticketsystem.dal.db.OrderDAODB;
 import easv.dk.eventticketsystem.be.TicketOnOrder;
 import easv.dk.eventticketsystem.be.Users;
-import easv.dk.eventticketsystem.bll.EventManager;
-import easv.dk.eventticketsystem.bll.TicketOnOrderManager;
-import easv.dk.eventticketsystem.bll.UsersManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import java.sql.SQLException;
@@ -27,6 +24,7 @@ public class EventTicketSystemModel {
 
     ///
     private final OrderManager orderManager = new OrderManager();
+    private final CustomerManager customerManager = new CustomerManager();
 
     public ObservableList<TicketOnOrder> getAllOrderDetails() {
         List<TicketOnOrder> orderDetails = ticketOnOrderManager.getAllOrderDetails();
@@ -49,6 +47,16 @@ public class EventTicketSystemModel {
     public void deleteOrder(int orderId) {
         try {
             orderManager.deleteOrder(orderId);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    public int getOrCreateCustomerId(String name, String email) throws Exception {
+        return customerManager.getOrCreateCustomerId(name, email);
+    }
+    public void updateOrderCustomer(int orderId, int customerId) {
+        try {
+            orderManager.updateOrderCustomer(orderId, customerId);
         } catch (SQLException e) {
             e.printStackTrace();
         }

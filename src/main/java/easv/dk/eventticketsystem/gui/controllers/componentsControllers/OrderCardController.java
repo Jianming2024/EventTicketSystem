@@ -7,6 +7,7 @@ import easv.dk.eventticketsystem.be.TicketOnOrder;
 import easv.dk.eventticketsystem.bll.TicketManager;
 import easv.dk.eventticketsystem.gui.controllers.ManageOrdersController;
 import easv.dk.eventticketsystem.gui.controllers.TicketController;
+import easv.dk.eventticketsystem.gui.model.EventTicketSystemModel;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -21,6 +22,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import org.kordamp.ikonli.javafx.FontIcon;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -30,13 +32,18 @@ import java.util.List;
 
 public class OrderCardController {
 
+
     @FXML private Button deleteTicketButton;
     @FXML private Button addTicketButton;
     @FXML private VBox cardRoot;
     @FXML
     private AnchorPane containerRoot;
     @FXML private Label lblOrderNumber;
+
     @FXML private Label lblCustomerName;
+    @FXML public Label lblCustomerEmail;
+    @FXML private TextField txtCustomerName;
+    @FXML private TextField txtCustomerEmail;
 
     @FXML private TableView<TicketOnOrder> ticketsTable;
     @FXML private TableColumn<TicketOnOrder, String> actionColumn;
@@ -47,11 +54,17 @@ public class OrderCardController {
     @FXML private Button emailTicketsButton;
 
     @FXML private Button editOrderButton;
+
     @FXML private Button deleteOrderButton;
+    private boolean isEditing = false;
+
     private ManageOrdersController parentController;
 
     private List<TicketOnOrder> ticketList;
     private TicketOnOrder baseTicket;
+
+    private EventTicketSystemModel model;
+
     @FXML
     public void initialize() {
         containerRoot.getStyleClass().add("order-card");
@@ -76,7 +89,8 @@ public class OrderCardController {
         System.out.println("Tickets for order #" + baseTicket.getOrderId() + ": " + allTickets.size());
 
         lblOrderNumber.setText("Order #" + baseTicket.getOrderId());
-        lblCustomerName.setText("Customer: "+ baseTicket.getCustomerName());
+        txtCustomerName.setText(baseTicket.getCustomerName());
+        txtCustomerEmail.setText(baseTicket.getCustomerEmail());
 
         ticketsTable.getItems().setAll(allTickets);
         configureTicketTableSizes();
@@ -112,7 +126,7 @@ public class OrderCardController {
     }
     public void setDataPlaceholder() {
         lblOrderNumber.setText("New Order");
-        lblCustomerName.setText("Customer: ");
+        txtCustomerName.setText("Customer: ");
         ticketsTable.getItems().clear();
         configureTicketTableSizes();
     }
@@ -138,6 +152,10 @@ public class OrderCardController {
     public void setParentController(ManageOrdersController controller) {
         this.parentController = controller;
     }
+    public void setModel(EventTicketSystemModel model) {
+        this.model = model;
+    }
+
 
     @FXML
     private void onCardClicked() {
@@ -195,7 +213,63 @@ public class OrderCardController {
         alert.showAndWait();
     }
 
+    @FXML
+    private void onEditOrderClicked() {
+        if (!isEditing) {
+            // Switch to edit mode
+            isEditing = true;
 
+            txtCustomerName.setText(baseTicket.getCustomerName());
+            txtCustomerEmail.setText(baseTicket.getCustomerEmail());
+
+            txtCustomerName.setEditable(true);
+            txtCustomerEmail.setEditable(true);
+            // Optional: Change icon to Save
+            ((FontIcon) editOrderButton.getGraphic()).setIconLiteral("bi-save-fill");
+
+        } else {
+            // Save mode
+            isEditing = false;
+
+            String newName = txtCustomerName.getText().trim();
+            String newEmail = txtCustomerEmail.getText().trim();
+
+            if (newName.isEmpty() || newEmail.isEmpty()) {
+
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText(null);
+                alert.setContentText("Name and email cannot be empty");
+                alert.showAndWait();
+                return;
+            }
+
+            try {
+                int customerId = model.getOrCreateCustomerId(newName, newEmail);
+                model.updateOrderCustomer(baseTicket.getOrderId(), customerId);
+
+
+                txtCustomerName.setEditable(true);
+                txtCustomerEmail.setEditable(true);
+                // Update UI
+                txtCustomerName.setText(newName);
+                txtCustomerEmail.setText(newEmail);
+
+
+                // Change icon back to edit
+                ((FontIcon) editOrderButton.getGraphic()).setIconLiteral("bi-pencil-fill");
+
+            } catch (Exception e) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText(null);
+                alert.setContentText("Failed to update order");
+                alert.showAndWait();
+
+            }
+        }
+
+    }
     @FXML
     private void onPrintOrderClicked() {
 

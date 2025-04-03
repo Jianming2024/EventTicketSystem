@@ -95,6 +95,9 @@ public class ManageOrdersController implements Initializable {
 
         for (Map.Entry<Integer, List<TicketOnOrder>> entry : groupedOrders.entrySet()) {
             List<TicketOnOrder> ticketList = entry.getValue();
+            for (TicketOnOrder t : ticketList) {
+                System.out.println("🔍 Email for ticket in order " + t.getOrderId() + ": " + t.getCustomerEmail());
+            }
             TicketOnOrder baseTicket = ticketList.get(0); // Use first as base for name/email
             System.out.println("📦 Creating card for Order #" + baseTicket.getOrderId() + ", total tickets: " + ticketList.size());
 
@@ -108,6 +111,7 @@ public class ManageOrdersController implements Initializable {
                 OrderCardController controller = loader.getController();
                 System.out.println("👀 Loaded controller: " + controller);
                 controller.setParentController(this);
+                controller.setModel(eventTicketSystemModel);
 
                 controller.setData(baseTicket, ticketList);
                 System.out.println("✅ Finished setData() for Order #" + baseTicket.getOrderId());

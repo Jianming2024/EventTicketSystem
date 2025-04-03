@@ -51,6 +51,16 @@ public class OrderDAODB {
         }
     }
 
+
+    }
+    public void updateCustomerId(int order_id, int customer_id) throws SQLException {
+        String sql = "UPDATE Orders SET customer_id = ? WHERE order_id = ?";
+        try (Connection connection = con.getConnection();
+             PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setInt(1, customer_id);
+            ps.setInt(2, order_id);
+            ps.executeUpdate();
+        }
     }
 
 }
