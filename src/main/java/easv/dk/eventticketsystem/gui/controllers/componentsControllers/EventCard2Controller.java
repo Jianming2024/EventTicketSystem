@@ -63,7 +63,7 @@ public class EventCard2Controller {
         lblEndTime.setText(event.getEndDatetime().toString());
         String imgPath = event.getEventImagePath();
         if (imgPath != null && !imgPath.isEmpty()) {
-            Image image = new Image(getClass().getResourceAsStream(imgPath));
+            Image image = new Image("file:" + System.getProperty("user.dir") + imgPath);
             eventImage.setImage(image);
         }
         System.out.println("DEBUG: Event stored successfully -> " + currentEvent.getEventName());
@@ -146,7 +146,7 @@ public class EventCard2Controller {
         // Update image if available
         String imgPath = currentEvent.getEventImagePath();
         if (imgPath != null && !imgPath.isEmpty()) {
-            Image image = new Image(getClass().getResourceAsStream(imgPath));
+            Image image = new Image("file:" + System.getProperty("user.dir") + imgPath);
             eventImage.setImage(image);
         }
         System.out.println("DEBUG: UI Updated with new event details: " + currentEvent.getEventName());

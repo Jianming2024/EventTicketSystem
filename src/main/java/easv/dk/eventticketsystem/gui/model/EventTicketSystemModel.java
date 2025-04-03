@@ -88,8 +88,8 @@ public class EventTicketSystemModel {
         allEvents.setAll(eventList);
         return allEvents;
     }
-    public void createNewEvent(Event newEvent) {
-
+    public void createNewEvent(Event newEvent) throws IOException {
+        eventManager.createNewEvent(newEvent);
     }
 
     public void deleteEvent(Event event) throws IOException {

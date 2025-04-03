@@ -97,7 +97,7 @@ public class OrderCardController {
 
         actionColumn.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getEventName()));
         ticketTypeColumn.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getTicketType()));
-        quantityColumn.setCellValueFactory(data -> new SimpleIntegerProperty(data.getValue().getQuantity()).asObject());
+//        quantityColumn.setCellValueFactory(data -> new SimpleIntegerProperty(data.getValue().getQuantity()).asObject());
 
     }
     //    //Method for Configuring the ticket table columns to automatically resize

@@ -28,16 +28,16 @@
          </padding>
          <children>
             <Label text="Event Name:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
-            <TextField fx:id="txtUsername" style="-fx-border-radius: 5; -fx-background-radius: 5;" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="txtEventName" style="-fx-border-radius: 5; -fx-background-radius: 5;" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <Label text="Start Time:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
-            <TextField fx:id="txtEmail" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <TextField fx:id="txtStartTime" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <Label text="End Time:" GridPane.columnIndex="0" GridPane.rowIndex="4" />
-            <TextField fx:id="txtPhone" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <TextField fx:id="txtEndTime" GridPane.columnIndex="1" GridPane.rowIndex="4" />
             <Label text="Location:" GridPane.rowIndex="5" />
             <Label text="Avatar:" GridPane.columnIndex="0" />
             <StackPane fx:id="avatarUploadBox" onMouseClicked="#onClickBrowseAvatar" prefHeight="80" prefWidth="250" styleClass="upload-box" stylesheets="@views/Style.css" GridPane.columnIndex="1">
                <children>
-                  <Label fx:id="lblAvatarPrompt" styleClass="upload-label" text="+ Add avatar photo">
+                  <Label fx:id="lblUploadAvatar" styleClass="upload-label" text="+ Add avatar photo">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -46,11 +46,11 @@
             </StackPane>
             <Label text="Description:" GridPane.rowIndex="6" />
             <Label text="Date:" GridPane.rowIndex="2" />
-            <DatePicker GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <DatePicker fx:id="txtDate" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="txtLocation" GridPane.columnIndex="1" GridPane.rowIndex="5" />
             <Label text="Assign:" GridPane.rowIndex="7" />
             <ComboBox prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-            <TextArea prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            <TextArea fx:id="txtDescription" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
          </children>
          <columnConstraints>
             <ColumnConstraints />
@@ -70,7 +70,7 @@
       <HBox alignment="CENTER_RIGHT" spacing="10">
          <children>
             <Button fx:id="btnCancel" onAction="#onClickCancel" style="-fx-background-color: transparent; -fx-border-color: C00D0D; -fx-text-fill: C00D0D; -fx-border-radius: 5; -fx-background-radius: 5; -fx-padding: 5 15;" styleClass="btnCancel" stylesheets="@views/Style.css" text="Cancel" />
-            <Button fx:id="btnCreate" style="-fx-background-color: transparent; -fx-border-color: #009640; -fx-text-fill: #009640; -fx-border-radius: 5; -fx-background-radius: 5; -fx-padding: 5 15;" styleClass="btnCreate" stylesheets="@views/Style.css" text="Create">
+            <Button fx:id="btnCreate" onAction="#onClickCreateEvent" style="-fx-background-color: transparent; -fx-border-color: #009640; -fx-text-fill: #009640; -fx-border-radius: 5; -fx-background-radius: 5; -fx-padding: 5 15;" styleClass="btnCreate" stylesheets="@views/Style.css" text="Create">
                <HBox.margin>
                   <Insets right="10.0" />
                </HBox.margin>

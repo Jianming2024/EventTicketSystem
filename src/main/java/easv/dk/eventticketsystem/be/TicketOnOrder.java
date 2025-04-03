@@ -11,10 +11,10 @@ public class TicketOnOrder {
     private String eventDate;
     private String eventTime;
     private String location;
-    private String price;
-    private int quantity;
+//    private String price;
+//    private int quantity;
 
-    public TicketOnOrder(int orderId, String customerName, String customerEmail, String eventName, int ticketId, String ticketType, String code,String eventDate, String eventTime, String location, String price,int quantity) {
+    public TicketOnOrder(int orderId, String customerName, String customerEmail, String eventName, int ticketId, String ticketType, String code,String eventDate, String eventTime, String location) {
         this.orderId = orderId;
         this.customerName = customerName;
         this.customerEmail = customerEmail;
@@ -25,10 +25,10 @@ public class TicketOnOrder {
         this.eventDate = eventDate;
         this.eventTime = eventTime;
         this.location = location;
-        this.price = price;
-        this.quantity=quantity;
+//        this.price = price;
+//        this.quantity=quantity;
     }
-    public int getQuantity(){return quantity;}
+//    public int getQuantity(){return quantity;}
 
     public int getOrderId() {
         return orderId;
@@ -69,9 +69,9 @@ public class TicketOnOrder {
         return location;
     }
 
-    public String getPrice() {
-        return price;
-    }
+//    public String getPrice() {
+//        return price;
+//    }
 
     @Override
     public String toString() {
@@ -86,7 +86,7 @@ public class TicketOnOrder {
                 ", eventDate='" + eventDate + '\'' +
                 ", eventTime='" + eventTime + '\'' +
                 ", location='" + location + '\'' +
-                ", price='" + price + '\'' +
+//                ", price='" + price + '\'' +
                 '}';
     }
 }

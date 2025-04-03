@@ -11,7 +11,6 @@ public class Event {
     private LocalDateTime endDatetime;
     private String location;
     private String notes;
-    private String locationGuidance;
     private String eventImagePath;
 
     private LocalDateTime dateTime;
@@ -25,7 +24,7 @@ public class Event {
         this.endDatetime = endDatetime;
         this.location = location;
         this.notes = notes;
-        this.locationGuidance = locationGuidance;
+
         this.eventImagePath = eventImagePath;
     }
 
@@ -71,12 +70,6 @@ public class Event {
     public void setNotes(String notes) {
         this.notes = notes;
     }
-    public String getLocationGuidance() {
-        return locationGuidance;
-    }
-    public void setLocationGuidance(String locationGuidance) {
-        this.locationGuidance = locationGuidance;
-    }
     public String getEventImagePath() {
         return eventImagePath;
     }
@@ -99,7 +92,6 @@ public class Event {
                 ", endDatetime=" + endDatetime +
                 ", location='" + location + '\'' +
                 ", notes='" + notes + '\'' +
-                ", locationGuidance='" + locationGuidance + '\'' +
                 ", eventImagePath='" + eventImagePath + '\'' +
                 '}';
     }
