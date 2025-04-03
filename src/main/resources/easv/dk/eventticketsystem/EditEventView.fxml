@@ -46,7 +46,7 @@
             </StackPane>
             <Label text="Description:" GridPane.rowIndex="6" />
             <Label text="Date:" GridPane.rowIndex="2" />
-            <DatePicker GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <DatePicker fx:id="editDatePicker" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <TextField fx:id="txtLocation" GridPane.columnIndex="1" GridPane.rowIndex="5" />
             <Label text="Assign:" GridPane.rowIndex="7" />
             <ComboBox fx:id="comboAssign" prefWidth="150.0" promptText="Select a User" GridPane.columnIndex="1" GridPane.rowIndex="7" />

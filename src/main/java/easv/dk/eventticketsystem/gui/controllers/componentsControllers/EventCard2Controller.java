@@ -44,7 +44,7 @@ public class EventCard2Controller {
     @FXML
     private Label lblDate;
 
-    private static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("HH:mm");;
+    //private static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("HH:mm");;
 
     private Event currentEvent;
 
@@ -68,7 +68,34 @@ public class EventCard2Controller {
 
         lblEventName.setText(event.getEventName());
         lblLocation.setText(event.getLocation());
-        
+
+        // Extract and format the date
+        LocalDate eventDate = event.getStartDatetime().toLocalDate();
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        lblDate.setText(eventDate.format(dateFormatter)); // Update the event card date label
+
+        // Extract and format the time
+        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
+        lblStartTime.setText(event.getStartDatetime().toLocalTime().format(timeFormatter));
+        lblEndTime.setText(event.getEndDatetime().toLocalTime().format(timeFormatter));
+
+
+        //LocalDate date = LocalDate.parse(lblDate.getText());
+
+        // Convert LocalDateTime to LocalDate
+        //LocalDate eventDate = event.getStartDatetime().toLocalDate();
+
+        // Format and display the date
+      //  lblDate.setText(date.format(TIME_FORMATTER));
+
+        // Format and display time separately
+       // DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
+        //lblStartTime.setText(event.getStartDatetime().toLocalTime().format(timeFormatter));
+       // lblEndTime.setText(event.getEndDatetime().toLocalTime().format(timeFormatter));
+
+      //  LocalTime startTime = LocalTime.parse((CharSequence) lblStartTime, TIME_FORMATTER);
+     //   LocalTime endTime = LocalTime.parse((CharSequence) lblEndTime, TIME_FORMATTER);
+
         lblStartTime.setText(event.getStartDatetime().toString());
         lblEndTime.setText(event.getEndDatetime().toString());
 
@@ -92,6 +119,8 @@ public class EventCard2Controller {
             return;
         }
         try {
+            System.out.println("DEBUG: Loading Edit Window...");
+
             FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("EditEventView.fxml"));
             Parent root = fxmlLoader.load();
 
@@ -110,6 +139,9 @@ public class EventCard2Controller {
             stage.setTitle("Edit Event");
             stage.setScene(new Scene(root));
             stage.show();
+
+            System.out.println("DEBUG: Edit Window loaded successfully -> " + currentEvent.getEventName());
+
         } catch (IOException e) {
             e.printStackTrace();
             AlertUtil.showErrorAlert("Error", "Failed to load the edit window.");
