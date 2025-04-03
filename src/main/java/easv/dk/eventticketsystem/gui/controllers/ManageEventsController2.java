@@ -52,11 +52,7 @@ public class ManageEventsController2 implements Initializable {
             AnchorPane card = loader.load();
             // Get the controller of the card and pass the event data
             EventCard2Controller cardController = loader.getController();
-            if (cardController == null) {
-                System.out.println("DEBUG: EventCard2Controller is NULL!");
-                continue;
-            }
-            cardController.setEvent(event);
+            cardController.setParentController(this);
             cardController.setEventData(event);
             // Add the card to the FlowPane
             eventCardPane.getChildren().add(card);

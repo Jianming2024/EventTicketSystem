@@ -117,6 +117,7 @@ public class EventCard2Controller {
         // Refresh the list of users using the parent controller, if available
         if (manageEventsController != null) {
             manageEventsController.loadAllEvents();
+//
         } else {
             System.err.println("Parent controller is not set!");
         }
