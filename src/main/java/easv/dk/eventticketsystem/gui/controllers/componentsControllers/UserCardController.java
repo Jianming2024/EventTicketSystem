@@ -6,6 +6,7 @@ import easv.dk.eventticketsystem.gui.controllers.ManageUsersController;
 import easv.dk.eventticketsystem.gui.controllers.UserEditorController;
 import easv.dk.eventticketsystem.gui.model.EventTicketSystemModel;
 import easv.dk.eventticketsystem.gui.util.AlertUtil;
+import easv.dk.eventticketsystem.gui.util.NotificationUtil;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -114,7 +115,6 @@ public class UserCardController {
     }
 
     public void onClickEditUser(ActionEvent actionEvent) throws IOException {
-
         user.setUserName(lblUserName.getText());
         user.setUserEmail(lblUserEmail.getText());
         user.setUserPhone(lblUserPhone.getText());
@@ -166,6 +166,9 @@ public class UserCardController {
     }
 
     public void onClickDeleteUser(ActionEvent actionEvent) throws IOException {
+        NotificationUtil.showWarningNotification(btnEdit.getScene().getWindow(),
+                "User Updated",
+                "User information has been updated successfully.");
         boolean confirmed = AlertUtil.showConfirmationAlert("Delete User Confirmation",
                 "Are you sure you want to delete this user?");
         if (confirmed) {
