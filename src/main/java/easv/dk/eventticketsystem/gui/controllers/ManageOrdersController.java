@@ -1,22 +1,16 @@
 package easv.dk.eventticketsystem.gui.controllers;
 
-import easv.dk.eventticketsystem.MainApplication;
 import easv.dk.eventticketsystem.be.TicketOnOrder;
-import easv.dk.eventticketsystem.bll.TicketManager;
-import easv.dk.eventticketsystem.bll.UUIDGenerator;
+import easv.dk.eventticketsystem.bll.QRCodeManager;
 import easv.dk.eventticketsystem.gui.controllers.componentsControllers.OrderCardController;
 import easv.dk.eventticketsystem.gui.model.EventTicketSystemModel;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
@@ -62,7 +56,7 @@ public class ManageOrdersController implements Initializable {
     public Button btnCreateNewOrder;
 
 
-    private final UUIDGenerator uuidGenerator = new UUIDGenerator();
+    private final QRCodeManager QRCodeManager = new QRCodeManager();
 
 
     private final EventTicketSystemModel eventTicketSystemModel = new EventTicketSystemModel();
@@ -154,7 +148,7 @@ public class ManageOrdersController implements Initializable {
             TicketOnOrder placeholderTicket = new TicketOnOrder(
                     newOrderId, "Customer Name", "email@example.com", "Event Placeholder",
                     0, "Type", "CODE123", "DD/MM/YYYY", "HH:mm", "Location",1
-            );
+            ,150);
             controller.setData(placeholderTicket, List.of(placeholderTicket));
         } catch (IOException e) {
             e.printStackTrace();

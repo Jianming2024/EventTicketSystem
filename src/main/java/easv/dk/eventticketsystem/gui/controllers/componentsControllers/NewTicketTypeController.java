@@ -2,27 +2,19 @@ package easv.dk.eventticketsystem.gui.controllers.componentsControllers;
 
 
 import easv.dk.eventticketsystem.be.TicketType;
-import easv.dk.eventticketsystem.gui.controllers.componentsControllers.AddTicketController;
-import easv.dk.eventticketsystem.bll.TicketTypeManager;
 import easv.dk.eventticketsystem.gui.model.EventTicketSystemModel;
 import easv.dk.eventticketsystem.gui.util.AlertUtil;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-import java.io.IOException;
-
 public class NewTicketTypeController {
 
 
-
-    @FXML private TextField txtTypeName;
+    @FXML private TextField txtTicketTypeName;
     @FXML private ComboBox<String> comboAssign; // for "Normal", "Voucher"
     @FXML private TextField txtPrice;
     @FXML private Button btnSaveChanges;
@@ -58,7 +50,7 @@ public class NewTicketTypeController {
 
     @FXML
     private void onClickSaveChanges(ActionEvent actionEvent) {
-        String name = txtTypeName.getText().trim();
+        String name = txtTicketTypeName.getText().trim();
         String category = comboAssign.getValue();
         String priceText = txtPrice.getText().trim();
 

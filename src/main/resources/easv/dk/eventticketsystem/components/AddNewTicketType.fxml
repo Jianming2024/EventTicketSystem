@@ -23,11 +23,11 @@
                 <Insets bottom="10" left="10" right="10" top="10" />
             </padding>
             <children>            <Label text="Name" GridPane.columnIndex="0" />
-                <TextField fx:id="txtStartTime" maxWidth="181.0" prefHeight="26.0" prefWidth="181.0" promptText="(e.g. FRONT ROW Acess)" GridPane.columnIndex="1" />
-                <Label fx:id="thisone" text="Category" GridPane.rowIndex="1" />
+                <TextField fx:id="txtTicketTypeName" maxWidth="181.0" prefHeight="26.0" prefWidth="181.0" promptText="(e.g. FRONT ROW Acess)" GridPane.columnIndex="1" />
+                <Label  text="Category" GridPane.rowIndex="1" />
                 <ComboBox fx:id="comboAssign" prefHeight="26.0" prefWidth="181.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                 <Label text="Price (DKK)" GridPane.columnIndex="0" GridPane.rowIndex="2" />
-                <TextField promptText="(e.g. 199.00)" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                <TextField fx:id="txtPrice" promptText="(e.g. 199.00)" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             </children>
             <columnConstraints>
                 <ColumnConstraints />

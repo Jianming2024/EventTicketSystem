@@ -13,7 +13,7 @@ public class TicketManager {
     private final ITicketDAO ticketDAO = new TicketDAODB();
 
     public void createTicket(int orderId, int ticketTypeId, int eventId, int quantity) throws IOException, SQLException {
-        String uniqueCode = UUIDGenerator.generateAndSaveQRCode(300, 300);
+        String uniqueCode = QRCodeManager.generateAndSaveQRCode(400, 400);
         ticketDAO.createTicket(orderId, ticketTypeId, eventId, quantity, uniqueCode);
     }
 

@@ -9,7 +9,7 @@
 <?import javafx.scene.text.Font?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
-<AnchorPane opacity="0.84" prefHeight="330.0" prefWidth="800.0" style="-fx-background-color: black; -fx-background-radius: 5; -fx-image-radius: 5;" stylesheets="@views/Style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="easv.dk.eventticketsystem.gui.controllers.TicketController2">
+<AnchorPane opacity="0.84" prefHeight="330.0" prefWidth="800.0" style="-fx-background-color: black; -fx-background-radius: 5; -fx-image-radius: 5;" stylesheets="@views/Style.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="easv.dk.eventticketsystem.gui.controllers.TicketController">
    <children>
       <ImageView fitHeight="531.0" fitWidth="935.0" pickOnBounds="true" preserveRatio="true" style="-fx-background-radius: 5;">
          <image>
@@ -54,5 +54,10 @@
       <Line endX="200.0" layoutX="482.0" layoutY="113.0" startX="-112.0" stroke="#ffbc3d" />
       <FontIcon iconColor="WHITE" iconLiteral="bi-geo" iconSize="16" layoutX="364.0" layoutY="157.0" />
       <FontIcon iconColor="WHITE" iconLiteral="bi-calendar2-minus" iconSize="16" layoutX="365.0" layoutY="200.0" />
+      <Label fx:id="lblQuantity" layoutX="609.0" layoutY="291.0" text="Qty: 1" textFill="WHITE">
+         <font>
+            <Font name="System Bold Italic" size="26.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

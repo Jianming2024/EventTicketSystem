@@ -12,10 +12,12 @@ public class TicketOnOrder {
     private String eventTime;
     private String location;
     private int quantity;
-//    private String price;
+    private double price;
+
+
 //    private int quantity;
 
-    public TicketOnOrder(int orderId, String customerName, String customerEmail, String eventName, int ticketId, String ticketType, String code,String eventDate, String eventTime, String location, int quantity) {
+    public TicketOnOrder(int orderId, String customerName, String customerEmail, String eventName, int ticketId, String ticketType, String code,String eventDate, String eventTime, String location, int quantity, double price) {
         this.orderId = orderId;
         this.customerName = customerName;
         this.customerEmail = customerEmail;
@@ -27,8 +29,17 @@ public class TicketOnOrder {
         this.eventTime = eventTime;
         this.location = location;
         this.quantity = quantity;
+        this.price = price;
 
     }
+
+    public double getPrice() {
+        return price;
+    }
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
     public int getQuantity(){return quantity;}
 
     public void setQuantity(int quantity) {

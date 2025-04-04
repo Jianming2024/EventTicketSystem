@@ -13,14 +13,20 @@ public class TicketTypeDAODB implements ITicketTypeDAO {
 
     private final DBConnection con = new DBConnection();
     @Override
-    public void createTicketType(TicketType ticketType) throws Exception {
+    public TicketType createTicketType(TicketType ticketType) throws Exception {
         String sql = "INSERT INTO Ticket_Type (type_name, type_category, price) VALUES (?, ?, ?)";
-        try (Connection conn = con.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+        try (Connection conn = con.getConnection(); PreparedStatement ps = conn.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
             ps.setString(1, ticketType.getTypeName());
             ps.setString(2, ticketType.getCategory());
             ps.setDouble(3, ticketType.getPrice());
             ps.executeUpdate();
+            ResultSet rs = ps.getGeneratedKeys();
+            if (rs.next()) {
+                int id = rs.getInt(1);
+                ticketType.setTicketTypeId(id); // 🟢 Set the ID back
+            }
         }
+        return ticketType;
     }
 
     @Override

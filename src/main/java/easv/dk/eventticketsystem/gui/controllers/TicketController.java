@@ -52,7 +52,9 @@ public class TicketController {
 
         lblDate.setText(ticket.getEventDate());
         lblTime.setText(ticket.getEventTime());
-//        lblPrice.setText(ticket.getPrice());
+
+        lblQuantity.setText("Qty: " + ticket.getQuantity());
+        lblPrice.setText("DKK " + String.format("%.2f", ticket.getPrice()));
         lblLocation.setText(ticket.getLocation());
 //        lblQuantity.setText("Qty: " +ticket.getQuantity());
 

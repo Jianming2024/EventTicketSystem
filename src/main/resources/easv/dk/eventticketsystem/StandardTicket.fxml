@@ -42,7 +42,7 @@
          </children>
       </AnchorPane>
 
-      <ImageView fx:id="qrCodeImageView1" fitHeight="331.0" fitWidth="255.0" layoutX="326.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView  fitHeight="331.0" fitWidth="255.0" layoutX="326.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@views/images/eventImg.jpg" />
          </image>

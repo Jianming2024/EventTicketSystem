@@ -30,6 +30,7 @@ public class TicketOnOrderDAODB implements ITicketOnOrderDAO {
                     t.quantity,
                     t.ticket_id AS ticket_id,
                     tt.type_name AS ticket_type,
+                    tt.price AS ticket_price,
                     t.unique_code AS code
                    
                 FROM Orders o
@@ -56,6 +57,7 @@ public class TicketOnOrderDAODB implements ITicketOnOrderDAO {
                 if (startDateTime == null) startDateTime = "(No datetime)";
                 String location = rs.getString("location");
                 int quantity = rs.getInt("quantity");
+                double price = rs.getDouble("ticket_price");
 //                String price = rs.getString("price");
 //                int quantity = rs.getInt("quantity");
                 System.out.println("Retrieving order id: " + orderId);
@@ -80,7 +82,7 @@ public class TicketOnOrderDAODB implements ITicketOnOrderDAO {
                 }
 
 
-                TicketOnOrder too = new TicketOnOrder(orderId, customerName, customerEmail, eventName, ticketId, ticketType, code, eventDate, eventTime, location,quantity);
+                TicketOnOrder too = new TicketOnOrder(orderId, customerName, customerEmail, eventName, ticketId, ticketType, code, eventDate, eventTime, location,quantity,price);
                 orderDetails.add(too);
             }
         } catch (SQLException e) {

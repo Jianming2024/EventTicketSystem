@@ -146,7 +146,7 @@ public class OrderCardController {
 
     private void openTicket(TicketOnOrder ticket) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/easv/dk/eventticketsystem/StandardTicket.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/easv/dk/eventticketsystem/StandardTicket2.fxml"));
             Parent root = loader.load();
 
             TicketController ticketController = loader.getController();
