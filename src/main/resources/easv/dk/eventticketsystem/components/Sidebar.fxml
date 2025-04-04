@@ -26,7 +26,10 @@
         <graphic>
             <HBox spacing="10">
                 <FontIcon iconColor="WHITE" iconLiteral="bi-house-fill" iconSize="20" selectionStart="0" text="" />
-                <Label text="Dashboard" textFill="WHITE" />
+                <Label prefHeight="20.0" text="Dashboard" textFill="WHITE" />
+            <padding>
+               <Insets left="4.0" />
+            </padding>
             </HBox>
         </graphic>
         <VBox.margin>
@@ -39,7 +42,10 @@
         <graphic>
             <HBox spacing="10">
                 <FontIcon iconColor="WHITE" iconLiteral="bi-person-fill" iconSize="20" text="" />
-                <Label text="Users" textFill="WHITE" />
+                <Label prefHeight="20.0" text="Users" textFill="WHITE" />
+            <padding>
+               <Insets left="4.0" />
+            </padding>
             </HBox>
         </graphic>
     </Button>
@@ -49,7 +55,10 @@
         <graphic>
             <HBox spacing="10">
                 <FontIcon iconColor="WHITE" iconLiteral="bi-calendar2-fill" iconSize="20" />
-                <Label text="Events" textFill="WHITE" />
+                <Label prefHeight="20.0" text="Events" textFill="WHITE" />
+            <padding>
+               <Insets left="5.0" />
+            </padding>
             </HBox>
         </graphic>
     </Button>
@@ -86,12 +95,15 @@
                 <Label text="Orders" textFill="WHITE" />
             </HBox>-->
             <HBox spacing="10">
-                <ImageView fitHeight="20" fitWidth="20" preserveRatio="true">
+                <ImageView fitHeight="20.0" fitWidth="20" preserveRatio="true">
                     <image>
                         <Image url="@../views/images/ticket.png" />
                     </image>
                 </ImageView>
-                <Label text="Orders" textFill="WHITE" />
+                <Label prefHeight="20.0" prefWidth="41.0" text="Orders" textFill="WHITE" />
+            <padding>
+               <Insets left="5.0" />
+            </padding>
             </HBox>
         </graphic>
     </Button>
@@ -105,10 +117,13 @@
             <HBox spacing="10.0" styleClass="mainBtn" stylesheets="@../views/Style.css">
                 <FontIcon iconColor="WHITE" iconLiteral="bi-arrow-right-square-fill" iconSize="20" wrappingWidth="26.0">
                <HBox.margin>
-                  <Insets left="-9.0" />
+                  <Insets />
                </HBox.margin>
             </FontIcon>
-                <Label text="Log out" textFill="WHITE" />
+                <Label prefHeight="20.0" text="Log out" textFill="WHITE" />
+            <padding>
+               <Insets left="4.0" />
+            </padding>
             </HBox>
         </graphic>
       <VBox.margin>
