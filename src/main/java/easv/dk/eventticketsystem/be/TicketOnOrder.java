@@ -58,6 +58,14 @@ public class TicketOnOrder {
     public String getCustomerEmail() {
         return customerEmail;
     }
+    public void setCustomerEmail(String customerEmail) {
+        this.customerEmail = customerEmail;
+    }
+
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
+    }
+
 
     public String getEventName() {
         return eventName;

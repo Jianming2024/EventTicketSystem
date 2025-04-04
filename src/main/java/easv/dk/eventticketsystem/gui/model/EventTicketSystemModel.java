@@ -1,12 +1,9 @@
 package easv.dk.eventticketsystem.gui.model;
 
-import easv.dk.eventticketsystem.be.Event;
-import easv.dk.eventticketsystem.be.TicketType;
+import easv.dk.eventticketsystem.be.*;
 import easv.dk.eventticketsystem.bll.*;
 import easv.dk.eventticketsystem.gui.controllers.ManageEditWindow;
 import easv.dk.eventticketsystem.dal.db.OrderDAODB;
-import easv.dk.eventticketsystem.be.TicketOnOrder;
-import easv.dk.eventticketsystem.be.Users;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import java.sql.SQLException;
@@ -101,6 +98,10 @@ public class EventTicketSystemModel {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public Customer getCustomerByEmail(String email) throws Exception {
+        return customerManager.getCustomerByEmail(email);
     }
 
     /// User functions

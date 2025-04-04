@@ -3,6 +3,7 @@ package easv.dk.eventticketsystem.gui.controllers.componentsControllers;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.PageSize;
 import com.itextpdf.text.pdf.PdfWriter;
+import easv.dk.eventticketsystem.be.Customer;
 import easv.dk.eventticketsystem.be.TicketOnOrder;
 import easv.dk.eventticketsystem.be.Ticket;
 import easv.dk.eventticketsystem.bll.TicketManager;
@@ -243,26 +244,22 @@ public class OrderCardController {
     @FXML
     private void onEditOrderClicked() {
         if (!isEditing) {
-            // Switch to edit mode
+            /// Makes the button to Edit
             isEditing = true;
-
-            txtCustomerName.setText(baseTicket.getCustomerName());
-            txtCustomerEmail.setText(baseTicket.getCustomerEmail());
 
             txtCustomerName.setEditable(true);
             txtCustomerEmail.setEditable(true);
+
             // Optional: Change icon to Save
             ((FontIcon) editOrderButton.getGraphic()).setIconLiteral("bi-save-fill");
-
         } else {
-            // Save mode
+            /// Makes the button to save
             isEditing = false;
 
             String newName = txtCustomerName.getText().trim();
             String newEmail = txtCustomerEmail.getText().trim();
 
             if (newName.isEmpty() || newEmail.isEmpty()) {
-
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Error");
                 alert.setHeaderText(null);
@@ -272,30 +269,42 @@ public class OrderCardController {
             }
 
             try {
-                int customerId = model.getOrCreateCustomerId(newName, newEmail);
+                Customer existing = model.getCustomerByEmail(newEmail);
+                int customerId;
+                if (existing != null) {
+                    // Email exists, compare names
+                    if (!existing.getCustomerName().equals(newName)) {
+                        Alert alert = new Alert(Alert.AlertType.WARNING);
+                        alert.setTitle("Name Mismatch");
+                        alert.setHeaderText("Email already exists");
+                        alert.setContentText("A customer with this email already exists.\nThe name will remain as \"" + existing.getCustomerName() + "\".");
+                        alert.showAndWait();
+                    }
+                    customerId = existing.getCustomerId();
+                } else {
+                    /// If customer doesnt exist, it creates a new one
+                    customerId = model.getOrCreateCustomerId(newName, newEmail);
+                }
+
                 model.updateOrderCustomer(baseTicket.getOrderId(), customerId);
 
+                // Force refresh (in case name didn't update)
+                parentController.displayOrders();
+                System.out.println("🔁 Refreshed orders after update!");
 
-                txtCustomerName.setEditable(true);
-                txtCustomerEmail.setEditable(true);
-                // Update UI
-                txtCustomerName.setText(newName);
-                txtCustomerEmail.setText(newEmail);
-
-
-                // Change icon back to edit
+                // Lock fields
+                txtCustomerName.setEditable(false);
+                txtCustomerEmail.setEditable(false);
                 ((FontIcon) editOrderButton.getGraphic()).setIconLiteral("bi-pencil-fill");
 
             } catch (Exception e) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Error");
                 alert.setHeaderText(null);
-                alert.setContentText("Failed to update order");
+                alert.setContentText("Failed to update order: " + e.getMessage());
                 alert.showAndWait();
-
             }
         }
-
     }
     @FXML
     private void onPrintOrderClicked() {

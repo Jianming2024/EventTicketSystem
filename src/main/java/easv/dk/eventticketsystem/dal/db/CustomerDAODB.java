@@ -41,4 +41,18 @@ public class CustomerDAODB {
         }
         return -1;
     }
+
+    public void updateCustomer(Customer customer) throws SQLException {
+        String sql = "UPDATE Customer SET customer_name = ? WHERE customer_email = ?";
+        try (Connection conn = con.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setString(1, customer.getCustomerName());
+            ps.setString(2, customer.getCustomerEmail());
+            int rows = ps.executeUpdate();
+            System.out.println("📝 Rows updated: " + rows);
+            System.out.println("🔁 Attempted to update name to: " + customer.getCustomerName());
+        }
+    }
+
 }

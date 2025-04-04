@@ -53,10 +53,10 @@ public class TicketController {
         lblDate.setText(ticket.getEventDate());
         lblTime.setText(ticket.getEventTime());
 
-        lblQuantity.setText("Qty: " + ticket.getQuantity());
-        lblPrice.setText("DKK " + String.format("%.2f", ticket.getPrice()));
+        lblQuantity.setText("qty: " + ticket.getQuantity());
+        lblPrice.setText("DKK " + String.format("%.0f", ticket.getPrice()));
         lblLocation.setText(ticket.getLocation());
-//        lblQuantity.setText("Qty: " +ticket.getQuantity());
+
 
         // Set QR image
         File qrFile = new File(qrFilePath);
