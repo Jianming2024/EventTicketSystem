@@ -16,14 +16,14 @@
             <Image url="@../../../../eventImg/concert.jpg" />
          </image>
       </ImageView>
-      <Label fx:id="lblEventName" layoutX="37.0" layoutY="206.0" text="Event Name" AnchorPane.leftAnchor="37.0">
+      <Label fx:id="lblEventName" layoutX="36.0" layoutY="201.0" lineSpacing="1.0" maxHeight="165.0" maxWidth="322.0" prefHeight="78.0" prefWidth="239.0" text="Event Name" wrapText="true" AnchorPane.leftAnchor="36.0">
          <font>
-            <Font name="System Bold" size="27.0" />
+            <Font name="System Bold" size="25.0" />
          </font>
       </Label>
 
       <!-- LOCATION (Icon + Label) -->
-      <HBox layoutX="20.0" layoutY="250.0" spacing="5" AnchorPane.bottomAnchor="221.0" AnchorPane.leftAnchor="36.0">
+      <HBox layoutX="35.0" layoutY="279.0" spacing="5" AnchorPane.bottomAnchor="192.0" AnchorPane.leftAnchor="36.0">
          <!-- Location Icon -->
          <FontIcon iconColor="#000000" iconLiteral="bi-geo" iconSize="16" />
          <!-- Location Label -->
@@ -33,7 +33,7 @@
             </font>
          </Label>
       </HBox>
-      <HBox layoutX="37.0" layoutY="276.0" prefHeight="18.0" prefWidth="187.0" spacing="5.0" AnchorPane.leftAnchor="37.0">
+      <HBox layoutX="38.0" layoutY="311.0" prefHeight="18.0" prefWidth="187.0" spacing="5.0" AnchorPane.leftAnchor="38.0">
          <children>
             <FontIcon iconColor="#000000" iconLiteral="bi-calendar2-minus" iconSize="16" />
             <Label fx:id="lblDate" text="Date: 04/04/2025" />
@@ -41,7 +41,7 @@
       </HBox>
 
       <!-- START DATE/TIME (Icon + Label) -->
-      <HBox layoutX="38.0" layoutY="303.0" spacing="5" AnchorPane.leftAnchor="37.0">
+      <HBox layoutX="35.0" layoutY="338.0" spacing="5" AnchorPane.leftAnchor="37.0">
          <FontIcon iconColor="#000000" iconLiteral="bi-calendar2-minus" iconSize="16" />
          <Label fx:id="lblStartTime" text="Start: 10:00 PM">
             <font>
@@ -51,7 +51,7 @@
       </HBox>
 
       <!-- END DATE/TIME (Icon + Label) -->
-      <HBox layoutX="39.0" layoutY="332.0" spacing="5" AnchorPane.leftAnchor="37.0">
+      <HBox layoutX="37.0" layoutY="366.0" spacing="5" AnchorPane.leftAnchor="37.0">
          <FontIcon iconColor="#000000" iconLiteral="bi-calendar2-minus" iconSize="16" />
          <Label fx:id="lblEndTime" text="End: 09:00 PM">
             <font>
@@ -61,7 +61,7 @@
       </HBox>
 
       <!-- PRICE (Icon + Label) -->
-      <HBox layoutX="37.0" layoutY="361.0" spacing="5" AnchorPane.leftAnchor="37.0">
+      <HBox layoutX="37.0" layoutY="390.0" spacing="5" AnchorPane.leftAnchor="37.0">
          <FontIcon iconColor="#000000" iconLiteral="bi-cash" iconSize="16" text="" />
          <Label fx:id="lblAssignedUser" text="Assigned:">
             <font>
@@ -70,7 +70,7 @@
          </Label>
          <Label fx:id="lblPersonAssigned" lineSpacing="5.0" />
       </HBox>
-      <Button fx:id="btnInformation" layoutX="37.0" layoutY="404.0" mnemonicParsing="false" style="-fx-text-fill: #bbbbbb; -fx-background-color: transparent;" text="Click here for more information..." />
+      <Button fx:id="btnInformation" layoutX="35.0" layoutY="415.0" mnemonicParsing="false" style="-fx-text-fill: #bbbbbb; -fx-background-color: transparent;" text="Click here for more information..." />
 
       <!-- ACTION BUTTONS (Edit & Delete) -->
       <HBox layoutX="175.0" layoutY="441.0" spacing="10" AnchorPane.leftAnchor="175.0">

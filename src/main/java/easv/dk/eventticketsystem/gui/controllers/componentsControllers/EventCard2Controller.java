@@ -44,8 +44,6 @@ public class EventCard2Controller {
     @FXML
     private Label lblDate;
 
-    //private static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("HH:mm");;
-
     private Event currentEvent;
 
     public void setEvent(Event event) {
@@ -69,35 +67,14 @@ public class EventCard2Controller {
         lblEventName.setText(event.getEventName());
         lblLocation.setText(event.getLocation());
 
-        // Extract and format the date
         LocalDate eventDate = event.getStartDatetime().toLocalDate();
-        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        lblDate.setText(eventDate.format(dateFormatter)); // Update the event card date label
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        lblDate.setText(eventDate.format(dateFormatter)); // Display date
 
-        // Extract and format the time
         DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
-        lblStartTime.setText(event.getStartDatetime().toLocalTime().format(timeFormatter));
-        lblEndTime.setText(event.getEndDatetime().toLocalTime().format(timeFormatter));
+        lblStartTime.setText("Start time: " + event.getStartDatetime().toLocalTime().format(timeFormatter));
+        lblEndTime.setText("End time: " + event.getEndDatetime().toLocalTime().format(timeFormatter));
 
-
-        //LocalDate date = LocalDate.parse(lblDate.getText());
-
-        // Convert LocalDateTime to LocalDate
-        //LocalDate eventDate = event.getStartDatetime().toLocalDate();
-
-        // Format and display the date
-      //  lblDate.setText(date.format(TIME_FORMATTER));
-
-        // Format and display time separately
-       // DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
-        //lblStartTime.setText(event.getStartDatetime().toLocalTime().format(timeFormatter));
-       // lblEndTime.setText(event.getEndDatetime().toLocalTime().format(timeFormatter));
-
-      //  LocalTime startTime = LocalTime.parse((CharSequence) lblStartTime, TIME_FORMATTER);
-     //   LocalTime endTime = LocalTime.parse((CharSequence) lblEndTime, TIME_FORMATTER);
-
-        lblStartTime.setText(event.getStartDatetime().toString());
-        lblEndTime.setText(event.getEndDatetime().toString());
 
         lblPersonAssigned.setText(event.getAssignedUser());
         String imgPath = event.getEventImagePath();
@@ -171,7 +148,6 @@ public class EventCard2Controller {
        // System.out.println("Parent controller set to " + this.manageEventsController);
     }
 
-
     public void refreshEventData(Event currentEvent) {
         if (currentEvent == null) {
             System.out.println("ERROR: refreshEventData called with NULL event!");
@@ -185,7 +161,9 @@ public class EventCard2Controller {
         lblStartTime.setText(currentEvent.getStartDatetime().toString());
         lblEndTime.setText(currentEvent.getEndDatetime().toString());
         lblPersonAssigned.setText(currentEvent.getAssignedUser());
-        //lblDate.setText(currentEvent.getDate());
+        lblDate.setText(currentEvent.getStartDatetime().toLocalDate().format(DateTimeFormatter.ofPattern("dd-MM-yyyy")));
+        lblStartTime.setText("Start time: " + currentEvent.getStartDatetime().toLocalTime().format(DateTimeFormatter.ofPattern("HH:mm")));
+        lblEndTime.setText("End time: " + currentEvent.getEndDatetime().toLocalTime().format(DateTimeFormatter.ofPattern("HH:mm")));
 
 
         // Update image if available

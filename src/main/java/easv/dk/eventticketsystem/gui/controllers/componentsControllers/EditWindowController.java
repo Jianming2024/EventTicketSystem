@@ -60,15 +60,9 @@ public class EditWindowController implements Initializable {
     @FXML
     private StackPane avatarUploadBox;
 
-    //private static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("HH:mm");;
-
-    //LocalDate date =editDatePicker.getValue();                  // Date from DatePicker
-   // LocalTime startTime = LocalTime.parse(txtStartTime.getText(), TIME_FORMATTER);  // Time from TextField
-  //  LocalDateTime startDateTime = LocalDateTime.of(date, startTime);  // Combined
-
     private final EventTicketSystemModel model = new EventTicketSystemModel();
 
-    private EventCard2Controller parentController; // Store reference to main controller
+    private EventCard2Controller parentController;
 
     private String eventImagePath;
 
@@ -98,13 +92,6 @@ public class EditWindowController implements Initializable {
             if (currentEvent != null) {
                 loadEventData(currentEvent);  // Ensure assigned user is displayed
             }
-
-           /* System.out.println("DEBUG: Initializing EditWindowController...");
-            if (editDatePicker == null) {
-                System.out.println("ERROR: editDatePicker is NULL! Check FXML fx:id.");
-            } else {
-                System.out.println("DEBUG: editDatePicker successfully initialized.");
-            }*/
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -151,9 +138,13 @@ public class EditWindowController implements Initializable {
         try {
             // Retrieve values from form fields
             String eventName = txtEventName.getText();
-            LocalDateTime startDatetime = LocalDateTime.parse(txtStartTime.getText());
-            LocalDateTime endDatetime = LocalDateTime.parse(txtEndTime.getText());
-            LocalDate selectedDate = editDatePicker.getValue();
+            LocalDate selectedDate = editDatePicker.getValue(); // Get date from DatePicker
+            LocalTime startTime = LocalTime.parse(txtStartTime.getText(), DateTimeFormatter.ofPattern("HH:mm"));
+            LocalTime endTime = LocalTime.parse(txtEndTime.getText(), DateTimeFormatter.ofPattern("HH:mm"));
+
+            LocalDateTime startDatetime = LocalDateTime.of(selectedDate, startTime);
+            LocalDateTime endDatetime = LocalDateTime.of(selectedDate, endTime);
+
             String location = txtLocation.getText();
             String notes = txtAreaDescription.getText();
             String imgPath = lblUploadAvatar.getText();
@@ -201,12 +192,14 @@ public class EditWindowController implements Initializable {
         if (event != null) {
             currentEvent = event;// Store current event for saving
             txtEventName.setText(event.getEventName());
-            txtStartTime.setText(event.getStartDatetime().toString());
-            txtEndTime.setText(event.getEndDatetime().toString());
             txtLocation.setText(event.getLocation());
             txtAreaDescription.setText(event.getNotes());
             lblUploadAvatar.setText(event.getEventImagePath());
+
             editDatePicker.setValue(event.getStartDatetime().toLocalDate());
+            txtStartTime.setText(event.getStartDatetime().toLocalTime().format(DateTimeFormatter.ofPattern("HH:mm")));
+            txtEndTime.setText(event.getEndDatetime().toLocalTime().format(DateTimeFormatter.ofPattern("HH:mm")));
+
             comboAssign.getSelectionModel().clearSelection();
 
             if (event.getAssignedUser() != null) {
@@ -218,6 +211,3 @@ public class EditWindowController implements Initializable {
         this.parentController = parentController;
     }
 }
-
-
-

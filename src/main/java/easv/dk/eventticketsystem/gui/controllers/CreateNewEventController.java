@@ -48,6 +48,7 @@ public class CreateNewEventController implements Initializable {
     private TextField txtLocation;
     @FXML
     private TextArea txtDescription;
+    @FXML
     private String avatarImagePath;
     @FXML
     private Button btnCreate;
@@ -98,7 +99,7 @@ public class CreateNewEventController implements Initializable {
         File selectedFile = fileChooser.showOpenDialog(avatarUploadBox.getScene().getWindow());
         if (selectedFile != null) {
             try {
-                File destDir = new File("eventImg");  // Folder at the project root (make sure it's added to your repository)
+                File destDir = new File("eventImg");  // Folder at the project root
                 if (!destDir.exists()) {
                     destDir.mkdirs();
                 }
@@ -168,7 +169,7 @@ public class CreateNewEventController implements Initializable {
                     location,
                     notes,
                     eventImagePath,
-                    assignedUser
+                    assignUser
             );
             model.createNewEvent(newEvent);
             if (manageEventsController2 != null) {
@@ -186,15 +187,3 @@ public class CreateNewEventController implements Initializable {
         this.manageEventsController2 = manageEventsController2;
     }
 }
-
-        /*try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/easv/dk/eventticketsystem/components/EventCard2.fxml"));
-            Parent card = loader.load();
-
-            EventCard2Controller controller = loader.getController();
-            controller.setDataPlaceholder(); // Shows placeholder text like "New Order"
-
-            eventCardPane.getChildren().add(card);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }*/
