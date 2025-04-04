@@ -15,9 +15,11 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import org.kordamp.ikonli.javafx.FontIcon;
 
@@ -42,6 +44,7 @@ public class UserCardController {
     @FXML
     private Label lblRole;
 
+    private TextField editingTextField;
     private Users user;
     private final EventTicketSystemModel model = new EventTicketSystemModel();
     private ManageUsersController manageUsersController;
@@ -71,11 +74,46 @@ public class UserCardController {
         }
     }
 
-    public void handleDoubleClick(MouseEvent mouseEvent) {
-        if (mouseEvent.getClickCount() == 2) {
-            System.out.println("Double-clicked on user card");
-            // Open edit dialog or perform edit action here
+    public void handleDoubleClick(MouseEvent event) {
+        // Ensure the double-click came from the lblUserName and it's exactly a double-click.
+        if (event.getSource() == lblUserName && event.getClickCount() == 2) {
+            // Create a TextField with the current label text.
+            editingTextField = new TextField(lblUserName.getText());
+            editingTextField.setStyle(lblUserName.getStyle()); // Copy style if desired
+
+            // Commit changes when Enter is pressed.
+            editingTextField.setOnAction(e -> finishEditing());
+
+            // Alternatively, commit changes when focus is lost.
+            editingTextField.focusedProperty().addListener((obs, wasFocused, isNowFocused) -> {
+                if (!isNowFocused) {
+                    finishEditing();
+                }
+            });
+
+            // Replace the Label with the TextField in its parent container.
+            // (Assuming the parent is a Pane, like VBox or HBox)
+            if (lblUserName.getParent() instanceof Pane) {
+                Pane parent = (Pane) lblUserName.getParent();
+                int index = parent.getChildren().indexOf(lblUserName);
+                parent.getChildren().set(index, editingTextField);
+                editingTextField.requestFocus();
+            }
         }
+    }
+    private void finishEditing() {
+        // Get the new text from the TextField.
+        String newText = editingTextField.getText();
+        lblUserName.setText(newText);
+
+        // Swap back: Replace the TextField with the Label in the same parent.
+        if (editingTextField.getParent() instanceof Pane) {
+            Pane parent = (Pane) editingTextField.getParent();
+            int index = parent.getChildren().indexOf(editingTextField);
+            parent.getChildren().set(index, lblUserName);
+            // Optionally, trigger additional actions (e.g., saving the change).
+        }
+        editingTextField = null;
     }
 
     public void onClickEditUser(ActionEvent actionEvent) throws IOException {

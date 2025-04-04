@@ -24,7 +24,7 @@
          </ImageView>
         <VBox alignment="CENTER_LEFT" layoutX="121.0" layoutY="46.0" prefHeight="121.0" prefWidth="146.0" spacing="5.0">
             <!-- User Info -->
-            <Label fx:id="lblUserName" style="-fx-font-size: 16px; -fx-font-weight: bold;" text="Peter Kay" />
+            <Label fx:id="lblUserName" onMouseClicked="#handleDoubleClick" style="-fx-font-size: 16px; -fx-font-weight: bold;" text="Peter Kay" />
             <Label fx:id="lblUserEmail" style="-fx-font-size: 14px;" text="email" />
             <Label fx:id="lblUserPhone" layoutX="10.0" layoutY="40.0" style="-fx-font-size: 14px;" text="phone" />
             <Label fx:id="lblRole" style="-fx-font-size: 14px;" text="Role">
