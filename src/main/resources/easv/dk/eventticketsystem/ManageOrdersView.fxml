@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane fx:id="ordersPane" prefHeight="700.0" prefWidth="1200.0" stylesheets="@/easv/dk/eventticketsystem/views/CardOrder.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="easv.dk.eventticketsystem.gui.controllers.ManageOrdersController">
+
+    <!-- Sidebar -->
+    <left>
+        <fx:include source="components/Sidebar.fxml" />
+    </left>
+
+    <!-- Center Content -->
+    <center>
+        <VBox prefWidth="1000.0" spacing="10.0" VBox.vgrow="ALWAYS">
+
+            <!-- Toolbar -->
+            <fx:include source="components/Toolbar.fxml" />
+
+            <!-- Create Order Button -->
+            <HBox alignment="CENTER_RIGHT" spacing="10.0">
+                <VBox.margin>
+                    <Insets right="20" /> <!-- Adjust right value as needed -->
+                </VBox.margin>
+
+                <Button fx:id="btnCreateNewOrder" onAction="#onClickAddOrder" style="-fx-background-color: transparent; -fx-border-color: #009640; -fx-text-fill: #009640; -fx-border-radius: 5; -fx-background-radius: 5; -fx-padding: 5 15;" text="Create New Order" />
+
+                <Button fx:id="btnConfirmOrder" onAction="#onClickConfirmOrder" style="-fx-background-color: transparent; -fx-border-color: #0078D4; -fx-text-fill: #0078D4; -fx-border-radius: 5; -fx-background-radius: 5; -fx-padding: 5 15;" text="Confirm Order" />
+            <Button fx:id="btnDeleteOrder" onAction="#onClickDeleteOrder" style="-fx-background-color: transparent; -fx-border-color: #D32F2F; -fx-text-fill: #D32F2F; -fx-border-radius: 5; -fx-background-radius: 5; -fx-padding: 5 15;" text="Delete Order" />
+            </HBox>
+
+            <!-- Scrollable Content -->
+            <ScrollPane fx:id="scrollPane" fitToWidth="true" hbarPolicy="NEVER" vbarPolicy="ALWAYS" VBox.vgrow="ALWAYS">
+                <content>
+                    <FlowPane fx:id="orderCardContainer" alignment="TOP_LEFT" hgap="20.0" maxWidth="Infinity" prefWidth="100.0" style="-fx-background-color: transparent;" vgap="20.0">
+                        <padding>
+                            <Insets bottom="10" left="10" right="10" top="10" />
+                        </padding>
+                    </FlowPane>
+                </content>
+            </ScrollPane>
+        </VBox>
+    </center>
+</BorderPane>

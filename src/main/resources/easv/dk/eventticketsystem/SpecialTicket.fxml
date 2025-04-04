@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="331.0" prefWidth="808.0" style="-fx-background-color: #1f445a;" stylesheets="@views/Style.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="easv.dk.eventticketsystem.gui.controllers.ManageOrdersController">
+    <children>
+        <TextField alignment="CENTER" layoutX="35.0" layoutY="14.0" prefHeight="50.0" prefWidth="402.0" promptText="Choose the type of ticket">
+            <font>
+                <Font name="Lucida Bright Italic" size="27.0" />
+            </font>
+        </TextField>
+        <AnchorPane layoutX="547.0" prefHeight="331.0" prefWidth="262.0" style="-fx-background-color: white;" />
+        <TextField layoutX="127.0" layoutY="100.0" prefHeight="30.0" prefWidth="314.0" promptText="Add Descripttion" style="-fx-background-color: #30607c;" />
+        <Text fill="WHITE" layoutX="14.0" layoutY="120.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Description:">
+            <font>
+                <Font size="20.0" />
+            </font>
+        </Text>
+        <TextField layoutX="95.0" layoutY="209.0" prefHeight="62.0" prefWidth="402.0" promptText="Add Terms &amp; Conditions" style="-fx-background-color: #30607c;" />
+        <Text fill="WHITE" layoutX="277.0" layoutY="309.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Expiration Date:" wrappingWidth="174.541015625">
+            <font>
+                <Font size="20.0" />
+            </font>
+        </Text>
+        <TextField layoutX="420.0" layoutY="289.0" prefHeight="26.0" prefWidth="110.0" promptText="Add date" style="-fx-background-color: #30607c;" />
+      <Text fill="WHITE" layoutX="14.0" layoutY="247.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Details:">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Text>
+    </children>
+</AnchorPane>

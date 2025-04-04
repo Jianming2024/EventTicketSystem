@@ -1,0 +1,13 @@
+.box{
+    -fx-background-color:  #D9D9D9;
+    -fx-border-color: black;
+}
+
+.infoBox{
+    -fx-background-color: #009FDA;
+}
+.editBtn{
+
+}
+.deleteBtn {
+}

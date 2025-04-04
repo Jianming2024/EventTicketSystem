@@ -1,0 +1,92 @@
+package easv.dk.eventticketsystem.be;
+
+public class TicketOnOrder {
+    private int orderId;
+    private String customerName;
+    private String customerEmail;
+    private String eventName;
+    private int ticketId;
+    private String ticketType;
+    private String code;
+    private String eventDate;
+    private String eventTime;
+    private String location;
+//    private String price;
+//    private int quantity;
+
+    public TicketOnOrder(int orderId, String customerName, String customerEmail, String eventName, int ticketId, String ticketType, String code,String eventDate, String eventTime, String location) {
+        this.orderId = orderId;
+        this.customerName = customerName;
+        this.customerEmail = customerEmail;
+        this.eventName = eventName;
+        this.ticketId = ticketId;
+        this.ticketType = ticketType;
+        this.code = code;
+        this.eventDate = eventDate;
+        this.eventTime = eventTime;
+        this.location = location;
+//        this.price = price;
+//        this.quantity=quantity;
+    }
+//    public int getQuantity(){return quantity;}
+
+    public int getOrderId() {
+        return orderId;
+    }
+
+    public String getCustomerName() {
+        return customerName;
+    }
+
+    public String getCustomerEmail() {
+        return customerEmail;
+    }
+
+    public String getEventName() {
+        return eventName;
+    }
+
+    public int getTicketId() {
+        return ticketId;
+    }
+
+    public String getTicketType() {
+        return ticketType;
+    }
+
+    public String getCode() {
+        return code;
+    }
+    public String getEventDate() {
+        return eventDate;
+    }
+
+    public String getEventTime() {
+        return eventTime;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+//    public String getPrice() {
+//        return price;
+//    }
+
+    @Override
+    public String toString() {
+        return "TicketOnOrder{" +
+                "orderId=" + orderId +
+                ", customerName='" + customerName + '\'' +
+                ", customerEmail='" + customerEmail + '\'' +
+                ", eventName='" + eventName + '\'' +
+                ", ticketId=" + ticketId +
+                ", ticketType='" + ticketType + '\'' +
+                ", code='" + code + '\'' +
+                ", eventDate='" + eventDate + '\'' +
+                ", eventTime='" + eventTime + '\'' +
+                ", location='" + location + '\'' +
+//                ", price='" + price + '\'' +
+                '}';
+    }
+}
