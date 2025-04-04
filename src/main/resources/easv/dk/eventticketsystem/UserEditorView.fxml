@@ -7,6 +7,7 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
@@ -15,7 +16,6 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<?import javafx.scene.image.ImageView?>
 <VBox spacing="20" style="-fx-padding: 20;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="easv.dk.eventticketsystem.gui.controllers.UserEditorController">
     <children>
         <!-- Title -->
@@ -50,12 +50,12 @@
                 </ComboBox>
 
                 <!-- Avatar Label -->
-                <Label text="Avatar:" GridPane.columnIndex="0" />
+                <Label text="Photo:" GridPane.columnIndex="0" />
                 <!-- StackPane for uploading photo -->
                 <StackPane fx:id="avatarUploadBox" onMouseClicked="#onClickBrowseAvatar" prefHeight="100" prefWidth="250" styleClass="upload-box" stylesheets="@views/Style.css" GridPane.columnIndex="1">
-                    <ImageView fx:id="avatarImageView" fitWidth="100" fitHeight="100" preserveRatio="true"/>
+                    <ImageView fx:id="avatarImageView" fitHeight="100" fitWidth="100" preserveRatio="true" />
                     <!-- Label inside the box -->
-                    <Label fx:id="lblUploadAvatar" styleClass="upload-label" text="+ Add avatar photo">
+                    <Label fx:id="lblUploadAvatar" styleClass="upload-label" text="+ Add photo">
                         <font>
                             <Font size="14.0" />
                         </font>

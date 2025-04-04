@@ -63,14 +63,7 @@ public class UserEditorController implements Initializable {
         String email = txtEmail.getText();
         String phone = txtPhone.getText();
         String role = comboRole.getValue();
-        String imgPath = (userImagePath != null) ? userImagePath : "";
-
-        // Debug output: Print values retrieved from the fields.
-        System.out.println("Username: " + userName);
-        System.out.println("Email: " + email);
-        System.out.println("Phone: " + phone);
-        System.out.println("Role: " + role);
-        System.out.println("Image Path: " + imgPath);
+        //String imgPath = (userImagePath != null) ? userImagePath : "";
 
         if (userName.isEmpty() || email.isEmpty() || phone.isEmpty() || role == null || role.isEmpty()) {
             AlertUtil.showErrorAlert("Fail to create a new user", "Username, email, phone or role is empty");
@@ -86,7 +79,7 @@ public class UserEditorController implements Initializable {
         }
 
         // Check whether we are updating an existing user or creating a new one.
-        if (user != null && user.getUserId() > 0) {
+        /*if (user != null && user.getUserId() > 0) {
             // Editing an existing user: update its properties and call an update method.
             System.out.println("Updating existing user with ID: " + user.getUserId());
             user.setUserName(userName);
@@ -105,7 +98,11 @@ public class UserEditorController implements Initializable {
             String finalImgPath = (userImagePath != null && !userImagePath.isEmpty()) ? userImagePath : "";
             Users newUser = new Users(0, userName, finalImgPath, role, email, phone);
             model.createNewUsers(newUser);
-        }
+        }*/
+
+        String finalImgPath = (userImagePath != null && !userImagePath.isEmpty()) ? userImagePath : "";
+        Users newUser = new Users(0, userName, finalImgPath, role, email, phone);
+        model.createNewUsers(newUser);
 
         // Refresh the Manage Users view.
         if (manageUsersController != null) {

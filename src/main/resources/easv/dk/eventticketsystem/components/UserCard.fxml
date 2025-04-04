@@ -11,10 +11,10 @@
 <?import javafx.scene.shape.Circle?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
-<AnchorPane fx:id="rootPane" onMouseClicked="#handleDoubleClick" prefHeight="170.0" prefWidth="287.0" style="-fx-background-color: white; -fx-background-radius: 10; -fx-padding: 10;" styleClass="userCard" stylesheets="@../views/Style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="easv.dk.eventticketsystem.gui.controllers.componentsControllers.UserCardController">
+<AnchorPane fx:id="rootPane" prefHeight="170.0" prefWidth="287.0" style="-fx-background-color: white; -fx-background-radius: 10; -fx-padding: 10;" styleClass="userCard" stylesheets="@../views/Style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="easv.dk.eventticketsystem.gui.controllers.componentsControllers.UserCardController">
     <children>
          <!-- Avatar -->
-         <ImageView fx:id="avatar" fitHeight="109.0" fitWidth="109.0" layoutX="22.0" layoutY="52.0" preserveRatio="true">
+         <ImageView fx:id="avatar" fitHeight="109.0" fitWidth="109.0" layoutX="22.0" layoutY="52.0" onMouseClicked="#handleDoubleClickRoleAndImg" preserveRatio="true">
              <clip>
                  <Circle centerX="40" centerY="40" radius="40" />
              </clip>
@@ -24,16 +24,16 @@
          </ImageView>
         <VBox alignment="CENTER_LEFT" layoutX="121.0" layoutY="46.0" prefHeight="121.0" prefWidth="146.0" spacing="5.0">
             <!-- User Info -->
-            <Label fx:id="lblUserName" onMouseClicked="#handleDoubleClick" style="-fx-font-size: 16px; -fx-font-weight: bold;" text="Peter Kay" />
-            <Label fx:id="lblUserEmail" style="-fx-font-size: 14px;" text="email" />
-            <Label fx:id="lblUserPhone" layoutX="10.0" layoutY="40.0" style="-fx-font-size: 14px;" text="phone" />
-            <Label fx:id="lblRole" style="-fx-font-size: 14px;" text="Role">
+            <Label fx:id="lblUserName" onMouseClicked="#handleDoubleClickTxt" style="-fx-font-size: 16px; -fx-font-weight: bold;" text="Peter Kay" />
+            <Label fx:id="lblUserEmail" onMouseClicked="#handleDoubleClickTxt" style="-fx-font-size: 14px;" text="email" />
+            <Label fx:id="lblUserPhone" layoutX="10.0" layoutY="40.0" onMouseClicked="#handleDoubleClickTxt" style="-fx-font-size: 14px;" text="phone" />
+            <Label fx:id="lblRole" onMouseClicked="#handleDoubleClickRoleAndImg" style="-fx-font-size: 14px;" text="Role">
             </Label>
             <!-- Action Buttons: Edit and Delete -->
             <HBox alignment="CENTER_LEFT">
                 <Button onAction="#onClickEditUser" style="-fx-background-color: transparent;" styleClass="editBtn" stylesheets="@../views/Style.css">
                     <graphic>
-                        <FontIcon fx:id="btnEdit" iconColor="#009640" iconLiteral="bi-pencil-fill" iconSize="18" />
+                        <FontIcon fx:id="btnEdit" iconColor="#009640" iconLiteral="bi-check-circle-fill" iconSize="18" />
                     </graphic>
                 </Button>
                 <!-- Delete button with trash icon -->

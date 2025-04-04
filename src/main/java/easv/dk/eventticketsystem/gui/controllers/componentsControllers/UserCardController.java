@@ -12,18 +12,17 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.kordamp.ikonli.javafx.FontIcon;
 
 import javax.swing.*;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Optional;
@@ -45,6 +44,7 @@ public class UserCardController {
     private Label lblRole;
 
     private TextField editingTextField;
+    private String newUserImagePath;
     private Users user;
     private final EventTicketSystemModel model = new EventTicketSystemModel();
     private ManageUsersController manageUsersController;
@@ -63,62 +63,86 @@ public class UserCardController {
             avatar.setImage(new Image(is));
             //System.out.println("DEBUG: Loaded image from resource: " + imagePath);
         } else {
-            System.err.println("DEBUG: Resource not found: " + imagePath);
-            // Optionally load a placeholder image if database no work
-            /*InputStream placeholderStream = getClass().getResourceAsStream("/userImg/placeholder.png");
-            if (placeholderStream != null) {
-                avatar.setImage(new Image(placeholderStream));
+            File imageFile = new File(imagePath);
+            if (imageFile.exists()) {
+                avatar.setImage(new Image(imageFile.toURI().toString()));
             } else {
-                avatar.setImage(null);
-            }*/
+                System.err.println("DEBUG: Resource not found: " + imagePath);
+            }
         }
     }
 
-    public void handleDoubleClick(MouseEvent event) {
-        // Ensure the double-click came from the lblUserName and it's exactly a double-click.
-        if (event.getSource() == lblUserName && event.getClickCount() == 2) {
-            // Create a TextField with the current label text.
-            editingTextField = new TextField(lblUserName.getText());
-            editingTextField.setStyle(lblUserName.getStyle()); // Copy style if desired
+    public void handleDoubleClickTxt(MouseEvent mouseEvent) {
+        if (mouseEvent.getSource() instanceof Label && mouseEvent.getClickCount() == 2) {
+            Label label = (Label) mouseEvent.getSource();
+
+            TextField textField = new TextField(label.getText());
+            textField.setStyle(label.getStyle());
 
             // Commit changes when Enter is pressed.
-            editingTextField.setOnAction(e -> finishEditing());
+            textField.setOnAction(e -> finishEditing(label, textField));
 
-            // Alternatively, commit changes when focus is lost.
-            editingTextField.focusedProperty().addListener((obs, wasFocused, isNowFocused) -> {
+            // Also commit when focus is lost
+            textField.focusedProperty().addListener((obs, wasFocused, isNowFocused) -> {
                 if (!isNowFocused) {
-                    finishEditing();
+                    finishEditing(label, textField);
                 }
             });
 
             // Replace the Label with the TextField in its parent container.
-            // (Assuming the parent is a Pane, like VBox or HBox)
-            if (lblUserName.getParent() instanceof Pane) {
-                Pane parent = (Pane) lblUserName.getParent();
-                int index = parent.getChildren().indexOf(lblUserName);
-                parent.getChildren().set(index, editingTextField);
-                editingTextField.requestFocus();
+            if (label.getParent() instanceof Pane) {
+                Pane parent = (Pane) label.getParent();
+                int index = parent.getChildren().indexOf(label);
+                parent.getChildren().set(index, textField);
+                textField.requestFocus();
             }
         }
     }
-    private void finishEditing() {
+    private void finishEditing(Label label, TextField textField) {
         // Get the new text from the TextField.
-        String newText = editingTextField.getText();
-        lblUserName.setText(newText);
+        String newText = textField.getText();
+        label.setText(newText);
 
-        // Swap back: Replace the TextField with the Label in the same parent.
-        if (editingTextField.getParent() instanceof Pane) {
-            Pane parent = (Pane) editingTextField.getParent();
-            int index = parent.getChildren().indexOf(editingTextField);
-            parent.getChildren().set(index, lblUserName);
+        // Replace the TextField with the Label in the same parent.
+        if (textField.getParent() instanceof Pane) {
+            Pane parent = (Pane) textField.getParent();
+            int index = parent.getChildren().indexOf(textField);
+            parent.getChildren().set(index, label);
             // Optionally, trigger additional actions (e.g., saving the change).
         }
-        editingTextField = null;
+        textField = null;
     }
 
     public void onClickEditUser(ActionEvent actionEvent) throws IOException {
-// Load the UserEditorView FXML file
-        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("/easv/dk/eventticketsystem/UserEditorView.fxml"));
+
+        user.setUserName(lblUserName.getText());
+        user.setUserEmail(lblUserEmail.getText());
+        user.setUserPhone(lblUserPhone.getText());
+        user.setRole(lblRole.getText());
+
+        if (newUserImagePath != null && !newUserImagePath.isEmpty()) {
+            user.setUserImagePath(newUserImagePath);
+
+            // Load the image from the file system rather than via getResourceAsStream.
+            File imageFile = new File(newUserImagePath);
+            if (imageFile.exists()) {
+                Image newImage = new Image(imageFile.toURI().toString());
+                avatar.setImage(newImage);
+            } else {
+                System.err.println("Image file not found: " + newUserImagePath);
+            }
+        }
+        model.updateUsers(user);
+
+        if (manageUsersController != null) {
+            manageUsersController.loadAllUsers();
+            AlertUtil.showSuccessAlert("User Updated", "User information has been updated successfully.");
+        } else {
+            System.err.println("Parent controller is not set!");
+        }
+
+        // Load the UserEditorView FXML file
+        /*FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("/easv/dk/eventticketsystem/UserEditorView.fxml"));
         Parent root = fxmlLoader.load();
 
         // Get the UserEditorController instance from the loader
@@ -138,7 +162,7 @@ public class UserCardController {
             manageUsersController.loadAllUsers();
         } else {
             System.err.println("Parent controller is not set!");
-        }
+        }*/
     }
 
     public void onClickDeleteUser(ActionEvent actionEvent) throws IOException {
@@ -160,5 +184,64 @@ public class UserCardController {
 
     public void setParentController(ManageUsersController manageUsersController) {
         this.manageUsersController = manageUsersController;
+    }
+
+    public void handleDoubleClickRoleAndImg(MouseEvent event) {if (event.getClickCount() == 2) {
+        Object source = event.getSource();
+        // For role label, switch to a ComboBox
+        if (source instanceof Label) {
+            Label label = (Label) source;
+            if ("lblRole".equals(label.getId())) {
+                ComboBox<String> comboBox = new ComboBox<>();
+                comboBox.getItems().addAll("Admin", "Event Coordinator");
+                // Set the current role as the selected value.
+                comboBox.setValue(label.getText());
+
+                // Commit the change when user selects an option.
+                comboBox.setOnAction(e -> finishEditingRole(label, comboBox));
+                // Also, commit when the combo box loses focus.
+                comboBox.focusedProperty().addListener((obs, wasFocused, isNowFocused) -> {
+                    if (!isNowFocused) {
+                        finishEditingRole(label, comboBox);
+                    }
+                });
+
+                // Replace the label with the ComboBox in its parent container.
+                if (label.getParent() instanceof Pane) {
+                    Pane parent = (Pane) label.getParent();
+                    int index = parent.getChildren().indexOf(label);
+                    parent.getChildren().set(index, comboBox);
+                    comboBox.requestFocus();
+                }
+            }
+        }
+        // For avatar image, open a file chooser to select a new image.
+        else if (source instanceof ImageView) {
+            ImageView imageView = (ImageView) source;
+            if ("avatar".equals(imageView.getId())) {
+                FileChooser fileChooser = new FileChooser();
+                fileChooser.setTitle("Choose a new image");
+                fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg", "*.gif"));
+                File file = fileChooser.showOpenDialog(imageView.getScene().getWindow());
+                if (file != null) {
+                    newUserImagePath = file.getAbsolutePath();
+                    Image newImage = new Image(file.toURI().toString());
+                    avatar.setImage(newImage);
+
+                }
+            }
+        }
+    }
+    }
+
+    // Helper method to finish editing the role.
+    private void finishEditingRole(Label label, ComboBox<String> comboBox) {
+        if (comboBox.getParent() instanceof Pane) {
+            Pane parent = (Pane) comboBox.getParent();
+            int index = parent.getChildren().indexOf(comboBox);
+            label.setText(comboBox.getValue());
+            parent.getChildren().set(index, label);
+            // Optionally, sync the role change to the database here.
+        }
     }
 }
