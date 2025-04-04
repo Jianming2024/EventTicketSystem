@@ -55,6 +55,7 @@ public class TicketOnOrderDAODB implements ITicketOnOrderDAO {
                 String startDateTime = rs.getString("start_datetime");
                 if (startDateTime == null) startDateTime = "(No datetime)";
                 String location = rs.getString("location");
+                int quantity = rs.getInt("quantity");
 //                String price = rs.getString("price");
 //                int quantity = rs.getInt("quantity");
                 System.out.println("Retrieving order id: " + orderId);
@@ -79,7 +80,7 @@ public class TicketOnOrderDAODB implements ITicketOnOrderDAO {
                 }
 
 
-                TicketOnOrder too = new TicketOnOrder(orderId, customerName, customerEmail, eventName, ticketId, ticketType, code, eventDate, eventTime, location);
+                TicketOnOrder too = new TicketOnOrder(orderId, customerName, customerEmail, eventName, ticketId, ticketType, code, eventDate, eventTime, location,quantity);
                 orderDetails.add(too);
             }
         } catch (SQLException e) {

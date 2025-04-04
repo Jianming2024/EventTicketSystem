@@ -153,7 +153,7 @@ public class ManageOrdersController implements Initializable {
             int newOrderId = eventTicketSystemModel.getNextOrderId();
             TicketOnOrder placeholderTicket = new TicketOnOrder(
                     newOrderId, "Customer Name", "email@example.com", "Event Placeholder",
-                    0, "Type", "CODE123", "DD/MM/YYYY", "HH:mm", "Location"
+                    0, "Type", "CODE123", "DD/MM/YYYY", "HH:mm", "Location",1
             );
             controller.setData(placeholderTicket, List.of(placeholderTicket));
         } catch (IOException e) {
@@ -234,7 +234,6 @@ public class ManageOrdersController implements Initializable {
 
 
 }
-
 
 
 

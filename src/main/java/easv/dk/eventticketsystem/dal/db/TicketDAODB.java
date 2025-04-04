@@ -11,24 +11,25 @@ import java.sql.SQLException;
 import java.util.UUID;
 
 public class TicketDAODB implements ITicketDAO {
-    private final DBConnection db = new DBConnection();
+    private final DBConnection con = new DBConnection();
 
     @Override
-    public void createTicket(int orderId, int ticketTypeId) {
+    public void createTicket(int orderId, int ticketTypeId,int eventId,int quantity, String uniqueCode) {
 
         try {
-            String uniqueCode = UUIDGenerator.generateAndSaveQRCode(300, 300);
 
 
-            String sql = "INSERT INTO Ticket (order_id, ticket_type_id, unique_code) VALUES (?, ?, ?)";
-            try (Connection conn = db.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+            String sql = "INSERT INTO Ticket (order_id, ticket_type_id, event_id, unique_code , quantity) VALUES (?, ?, ?, ?,?)";
+            try (Connection conn = con.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
                 ps.setInt(1, orderId);
                 ps.setInt(2, ticketTypeId);
-                ps.setString(3, uniqueCode);
+                ps.setInt(3, eventId);
+                ps.setString(4, uniqueCode);
+                ps.setInt(5, quantity);
                 ps.executeUpdate();
             }
-        } catch (IOException | SQLException e) {
-            e.printStackTrace(); // Optional: log or show an alert here
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
 
 
@@ -37,7 +38,7 @@ public class TicketDAODB implements ITicketDAO {
     public void deleteTicket(String uniqueCode) {
 
         String sql = "DELETE FROM Ticket WHERE unique_code = ?";
-        try (Connection conn = db.getConnection();
+        try (Connection conn = con.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
 
             ps.setString(1, uniqueCode);
