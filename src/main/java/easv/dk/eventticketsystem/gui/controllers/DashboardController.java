@@ -80,8 +80,8 @@ public class DashboardController implements Initializable {
         // Set the first image
         carouselImageView.setImage(eventImages.get(0));
 
-        // Create a timeline to change the image every 3 seconds
-        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(3), event -> {
+        // Create a timeline to change the image every 6 seconds
+        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(6), event -> {
             // Fade out current image
             FadeTransition fadeOut = new FadeTransition(Duration.seconds(1), carouselImageView);
             fadeOut.setFromValue(1.0);

@@ -127,3 +127,27 @@
     -fx-cursor: hand;
 }
 
+/* Change the background of the pagination control */
+#pagination {
+    -fx-background-color: transparent;
+}
+
+/* Style individual page indicators */
+#pagination .control-box .page-item {
+    -fx-background-color: lightgray;
+    -fx-text-fill: black;
+    -fx-padding: 5 10;
+    -fx-border-radius: 5;
+    -fx-min-width: 40px;
+    -fx-min-height: 40px;
+    -fx-font-size: 16px;
+}
+
+/* Style the selected page indicator */
+#pagination .control-box .page-item:selected {
+    -fx-background-color: #009640;
+    -fx-text-fill: white;
+    -fx-padding: 10px;
+}
+
+

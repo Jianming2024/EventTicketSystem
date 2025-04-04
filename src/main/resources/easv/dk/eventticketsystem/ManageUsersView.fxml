@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Pagination?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.HBox?>
@@ -13,11 +14,12 @@
         <fx:include source="components/Sidebar.fxml" />
     </left>
     <center>
-        <VBox prefWidth="1000.0" spacing="10">
+        <VBox alignment="TOP_CENTER" spacing="10" BorderPane.alignment="CENTER">
             <!-- Top: Toolbar -->
             <fx:include source="components/Toolbar.fxml" />
+
             <!-- Container for the Create button aligned to right -->
-            <HBox alignment="CENTER_RIGHT" prefHeight="34.0" prefWidth="1000.0">
+            <HBox alignment="CENTER_RIGHT" fillHeight="true">
                 <Button fx:id="btnCreateNewUser" onAction="#onClickCreateNewUser" style="-fx-background-color: transparent; -fx-border-color: #009640; -fx-text-fill: #009640; -fx-border-radius: 5; -fx-background-radius: 5; -fx-padding: 5 15;" text="Create New User">
                <HBox.margin>
                   <Insets right="40.0" />
@@ -32,6 +34,10 @@
                     <Insets />
                 </VBox.margin>
             </FlowPane>
+            <Pagination fx:id="pagination" maxPageIndicatorCount="5" minHeight="60.0" minWidth="400.0" stylesheets="@views/Style.css" VBox.vgrow="ALWAYS">
+            <VBox.margin>
+               <Insets bottom="30.0" />
+            </VBox.margin></Pagination>
         </VBox>
     </center>
 </BorderPane>
