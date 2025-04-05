@@ -92,7 +92,18 @@ public class ManageOrdersController implements Initializable {
             for (TicketOnOrder t : ticketList) {
                 System.out.println("🔍 Email for ticket in order " + t.getOrderId() + ": " + t.getCustomerEmail());
             }
-            TicketOnOrder baseTicket = ticketList.get(0); // Use first as base for name/email
+            TicketOnOrder baseTicket = null;
+            for (TicketOnOrder t : ticketList) {
+                if (t.getTicketId() != -1 && t.getTicketType() != null && !t.getTicketType().isBlank()) {
+                    baseTicket = t;
+                    break;
+                }
+            }
+
+// If still null, just use the first one (probably ticketless but we still need name/email/orderId)
+            if (baseTicket == null && !ticketList.isEmpty()) {
+                baseTicket = ticketList.get(0);
+            }
             System.out.println("📦 Creating card for Order #" + baseTicket.getOrderId() + ", total tickets: " + ticketList.size());
 
             try {
@@ -140,16 +151,24 @@ public class ManageOrdersController implements Initializable {
             Parent card = loader.load();
 
             OrderCardController controller = loader.getController();
-            controller.setDataPlaceholder(); // Shows placeholder text like "New Order"
 
+
+            /// conflincting methods -> had to delete
+            int newOrderId = eventTicketSystemModel.getNextOrderId();
+            /// conflincting methods -> had to delete
+//            /// Ticket id set to -1 to matcth with order card
+//            TicketOnOrder placeholderTicket = new TicketOnOrder(
+//                    newOrderId, "Customer Name", "email@example.com", "Event Placeholder",
+//                    -1, "Type", "CODE123", "DD/MM/YYYY", "14:00", "Esbjerg", 1,150);
+
+            controller.setParentController(this);
+            controller.setModel(eventTicketSystemModel);
+            controller.setDataPlaceholder();
+
+            /// conflincting methods -> had to delete
+//            controller.setData(placeholderTicket, List.of(placeholderTicket));
             orderCardContainer.getChildren().add(card);
 
-            int newOrderId = eventTicketSystemModel.getNextOrderId();
-            TicketOnOrder placeholderTicket = new TicketOnOrder(
-                    newOrderId, "Customer Name", "email@example.com", "Event Placeholder",
-                    0, "Type", "CODE123", "DD/MM/YYYY", "HH:mm", "Location",1
-            ,150);
-            controller.setData(placeholderTicket, List.of(placeholderTicket));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -164,13 +183,23 @@ public class ManageOrdersController implements Initializable {
             alert.showAndWait();
             return;
         }
+        if(!eventTicketSystemModel.orderHasTickets(selectedOrder.getOrderId())){
 
-        // Update status in DB
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Can´t confirm order without any tickets");
+            alert.setHeaderText(null);
+            alert.setContentText("Not able to confirm order without any tickets");
+            alert.showAndWait();
+            return;
+        }
+
+
+        // Changes status "Pending" to "Confirmed"
         eventTicketSystemModel.confirmOrder(selectedOrder.getOrderId());
 
-        // Refresh UI
-        displayOrders();
 
+
+        displayOrders();
         // Reset selected order
         selectedOrder = null;
         selectedCardNode = null;

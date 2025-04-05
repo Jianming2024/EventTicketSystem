@@ -5,12 +5,11 @@ import com.itextpdf.text.PageSize;
 import com.itextpdf.text.pdf.PdfWriter;
 import easv.dk.eventticketsystem.be.Customer;
 import easv.dk.eventticketsystem.be.TicketOnOrder;
-import easv.dk.eventticketsystem.be.Ticket;
 import easv.dk.eventticketsystem.bll.TicketManager;
 import easv.dk.eventticketsystem.gui.controllers.ManageOrdersController;
 import easv.dk.eventticketsystem.gui.controllers.TicketController;
 import easv.dk.eventticketsystem.gui.model.EventTicketSystemModel;
-import javafx.beans.property.ReadOnlyObjectWrapper;
+import easv.dk.eventticketsystem.gui.util.AlertUtil;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.embed.swing.SwingFXUtils;
@@ -36,29 +35,45 @@ import java.util.List;
 public class OrderCardController {
 
 
-    @FXML private Button deleteTicketButton;
-    @FXML private Button addTicketButton;
-    @FXML private VBox cardRoot;
+    @FXML
+    private Button deleteTicketButton;
+    @FXML
+    private Button addTicketButton;
+    @FXML
+    private VBox cardRoot;
     @FXML
     private AnchorPane containerRoot;
-    @FXML private Label lblOrderNumber;
+    @FXML
+    private Label lblOrderNumber;
 
-    @FXML private Label lblCustomerName;
-    @FXML public Label lblCustomerEmail;
-    @FXML private TextField txtCustomerName;
-    @FXML private TextField txtCustomerEmail;
+    @FXML
+    private Label lblCustomerName;
+    @FXML
+    public Label lblCustomerEmail;
+    @FXML
+    private TextField txtCustomerName;
+    @FXML
+    private TextField txtCustomerEmail;
 
-    @FXML private TableView<TicketOnOrder> ticketsTable;
-    @FXML private TableColumn<TicketOnOrder, String> actionColumn;
-    @FXML private TableColumn<TicketOnOrder, String> ticketTypeColumn;
-    @FXML private TableColumn<TicketOnOrder, Integer> quantityColumn;
+    @FXML
+    private TableView<TicketOnOrder> ticketsTable;
+    @FXML
+    private TableColumn<TicketOnOrder, String> actionColumn;
+    @FXML
+    private TableColumn<TicketOnOrder, String> ticketTypeColumn;
+    @FXML
+    private TableColumn<TicketOnOrder, Integer> quantityColumn;
 
-    @FXML private Button printOrderButton;
-    @FXML private Button emailTicketsButton;
+    @FXML
+    private Button printOrderButton;
+    @FXML
+    private Button emailTicketsButton;
 
-    @FXML private Button editOrderButton;
+    @FXML
+    private Button editOrderButton;
 
-    @FXML private Button deleteOrderButton;
+    @FXML
+    private Button deleteOrderButton;
     private boolean isEditing = false;
 
     private ManageOrdersController parentController;
@@ -103,9 +118,10 @@ public class OrderCardController {
         quantityColumn.setCellValueFactory(data -> new SimpleIntegerProperty(data.getValue().getQuantity()).asObject());
 
     }
+
     //    //Method for Configuring the ticket table columns to automatically resize
     // * proportionally based on the table's total width.
-    private void configureTicketTableSizes(){
+    private void configureTicketTableSizes() {
 
         ticketsTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         ticketsTable.setFixedCellSize(30);
@@ -127,6 +143,7 @@ public class OrderCardController {
         });
 
     }
+
     public void refreshTickets() {
         if (model != null && baseTicket != null) {
             List<TicketOnOrder> updatedTickets = model.getAllOrderDetails().stream()
@@ -139,8 +156,15 @@ public class OrderCardController {
     }
 
     public void setDataPlaceholder() {
+        int fakeOrderId = -1; // Mark it as "not saved yet"
+        baseTicket = new TicketOnOrder(
+                fakeOrderId,
+                "", "", // name and email left blank
+                "", 0, "", "", "", "", "", 0, 0.0
+        );
         lblOrderNumber.setText("New Order");
-        txtCustomerName.setText("Customer: ");
+        txtCustomerName.setText("[insert customer name]");
+        txtCustomerEmail.setText("[insert email]");
         ticketsTable.getItems().clear();
         configureTicketTableSizes();
     }
@@ -163,9 +187,11 @@ public class OrderCardController {
             e.printStackTrace();
         }
     }
+
     public void setParentController(ManageOrdersController controller) {
         this.parentController = controller;
     }
+
     public void setModel(EventTicketSystemModel model) {
         this.model = model;
     }
@@ -221,6 +247,10 @@ public class OrderCardController {
     @FXML
     private void onAddTicketClicked() {
 
+        if (baseTicket.getOrderId() == -1) {
+            AlertUtil.showErrorAlert("Order Not Saved", "Please enter name and email and click the pencil to save the order before adding tickets.");
+            return;
+        }
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/easv/dk/eventticketsystem/components/AddTicket.fxml"));
             Parent root = loader.load();
@@ -250,7 +280,6 @@ public class OrderCardController {
             txtCustomerName.setEditable(true);
             txtCustomerEmail.setEditable(true);
 
-            // Optional: Change icon to Save
             ((FontIcon) editOrderButton.getGraphic()).setIconLiteral("bi-save-fill");
         } else {
             /// Makes the button to save
@@ -269,33 +298,46 @@ public class OrderCardController {
             }
 
             try {
-                Customer existing = model.getCustomerByEmail(newEmail);
+                Customer existingCustomer = model.getCustomerByEmail(newEmail);
                 int customerId;
-                if (existing != null) {
-                    // Email exists, compare names
-                    if (!existing.getCustomerName().equals(newName)) {
+                if (existingCustomer != null) {
+                    /// Here checks if the email exists, so it doesnt duplicate a customer
+                    if (!existingCustomer.getCustomerName().equals(newName)) {
                         Alert alert = new Alert(Alert.AlertType.WARNING);
                         alert.setTitle("Name Mismatch");
                         alert.setHeaderText("Email already exists");
-                        alert.setContentText("A customer with this email already exists.\nThe name will remain as \"" + existing.getCustomerName() + "\".");
+                        alert.setContentText("A customer with this email already exists.\nThe name will remain as \"" + existingCustomer.getCustomerName() + "\".");
                         alert.showAndWait();
                     }
-                    customerId = existing.getCustomerId();
+                    customerId = existingCustomer.getCustomerId();
                 } else {
                     /// If customer doesnt exist, it creates a new one
                     customerId = model.getOrCreateCustomerId(newName, newEmail);
                 }
 
-                model.updateOrderCustomer(baseTicket.getOrderId(), customerId);
-
-                // Force refresh (in case name didn't update)
+                if (baseTicket.getOrderId() == -1) {
+                    // NEW order: create it in the DB and get the new ID
+                    int newOrderId = model.createOrder(customerId);
+                    baseTicket = new TicketOnOrder(
+                            newOrderId,
+                            newName,
+                            newEmail,
+                            "", 0, "", "", "", "", "Location", 0, 0.0
+                    );
+                    /// removes annoying "fake" ticket placeholder
+                    if (ticketList != null && !ticketList.isEmpty()) {
+                        ticketList.clear();
+                        ticketsTable.getItems().clear();
+                    }
+                } else {
+                    // EXISTING order: update its customer (if edited)
+                    model.updateOrderCustomer(baseTicket.getOrderId(), customerId);
+                }
+                baseTicket.setCustomerName(newName);
+                baseTicket.setCustomerEmail(newEmail);
                 parentController.displayOrders();
                 System.out.println("🔁 Refreshed orders after update!");
 
-                // Lock fields
-                txtCustomerName.setEditable(false);
-                txtCustomerEmail.setEditable(false);
-                ((FontIcon) editOrderButton.getGraphic()).setIconLiteral("bi-pencil-fill");
 
             } catch (Exception e) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -306,17 +348,23 @@ public class OrderCardController {
             }
         }
     }
+
     @FXML
     private void onPrintOrderClicked() {
 
+        System.out.println("✅ Ticket PDF generated!");
+        generatePDF();
+
+
+    }
+
+    private void generatePDF() {
         //Chooses where to save the PDF = "Save as" function
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Saved all tickets to PDF from Order" + baseTicket.getOrderId());
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("PDF Files", "*.pdf"));
 
         File file = fileChooser.showSaveDialog(null);
-
-        System.out.println("✅ Ticket PDF generated!");
 
         if (file == null) return;
 
@@ -358,6 +406,6 @@ public class OrderCardController {
             e.printStackTrace();
             System.err.println("❌ Failed to export all tickets: " + e.getMessage());
         }
-
     }
+
 }

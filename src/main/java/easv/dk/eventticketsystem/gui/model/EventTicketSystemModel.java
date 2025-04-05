@@ -64,7 +64,17 @@ public class EventTicketSystemModel {
         ticketOnOrders.setAll(orderDetails);
         return ticketOnOrders;
     }
+    public boolean orderHasTickets (int orderId){
+        List<TicketOnOrder> allTickets = getAllOrderDetails();
+        for (TicketOnOrder ticket : allTickets){
+            if (ticket.getOrderId() == orderId){
+                return  true;
+            }
 
+        }
+        return false;
+
+    }
     public int getNextOrderId() {
         return orderManager.getNextOrderId();
     }
@@ -92,6 +102,11 @@ public class EventTicketSystemModel {
     public int getOrCreateCustomerId(String name, String email) throws Exception {
         return customerManager.getOrCreateCustomerId(name, email);
     }
+
+    public int createOrder(int customerId) throws Exception {
+        return orderManager.createOrder(customerId);
+    }
+
     public void updateOrderCustomer(int orderId, int customerId) {
         try {
             orderManager.updateOrderCustomer(orderId, customerId);
