@@ -1,6 +1,9 @@
 package easv.dk.eventticketsystem.dal.db;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 // Class that Only handles raw SQL
 
@@ -28,21 +31,6 @@ public class OrderDAODB {
             stmt.setInt(2, orderId);
             stmt.executeUpdate();
         }
-    }
-
-    public int createOrder(int customerId) throws SQLException {
-        String sql = "INSERT INTO Orders (customer_id, status) VALUES (?, 'Pending')";
-        try (Connection conn = con.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-            ps.setInt(1, customerId);
-            ps.executeUpdate();
-
-            ResultSet keys = ps.getGeneratedKeys();
-            if (keys.next()) {
-                return keys.getInt(1);
-            }
-        }
-        return -1;
     }
 
     public void deleteOrder(int orderId) throws SQLException {
