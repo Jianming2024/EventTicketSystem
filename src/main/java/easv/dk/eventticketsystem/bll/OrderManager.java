@@ -17,6 +17,9 @@ public class OrderManager {
     }
 
 
+    public int createOrder(int customerId) throws Exception{
+        return orderDAO.createOrder(customerId);
+    }
     public void deleteOrder(int orderId) throws SQLException {
         orderDAO.deleteOrder(orderId);
     }
